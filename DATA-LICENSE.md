@@ -1,7 +1,7 @@
 # Dictionary data license
 
-The JEOSIF dictionary selection, original Russian explanations, editorial
-notes, examples, and adaptations are distributed under
+The JEOSIF dictionary selection, original Russian and English explanations,
+editorial notes, examples, and adaptations are distributed under
 [Creative Commons Attribution-ShareAlike 4.0 International](licenses/CC-BY-SA-4.0.txt).
 Copyright remains with the respective contributors and upstream
 rightsholders.

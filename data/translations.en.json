@@ -1,0 +1,1972 @@
+{
+  "entries": {
+    "1": {
+      "context": "ありがとう is familiar; あざっす and its variants suit a relaxed group. Use the full expression for formal thanks.",
+      "senses": [
+        {
+          "meaning": "Thank you",
+          "example_en": "Thanks for helping."
+        }
+      ]
+    },
+    "2": {
+      "context": "Very casual thanks after someone has done something for you; it can sound overfamiliar.",
+      "senses": [
+        {
+          "meaning": "Thanks for what you did",
+          "example_en": "Thanks for today."
+        }
+      ]
+    },
+    "3": {
+      "context": "すいません is common in everyday speech. さーせん can be a joking apology among friends, but may sound insincere.",
+      "senses": [
+        {
+          "meaning": "Excuse me; sorry; a call for attention",
+          "example_en": "Excuse me, where is the station?"
+        }
+      ]
+    },
+    "4": {
+      "context": "For friends and family. A serious apology depends on the reason, relationship, and wording.",
+      "senses": [
+        {
+          "meaning": "Sorry; I apologize",
+          "example_en": "Sorry I'm late."
+        }
+      ]
+    },
+    "5": {
+      "context": "おはよう is an ordinary greeting among people close to you; おはよ is a particularly casual spelling or pronunciation.",
+      "senses": [
+        {
+          "meaning": "Good morning",
+          "example_en": "Morning! Did you sleep well?"
+        }
+      ]
+    },
+    "6": {
+      "context": "A casual greeting to people you know. ちわっす can add a rough, friendly tone.",
+      "senses": [
+        {
+          "meaning": "Hello; good afternoon",
+          "example_en": "Hi, how are you?"
+        }
+      ]
+    },
+    "7": {
+      "context": "Short forms suit familiar colleagues, friends, or people sharing an activity. おつ can be ironic in context.",
+      "senses": [
+        {
+          "meaning": "Thanks for your work; a greeting or farewell to colleagues",
+          "example_en": "Thanks for your work today."
+        }
+      ]
+    },
+    "8": {
+      "context": "よろしく suits familiar people in the right context; よろ is used in brief messages among friends. Translation depends on the situation.",
+      "senses": [
+        {
+          "meaning": "I'm counting on you; pleased to meet you; please help",
+          "example_en": "I'm counting on you tomorrow too."
+        }
+      ]
+    },
+    "9": {
+      "context": "Short forms suit friends. おめ can come across as a very cursory congratulations.",
+      "senses": [
+        {
+          "meaning": "Congratulations",
+          "example_en": "Congratulations on passing the exam!"
+        }
+      ]
+    },
+    "10": {
+      "context": "あけおめ is used in friendly New Year messages and conversation. Keep the full expression for formal greetings.",
+      "senses": [
+        {
+          "meaning": "Happy New Year",
+          "example_en": "Happy New Year! Let's keep in touch."
+        }
+      ]
+    },
+    "11": {
+      "context": "A New Year greeting among acquaintances, often paired with あけおめ. It is not a general greeting for the whole year.",
+      "senses": [
+        {
+          "meaning": "I look forward to another year together",
+          "example_en": "Happy New Year! Let's keep in touch this year too!"
+        }
+      ]
+    },
+    "12": {
+      "context": "Both forms are farewells; friends often choose other expressions for an everyday “see you.”",
+      "senses": [
+        {
+          "meaning": "Goodbye",
+          "example_en": "Goodbye, see you again."
+        }
+      ]
+    },
+    "13": {
+      "context": "A casual response, including to a familiar senior. It is not a standard business expression.",
+      "senses": [
+        {
+          "meaning": "Yes, that's right",
+          "example_en": "Yes, tomorrow."
+        }
+      ]
+    },
+    "14": {
+      "context": "For familiar people. Even the full expression can accept or decline an offer; context and intonation matter.",
+      "senses": [
+        {
+          "meaning": "Good; fine; that works",
+          "example_en": "That's fine."
+        },
+        {
+          "meaning": "No, thank you; not needed",
+          "example_en": "No bag, thanks."
+        }
+      ]
+    },
+    "15": {
+      "context": "Ordinary conversation. ている can describe an ongoing action, a resulting state, or a habit, depending on the verb.",
+      "senses": [
+        {
+          "meaning": "Doing; in the process of doing",
+          "example_en": "I'm studying now."
+        }
+      ]
+    },
+    "16": {
+      "context": "An informal account of the past. The original past tense is retained.",
+      "senses": [
+        {
+          "meaning": "Was doing",
+          "example_en": "I was working at home yesterday."
+        }
+      ]
+    },
+    "17": {
+      "context": "Informal conversation. Do not confuse it with しない: the context and grammatical meaning differ.",
+      "senses": [
+        {
+          "meaning": "Not doing; have not done yet, depending on context",
+          "example_en": "I haven't booked it yet."
+        }
+      ]
+    },
+    "18": {
+      "context": "For people close to you. 何してんの can be a question, surprise, or reproach; intonation matters.",
+      "senses": [
+        {
+          "meaning": "What are you doing?",
+          "example_en": "What are you doing at this hour?"
+        }
+      ]
+    },
+    "19": {
+      "context": "Everyday speech. Regret is possible but not required: the form can simply mark completion.",
+      "senses": [
+        {
+          "meaning": "Complete an action",
+          "example_en": "I'll finish all my homework."
+        },
+        {
+          "meaning": "Do something unintentionally or against one's intentions, often with regret",
+          "example_en": "I made the same mistake again."
+        }
+      ]
+    },
+    "20": {
+      "context": "Everyday speech about a completed action. The situation determines the nuance.",
+      "senses": [
+        {
+          "meaning": "Complete an action",
+          "example_en": "I've already finished reading it."
+        },
+        {
+          "meaning": "Do something unintentionally or against one's intentions, often with regret",
+          "example_en": "I read my friend's diary even though I shouldn't have."
+        }
+      ]
+    },
+    "21": {
+      "context": "Informal plans and preparation. It can also mean leaving something as it is when the context supports that reading.",
+      "senses": [
+        {
+          "meaning": "Do in advance; leave in a suitable state",
+          "example_en": "I'll book it in advance."
+        }
+      ]
+    },
+    "22": {
+      "context": "Preparation for a meeting, class, or conversation.",
+      "senses": [
+        {
+          "meaning": "Read in advance for later use",
+          "example_en": "I'll read it before the meeting."
+        }
+      ]
+    },
+    "23": {
+      "context": "For friends, family, or talking to oneself. Obligation arises when ならない or a similar ending is understood.",
+      "senses": [
+        {
+          "meaning": "Need to go",
+          "example_en": "I need to go now."
+        }
+      ]
+    },
+    "24": {
+      "context": "Ordinary informal conversation about necessity. This is parallel to 行かなきゃ.",
+      "senses": [
+        {
+          "meaning": "Need to go",
+          "example_en": "I should probably get going."
+        }
+      ]
+    },
+    "25": {
+      "context": "An informal prohibition. Use the full wording for formal rules.",
+      "senses": [
+        {
+          "meaning": "Must not eat",
+          "example_en": "You can't eat this yet."
+        }
+      ]
+    },
+    "26": {
+      "context": "An informal prohibition or warning.",
+      "senses": [
+        {
+          "meaning": "Must not drink",
+          "example_en": "You mustn't drink this water."
+        }
+      ]
+    },
+    "27": {
+      "context": "An informal reply. Do not replace every らない with んない without checking the particular word.",
+      "senses": [
+        {
+          "meaning": "Don't know; don't understand",
+          "example_en": "I don't understand this word."
+        }
+      ]
+    },
+    "28": {
+      "context": "For example, 名前という言葉 → 名前っていう言葉. Not every って expands to という; it has other functions too.",
+      "senses": [
+        {
+          "meaning": "Called; that; a quotation marker, depending on the construction",
+          "example_en": "What does “Naminori” mean?"
+        }
+      ]
+    },
+    "29": {
+      "context": "An ordinary everyday word. The shortened form does not by itself make a sentence impolite.",
+      "senses": [
+        {
+          "meaning": "Smartphone",
+          "example_en": "I forgot my phone."
+        }
+      ]
+    },
+    "30": {
+      "context": "A desktop or laptop computer, depending on context. Neutral everyday vocabulary.",
+      "senses": [
+        {
+          "meaning": "Personal computer; PC",
+          "example_en": "I broke my computer."
+        }
+      ]
+    },
+    "31": {
+      "context": "A convenience store such as 7-Eleven, rather than any small shop.",
+      "senses": [
+        {
+          "meaning": "Convenience store",
+          "example_en": "You can buy anything at a convenience store."
+        }
+      ]
+    },
+    "32": {
+      "context": "Usually the physical remote control. Its meaning has shifted from the abstract idea of control.",
+      "senses": [
+        {
+          "meaning": "Remote control; remote",
+          "example_en": "The TV remote is under the sofa."
+        }
+      ]
+    },
+    "33": {
+      "context": "In Japan the appliance is often used for both cooling and heating; context determines the mode.",
+      "senses": [
+        {
+          "meaning": "Air conditioner",
+          "example_en": "Turn on the air conditioner."
+        }
+      ]
+    },
+    "34": {
+      "context": "In Japanese, アニメ can also refer to foreign animation; its scope is broader than some English uses of “anime.”",
+      "senses": [
+        {
+          "meaning": "Animation",
+          "example_en": "I watched this cartoon series as a child."
+        }
+      ]
+    },
+    "35": {
+      "context": "Phone and computer applications. Check the context before using it for the abstract meaning of “application.”",
+      "senses": [
+        {
+          "meaning": "App; application software",
+          "example_en": "I didn't think making an iPad app would be this hard."
+        }
+      ]
+    },
+    "36": {
+      "context": "Part-time work, not necessarily a one-off job. In a technical context バイト also means “byte.”",
+      "senses": [
+        {
+          "meaning": "Part-time job; part-time work",
+          "example_en": "I have work today."
+        }
+      ]
+    },
+    "37": {
+      "context": "Brief everyday thanks. Other meanings of どうも are not reducible to “thank you.”",
+      "senses": [
+        {
+          "meaning": "Thanks; thank you",
+          "example_en": "Oh, thanks."
+        }
+      ]
+    },
+    "38": {
+      "context": "A greeting on returning home. In other constructions ただいま means “now.”",
+      "senses": [
+        {
+          "meaning": "I'm home; I'm back",
+          "example_en": "I'm home!"
+        }
+      ]
+    },
+    "39": {
+      "context": "A reply to someone close to you returning home.",
+      "senses": [
+        {
+          "meaning": "Welcome home; welcome back",
+          "example_en": "Welcome back! Was it cold?"
+        }
+      ]
+    },
+    "40": {
+      "context": "An informal farewell before sleep. お休み also has other meanings.",
+      "senses": [
+        {
+          "meaning": "Good night",
+          "example_en": "Good night, see you tomorrow."
+        }
+      ]
+    },
+    "41": {
+      "context": "A deliberately casual request. Not for formal situations.",
+      "senses": [
+        {
+          "meaning": "Please; a casual request",
+          "example_en": "This one, please."
+        }
+      ]
+    },
+    "42": {
+      "context": "A very short reply in messages among acquaintances; り is shorter still.",
+      "senses": [
+        {
+          "meaning": "Got it; understood",
+          "example_en": "Tomorrow at ten. — Got it."
+        }
+      ]
+    },
+    "43": {
+      "context": "Informal messaging. おｋ is another written variant.",
+      "senses": [
+        {
+          "meaning": "OK; all right",
+          "example_en": "OK, I'll send it later."
+        }
+      ]
+    },
+    "44": {
+      "context": "A conversational correction or shift in thought; it can sound abrupt.",
+      "senses": [
+        {
+          "meaning": "Rather; actually; by the way",
+          "example_en": "Actually, it's time to go."
+        }
+      ]
+    },
+    "45": {
+      "context": "Confirmation, discovery, or objection. Despite its origin it is not always a question.",
+      "senses": [
+        {
+          "meaning": "See?; isn't it?; an emphatic confirmation",
+          "example_en": "See, it's great!"
+        }
+      ]
+    },
+    "46": {
+      "context": "Very casual speech and messages. Not a general business substitute for とりあえず.",
+      "senses": [
+        {
+          "meaning": "For now; to start with; anyway",
+          "example_en": "Let's meet at the station for now."
+        }
+      ]
+    },
+    "47": {
+      "context": "Can express disbelief or intensify a statement. Substituting 真面目 mechanically changes the grammar.",
+      "senses": [
+        {
+          "meaning": "Seriously; really; no kidding",
+          "example_en": "Seriously?"
+        }
+      ]
+    },
+    "48": {
+      "context": "A conversational intensifier. Its word-formation base is not interchangeable with it in every sentence.",
+      "senses": [
+        {
+          "meaning": "Genuine; seriously; for real",
+          "example_en": "This is seriously difficult."
+        }
+      ]
+    },
+    "49": {
+      "context": "A harsh judgment. Directed at a person, it can easily become an insult.",
+      "senses": [
+        {
+          "meaning": "Gross; creepy; disgusting",
+          "example_en": "That bug is gross."
+        }
+      ]
+    },
+    "50": {
+      "context": "An informal conversational form, usually among familiar people.",
+      "senses": [
+        {
+          "meaning": "Difficult; hard",
+          "example_en": "This problem is hard."
+        }
+      ]
+    },
+    "51": {
+      "context": "Expresses reluctance to make an effort. Said about someone's request, it can sound rude.",
+      "senses": [
+        {
+          "meaning": "A hassle; bothersome; can't be bothered",
+          "example_en": "I can't be bothered to cook today."
+        }
+      ]
+    },
+    "52": {
+      "context": "A rough, casual exclamation, often associated with masculine speech.",
+      "senses": [
+        {
+          "meaning": "Awesome; amazing; incredible",
+          "example_en": "What an amazing view."
+        }
+      ]
+    },
+    "53": {
+      "context": "A very casual comment on food or skill; rougher than うまい.",
+      "senses": [
+        {
+          "meaning": "Tasty; delicious",
+          "example_en": "This ramen is delicious!"
+        },
+        {
+          "meaning": "Skillful; good at something",
+          "example_en": "He's really good at singing."
+        }
+      ]
+    },
+    "54": {
+      "context": "A conversational negative judgment. Said about someone's activity, it can hurt their feelings.",
+      "senses": [
+        {
+          "meaning": "Boring; uninteresting",
+          "example_en": "This game is boring."
+        }
+      ]
+    },
+    "55": {
+      "context": "Meetings, plans, or bookings, often with annoyance.",
+      "senses": [
+        {
+          "meaning": "Last-minute cancellation",
+          "example_en": "It was canceled at the last minute. They said it had been moved to next week."
+        }
+      ]
+    },
+    "56": {
+      "context": "A blunt comment on speech or behavior, often in messages.",
+      "senses": [
+        {
+          "meaning": "Makes no sense; incomprehensible",
+          "example_en": "That explanation makes no sense at all."
+        }
+      ]
+    },
+    "57": {
+      "context": "Often means “maybe” in conversation. Only everyday chance-related senses are included here.",
+      "senses": [
+        {
+          "meaning": "One chance; a single opportunity",
+          "example_en": "I'll stake everything on this one chance."
+        },
+        {
+          "meaning": "Maybe; there is a chance, in slang",
+          "example_en": "We might make it in time."
+        }
+      ]
+    },
+    "58": {
+      "context": "Often humorous or stereotypical; not a synonym for every sociable person.",
+      "senses": [
+        {
+          "meaning": "Party person; partygoer",
+          "example_en": "He's such a party animal."
+        }
+      ]
+    },
+    "59": {
+      "context": "Internet slang, often envious or ironic. There is no single full expression behind it.",
+      "senses": [
+        {
+          "meaning": "Someone with a fulfilling life offline",
+          "example_en": "The very picture of a fulfilling offline life."
+        }
+      ]
+    },
+    "60": {
+      "context": "An emotional judgment with several meanings. The situation distinguishes positive and negative uses.",
+      "senses": [
+        {
+          "meaning": "Dangerous; risky; things are bad",
+          "example_en": "Oh no, the last train has already gone."
+        },
+        {
+          "meaning": "Amazing; incredibly good, colloquially",
+          "example_en": "This cake is incredible!"
+        }
+      ]
+    },
+    "61": {
+      "context": "A casual expression of agreement, especially in brief exchanges.",
+      "senses": [
+        {
+          "meaning": "Exactly; I agree",
+          "example_en": "It's way too hot today. — Exactly."
+        }
+      ]
+    },
+    "62": {
+      "context": "An online reaction to something funny. Only the laughter sense is included, not literal grass or other slang senses.",
+      "senses": [
+        {
+          "meaning": "Funny; haha",
+          "example_en": "What a funny mistake."
+        }
+      ]
+    },
+    "63": {
+      "context": "A written laughter marker; w and www are variants. Reacting this way to someone's misfortune can seem mocking.",
+      "senses": [
+        {
+          "meaning": "Haha; laughing",
+          "example_en": "Overslept again, haha."
+        }
+      ]
+    },
+    "64": {
+      "context": "Internet slang. This stylized form is not a neutral past-tense expression in ordinary speech.",
+      "senses": [
+        {
+          "meaning": "That made me laugh; haha",
+          "example_en": "That photo made me laugh."
+        }
+      ]
+    },
+    "65": {
+      "context": "A stylized online status marker. It comes from English “now,” not a longer Japanese expression.",
+      "senses": [
+        {
+          "meaning": "At a place now; doing something now",
+          "example_en": "At a cafe now."
+        }
+      ]
+    },
+    "66": {
+      "context": "A conversational sense of 受ける, not an abbreviation of a longer original phrase.",
+      "senses": [
+        {
+          "meaning": "Funny; amusing; that cracks me up",
+          "example_en": "That's a funny story."
+        }
+      ]
+    },
+    "67": {
+      "context": "The colloquial sense of something being a hassle. The ordinary word also describes physical sluggishness.",
+      "senses": [
+        {
+          "meaning": "A drag; a hassle; can't be bothered",
+          "example_en": "Rewriting it again is such a drag."
+        }
+      ]
+    },
+    "68": {
+      "context": "A negative judgment of appearance, objects, or behavior; it can be hurtful.",
+      "senses": [
+        {
+          "meaning": "Tacky; unfashionable; lame",
+          "example_en": "That's a lame excuse."
+        }
+      ]
+    },
+    "69": {
+      "context": "A verb formed from a loanword and a verbal ending. It does not cover every meaning of “sabotage.”",
+      "senses": [
+        {
+          "meaning": "Skip; slack off",
+          "example_en": "I skipped class."
+        }
+      ]
+    },
+    "70": {
+      "context": "A verb derived from Google. There is no full Japanese phrase of which it is a contraction.",
+      "senses": [
+        {
+          "meaning": "Google; search online",
+          "example_en": "If you don't know, look it up online."
+        }
+      ]
+    },
+    "71": {
+      "context": "Insulting slang: the speaker's judgment, not a psychological or medical diagnosis.",
+      "senses": [
+        {
+          "meaning": "Out of one's mind; crazy",
+          "example_en": "What a crazy idea."
+        }
+      ]
+    },
+    "72": {
+      "context": "Emotional and nostalgic senses are included. A separate rare JMdict sense is excluded.",
+      "senses": [
+        {
+          "meaning": "Moving; nostalgic; emotionally evocative",
+          "example_en": "This song really moves me."
+        }
+      ]
+    },
+    "73": {
+      "context": "A harsh judgment, especially of a person. うぜえ is rougher still.",
+      "senses": [
+        {
+          "meaning": "Annoying; irritating",
+          "example_en": "There are too many notifications. It's annoying."
+        }
+      ]
+    },
+    "74": {
+      "context": "A casual name for a bicycle. It shortens ちゃりんこ; 自転車 is a neutral synonym, not its original full form.",
+      "senses": [
+        {
+          "meaning": "Bicycle; bike",
+          "example_en": "I'll go by bike."
+        }
+      ]
+    },
+    "75": {
+      "context": "Hair, clothing, or one's overall appearance in ordinary conversation.",
+      "senses": [
+        {
+          "meaning": "Makeover; change of image",
+          "example_en": "Since you're starting over, you could completely change your look too…"
+        }
+      ]
+    },
+    "76": {
+      "context": "Also used at work. An everyday abbreviation, rather than a technical acronym.",
+      "senses": [
+        {
+          "meaning": "Appointment; arranged meeting, for example with a client",
+          "example_en": "I asked for an appointment, but he wouldn't make time for me."
+        }
+      ]
+    },
+    "77": {
+      "context": "Study and work. The short form is widely used in these settings.",
+      "senses": [
+        {
+          "meaning": "Presentation",
+          "example_en": "You have an important presentation tomorrow, but you're completely relaxed."
+        }
+      ]
+    },
+    "78": {
+      "context": "Only the retail store sense, not an organizational department.",
+      "senses": [
+        {
+          "meaning": "Department store",
+          "example_en": "I bought it at a department store."
+        }
+      ]
+    },
+    "79": {
+      "context": "Only the shop sense; the superheterodyne sense from the same source entry is excluded.",
+      "senses": [
+        {
+          "meaning": "Supermarket",
+          "example_en": "I'll buy vegetables at the supermarket."
+        }
+      ]
+    },
+    "80": {
+      "context": "A particular type of affordable restaurant with a varied menu, not any restaurant visited by a family.",
+      "senses": [
+        {
+          "meaning": "Family restaurant",
+          "example_en": "I studied at a family restaurant."
+        }
+      ]
+    },
+    "81": {
+      "context": "In compounds it can also refer to secondhand sales apps.",
+      "senses": [
+        {
+          "meaning": "Flea market; secondhand sale",
+          "example_en": "I'm going to a flea market this weekend."
+        }
+      ]
+    },
+    "82": {
+      "context": "A neutral everyday abbreviation.",
+      "senses": [
+        {
+          "meaning": "Chocolate",
+          "example_en": "I bought some chocolate for Jim."
+        }
+      ]
+    },
+    "83": {
+      "context": "Only the food sense. アイスキャンディー can also be the full form for ice pops; criminal slang is excluded.",
+      "senses": [
+        {
+          "meaning": "Ice cream",
+          "example_en": "Want some ice cream?"
+        }
+      ]
+    },
+    "84": {
+      "context": "An everyday word that does not signal impoliteness.",
+      "senses": [
+        {
+          "meaning": "Chewing gum",
+          "example_en": "Want some gum?"
+        }
+      ]
+    },
+    "85": {
+      "context": "A menu item: breaded, deep-fried meat, not necessarily a minced-meat patty.",
+      "senses": [
+        {
+          "meaning": "Breaded cutlet",
+          "example_en": "I'll have a cutlet today."
+        }
+      ]
+    },
+    "86": {
+      "context": "In food orders. Outside this context ポテト can refer to potatoes in general.",
+      "senses": [
+        {
+          "meaning": "French fries",
+          "example_en": "And fries, please."
+        }
+      ]
+    },
+    "87": {
+      "context": "A shortened drink order when the context makes it clear that coffee is meant.",
+      "senses": [
+        {
+          "meaning": "Hot coffee",
+          "example_en": "One hot coffee."
+        }
+      ]
+    },
+    "88": {
+      "context": "A shortened product name that came to denote the activity. The historical name is not interchangeable in every context.",
+      "senses": [
+        {
+          "meaning": "Photo booth with image editing; photo stickers",
+          "example_en": "We took photo-booth pictures with friends."
+        }
+      ]
+    },
+    "89": {
+      "context": "An everyday device name, not a technical code.",
+      "senses": [
+        {
+          "meaning": "Digital camera",
+          "example_en": "I'll take my digital camera on the trip."
+        }
+      ]
+    },
+    "90": {
+      "context": "In a shop. Not the technical sense of “register” found in other contexts.",
+      "senses": [
+        {
+          "meaning": "Checkout; cash register",
+          "example_en": "Where's the checkout?"
+        }
+      ]
+    },
+    "91": {
+      "context": "The everyday context determines this sense; it does not cover every use of “range.”",
+      "senses": [
+        {
+          "meaning": "Microwave oven",
+          "example_en": "Heat it in the microwave."
+        }
+      ]
+    },
+    "92": {
+      "context": "A neutral, widely used word.",
+      "senses": [
+        {
+          "meaning": "Television; TV set",
+          "example_en": "Turn off the TV."
+        }
+      ]
+    },
+    "93": {
+      "context": "Often office and commercial buildings, rather than any small house.",
+      "senses": [
+        {
+          "meaning": "Multistory building",
+          "example_en": "I work in the building in front of the station."
+        }
+      ]
+    },
+    "94": {
+      "context": "Japanese usage often refers to small, low-rise apartment buildings.",
+      "senses": [
+        {
+          "meaning": "Apartment; small apartment building",
+          "example_en": "I live in an apartment near the station."
+        }
+      ]
+    },
+    "95": {
+      "context": "Combines abbreviated components. デパートの地下 is an expanded description, not necessarily an original fixed expression.",
+      "senses": [
+        {
+          "meaning": "Department-store basement, usually with food counters",
+          "example_en": "I bought a bento in the department store's basement food hall."
+        }
+      ]
+    },
+    "96": {
+      "context": "Only the phone sense. 携帯 in other constructions means carrying something with you.",
+      "senses": [
+        {
+          "meaning": "Mobile phone; cellphone",
+          "example_en": "I forgot my phone."
+        }
+      ]
+    },
+    "97": {
+      "context": "Stops and extra fares depend on the operator. The abbreviation does not imply a single fare system.",
+      "senses": [
+        {
+          "meaning": "Limited express train",
+          "example_en": "Let's take the limited express."
+        }
+      ]
+    },
+    "98": {
+      "context": "A transport term. Service categories depend on the railway company.",
+      "senses": [
+        {
+          "meaning": "Express train",
+          "example_en": "I'll take the next express."
+        }
+      ]
+    },
+    "99": {
+      "context": "Timetables, platform displays, and everyday route discussions.",
+      "senses": [
+        {
+          "meaning": "Local train; train stopping at every station",
+          "example_en": "The all-stops train stops there."
+        }
+      ]
+    },
+    "100": {
+      "context": "The time depends on the route; the word does not specify an hour.",
+      "senses": [
+        {
+          "meaning": "Last train of the day",
+          "example_en": "He may have missed the last train."
+        }
+      ]
+    },
+    "101": {
+      "context": "Tickets, services, and purchases; check eligibility with the seller.",
+      "senses": [
+        {
+          "meaning": "Student discount",
+          "example_en": "Can I use a student discount?"
+        }
+      ]
+    },
+    "102": {
+      "context": "Only the transport sense; banking and stock-market senses are excluded.",
+      "senses": [
+        {
+          "meaning": "Commuter pass; season ticket",
+          "example_en": "I renewed my commuter pass."
+        }
+      ]
+    },
+    "103": {
+      "context": "Often students seeking their first job, but not restricted to one age group.",
+      "senses": [
+        {
+          "meaning": "Job hunting; job search",
+          "example_en": "I'll start job hunting next month."
+        }
+      ]
+    },
+    "104": {
+      "context": "Dating and activities aimed at marriage, not any romantic interest.",
+      "senses": [
+        {
+          "meaning": "Search for a marriage partner; marriage-oriented dating",
+          "example_en": "I attended an event for people looking for a marriage partner."
+        }
+      ]
+    },
+    "105": {
+      "context": "Often an arranged meeting of two groups, not just any party.",
+      "senses": [
+        {
+          "meaning": "Group dating event",
+          "example_en": "A friend invited me to a group dating event."
+        }
+      ]
+    },
+    "106": {
+      "context": "At university it can refer to a class or a group supervised by a professor.",
+      "senses": [
+        {
+          "meaning": "University seminar; seminar group",
+          "example_en": "I have a seminar this afternoon."
+        }
+      ]
+    },
+    "107": {
+      "context": "Ordinary paid subscriptions, not only IT services.",
+      "senses": [
+        {
+          "meaning": "Subscription",
+          "example_en": "I canceled the subscriptions I wasn't using."
+        }
+      ]
+    },
+    "108": {
+      "context": "Informal messages in messaging apps.",
+      "senses": [
+        {
+          "meaning": "Group chat",
+          "example_en": "Send it to the group chat."
+        }
+      ]
+    },
+    "109": {
+      "context": "Describes an observable action; it does not establish the person's motives or feelings.",
+      "senses": [
+        {
+          "meaning": "Read a message without replying; leave on read",
+          "example_en": "They read yesterday's message but didn't reply."
+        }
+      ]
+    },
+    "110": {
+      "context": "A colloquial label here, not a medical diagnosis. Directed at another person, it can be demeaning.",
+      "senses": [
+        {
+          "meaning": "Socially awkward; poor at communication, as a slang label",
+          "example_en": "I'm really awkward around people."
+        }
+      ]
+    },
+    "111": {
+      "context": "The everyday name of both the board and the activity.",
+      "senses": [
+        {
+          "meaning": "Skateboard; skateboarding",
+          "example_en": "I go skateboarding on weekends."
+        }
+      ]
+    },
+    "112": {
+      "context": "An ordinary shortened name for the sport.",
+      "senses": [
+        {
+          "meaning": "Basketball",
+          "example_en": "Let's play basketball."
+        }
+      ]
+    },
+    "113": {
+      "context": "A shortened sport name; not バレエ, meaning ballet.",
+      "senses": [
+        {
+          "meaning": "Volleyball",
+          "example_en": "We played volleyball in PE."
+        }
+      ]
+    },
+    "114": {
+      "context": "Music from a film, game, or television series.",
+      "senses": [
+        {
+          "meaning": "Soundtrack",
+          "example_en": "I love this movie's soundtrack."
+        }
+      ]
+    },
+    "115": {
+      "context": "A genre of film, television, manga, or anime.",
+      "senses": [
+        {
+          "meaning": "Romantic comedy; romcom",
+          "example_en": "I feel like watching a romantic comedy today."
+        }
+      ]
+    },
+    "116": {
+      "context": "Often the mass media or people working in it, rather than communication in any large group.",
+      "senses": [
+        {
+          "meaning": "Mass media; mass communication",
+          "example_en": "The media started talking about it."
+        }
+      ]
+    },
+    "117": {
+      "context": "Everyday grooming and appearance.",
+      "senses": [
+        {
+          "meaning": "Makeup",
+          "example_en": "I won't wear makeup today."
+        }
+      ]
+    },
+    "118": {
+      "context": "Only the lip-care sense. In cosmetics contexts リップ can also refer to other lip products.",
+      "senses": [
+        {
+          "meaning": "Lip balm",
+          "example_en": "I put on lip balm."
+        }
+      ]
+    },
+    "119": {
+      "context": "In Japan it is often also used for drying one's hands.",
+      "senses": [
+        {
+          "meaning": "Handkerchief",
+          "example_en": "How much is this handkerchief?"
+        }
+      ]
+    },
+    "120": {
+      "context": "Tourism, exhibitions, cinema, and other everyday situations.",
+      "senses": [
+        {
+          "meaning": "Pamphlet; brochure; leaflet",
+          "example_en": "I picked up a tourist brochure."
+        }
+      ]
+    },
+    "121": {
+      "context": "A widely used vehicle name.",
+      "senses": [
+        {
+          "meaning": "Patrol car; police car",
+          "example_en": "He ran away when he saw a police patrol."
+        }
+      ]
+    },
+    "122": {
+      "context": "An ordinary shortened name.",
+      "senses": [
+        {
+          "meaning": "Helicopter",
+          "example_en": "I can hear a helicopter."
+        }
+      ]
+    },
+    "123": {
+      "context": "In clothing contexts. Other meanings of ダウン do not expand to ダウンジャケット.",
+      "senses": [
+        {
+          "meaning": "Down jacket",
+          "example_en": "I'll wear my down jacket today."
+        }
+      ]
+    },
+    "124": {
+      "context": "A particular jacket style, rather than any sportswear.",
+      "senses": [
+        {
+          "meaning": "Varsity jacket; baseball jacket",
+          "example_en": "I bought a new varsity jacket."
+        }
+      ]
+    },
+    "125": {
+      "context": "In eyesight contexts. Other senses of “contact” remain separate.",
+      "senses": [
+        {
+          "meaning": "Contact lenses",
+          "example_en": "I'll wear contacts today."
+        }
+      ]
+    },
+    "126": {
+      "context": "Usually drinks made to resemble alcoholic beverages.",
+      "senses": [
+        {
+          "meaning": "Nonalcoholic; alcohol-free",
+          "example_en": "I'll have a nonalcoholic drink today."
+        }
+      ]
+    },
+    "127": {
+      "context": "The historical name of a specific Nintendo console, not any modern game console.",
+      "senses": [
+        {
+          "meaning": "Famicom game console",
+          "example_en": "I played on a Famicom as a child."
+        }
+      ]
+    },
+    "128": {
+      "context": "Often fashion and style, not only politics.",
+      "senses": [
+        {
+          "meaning": "Conservative; understated and classic",
+          "example_en": "I like understated, classic clothes."
+        }
+      ]
+    },
+    "129": {
+      "context": "Said when parting before New Year. After the year begins, use a different greeting.",
+      "senses": [
+        {
+          "meaning": "Have a happy New Year",
+          "example_en": "Well, have a happy New Year!"
+        }
+      ]
+    },
+    "130": {
+      "context": "Only the paper notebook sense. Laptop, notes, and musical-note senses are excluded.",
+      "senses": [
+        {
+          "meaning": "Notebook; exercise book",
+          "example_en": "Open your notebook."
+        }
+      ]
+    },
+    "131": {
+      "context": "In pet-related conversation. Not the homonym meaning ham.",
+      "senses": [
+        {
+          "meaning": "Hamster",
+          "example_en": "My hamster sleeps a lot."
+        }
+      ]
+    },
+    "132": {
+      "context": "An everyday device, included despite the technical origin of its longer name.",
+      "senses": [
+        {
+          "meaning": "Calculator",
+          "example_en": "Lend me your calculator."
+        }
+      ]
+    },
+    "133": {
+      "context": "Social media, streams, and forums. Not rice or a shortening of comedy.",
+      "senses": [
+        {
+          "meaning": "Comment",
+          "example_en": "Thanks for your comment."
+        }
+      ]
+    },
+    "134": {
+      "context": "In discussions of NHK dramas. The literal meaning “large river” is separate.",
+      "senses": [
+        {
+          "meaning": "Taiga drama; NHK historical drama series",
+          "example_en": "Are you watching this year's NHK taiga drama?"
+        }
+      ]
+    },
+    "135": {
+      "context": "Education and personal history; the word does not explain why someone left.",
+      "senses": [
+        {
+          "meaning": "Leaving school without graduating; dropping out",
+          "example_en": "I left university without graduating."
+        }
+      ]
+    },
+    "136": {
+      "context": "Work and company lunches.",
+      "senses": [
+        {
+          "meaning": "Staff cafeteria; company canteen",
+          "example_en": "I'll eat at the company cafeteria today."
+        }
+      ]
+    },
+    "137": {
+      "context": "Student life and club recruitment.",
+      "senses": [
+        {
+          "meaning": "Welcome event for new students",
+          "example_en": "I went to the club's welcome event for newcomers."
+        }
+      ]
+    },
+    "138": {
+      "context": "A school event for third-year graduates in the relevant school system.",
+      "senses": [
+        {
+          "meaning": "Farewell party for graduating third-year students",
+          "example_en": "The graduation farewell party is next week."
+        }
+      ]
+    },
+    "139": {
+      "context": "In conversations about drinks.",
+      "senses": [
+        {
+          "meaning": "Scotch whisky",
+          "example_en": "I had a little Scotch."
+        }
+      ]
+    },
+    "140": {
+      "context": "Only the food sense; religious and other senses are excluded.",
+      "senses": [
+        {
+          "meaning": "Inarizushi; rice in a fried tofu pouch",
+          "example_en": "Two inarizushi, please."
+        }
+      ]
+    },
+    "141": {
+      "context": "A media and conversational label, not a qualification.",
+      "senses": [
+        {
+          "meaning": "Girl or woman in science and engineering",
+          "example_en": "She studies the natural sciences."
+        }
+      ]
+    },
+    "142": {
+      "context": "Common in news and business. It does not simply mean an unsociable person.",
+      "senses": [
+        {
+          "meaning": "Antisocial forces; organized crime groups",
+          "example_en": "He denied having ties to criminal groups."
+        }
+      ]
+    },
+    "143": {
+      "context": "Only the age category, not every sense of “middle.”",
+      "senses": [
+        {
+          "meaning": "Middle age; middle-aged person",
+          "example_en": "I'm looking for clothes for middle-aged people."
+        }
+      ]
+    },
+    "144": {
+      "context": "Informally about time, sufficiency, or a limit.",
+      "senses": [
+        {
+          "meaning": "Barely; just in time; right at the limit",
+          "example_en": "I barely made it."
+        }
+      ]
+    },
+    "145": {
+      "context": "Especially Christmas Eve, not a general substitute for “evening.”",
+      "senses": [
+        {
+          "meaning": "Eve; evening before a holiday",
+          "example_en": "I'll spend Christmas Eve at home."
+        }
+      ]
+    },
+    "146": {
+      "context": "Everyday paperwork and work. The term does not specify insurance rules.",
+      "senses": [
+        {
+          "meaning": "Health insurance",
+          "example_en": "I'll check the health insurance paperwork."
+        }
+      ]
+    },
+    "147": {
+      "context": "Work and family; not a description of legal leave conditions.",
+      "senses": [
+        {
+          "meaning": "Childcare leave; parental leave",
+          "example_en": "I'll go on parental leave next month."
+        }
+      ]
+    },
+    "148": {
+      "context": "Work messages and everyday speech. 有給 is also used in this sense.",
+      "senses": [
+        {
+          "meaning": "Paid leave; a paid day off",
+          "example_en": "I'll take a paid day off on Friday."
+        }
+      ]
+    },
+    "149": {
+      "context": "Fashion and magazines, not any professional model.",
+      "senses": [
+        {
+          "meaning": "Reader model; magazine reader working as a model",
+          "example_en": "I was a reader model for a magazine as a student."
+        }
+      ]
+    },
+    "150": {
+      "context": "Workplace usage. A dictionary explanation does not determine the legal status of a particular case.",
+      "senses": [
+        {
+          "meaning": "Workplace bullying through abuse of authority",
+          "example_en": "I'm suffering from my boss's abuse of power."
+        }
+      ]
+    },
+    "151": {
+      "context": "Work and everyday discussions of behavior.",
+      "senses": [
+        {
+          "meaning": "Sexual harassment",
+          "example_en": "I want the sexually harassing remarks to stop."
+        }
+      ]
+    },
+    "152": {
+      "context": "A conversational term for behavior, not a psychological diagnosis.",
+      "senses": [
+        {
+          "meaning": "Psychological abuse; humiliation and bullying",
+          "example_en": "I read a book about psychological abuse."
+        }
+      ]
+    },
+    "153": {
+      "context": "Fandom merchandise, souvenirs, and collecting.",
+      "senses": [
+        {
+          "meaning": "Acrylic standee",
+          "example_en": "I put an acrylic standee on my desk."
+        }
+      ]
+    },
+    "154": {
+      "context": "A playful online expression of anger. It does not guarantee that the actual displeasure is mild.",
+      "senses": [
+        {
+          "meaning": "Angry; I'm mad",
+          "example_en": "I'm a little mad."
+        }
+      ]
+    },
+    "155": {
+      "context": "Obligation arises when いけない or ならない is understood after the form.",
+      "senses": [
+        {
+          "meaning": "If not; must, in the relevant construction",
+          "example_en": "I have to finish it by tomorrow."
+        }
+      ]
+    },
+    "156": {
+      "context": "A contraction of なくては, not a standalone word universally meaning “must.”",
+      "senses": [
+        {
+          "meaning": "If not; must, in the relevant construction",
+          "example_en": "It's time to go home."
+        }
+      ]
+    },
+    "157": {
+      "context": "A conversational reaction or topic marker.",
+      "senses": [
+        {
+          "meaning": "That; in that case; of course, depending on context",
+          "example_en": "That must be tough."
+        }
+      ]
+    },
+    "158": {
+      "context": "Casually draws attention to something in front of the speaker.",
+      "senses": [
+        {
+          "meaning": "This; well, this",
+          "example_en": "This is delicious."
+        }
+      ]
+    },
+    "159": {
+      "context": "Only the contraction of あれは. The interjection expressing surprise needs separate analysis.",
+      "senses": [
+        {
+          "meaning": "That; that thing over there",
+          "example_en": "What's that over there?"
+        }
+      ]
+    },
+    "160": {
+      "context": "Often used with a negative. The homonym 按摩 meaning massage is unrelated.",
+      "senses": [
+        {
+          "meaning": "Not very; not really",
+          "example_en": "I don't really understand."
+        }
+      ]
+    },
+    "161": {
+      "context": "A conversational, sometimes affectionate description of size.",
+      "senses": [
+        {
+          "meaning": "Small; tiny",
+          "example_en": "What a tiny cat."
+        }
+      ]
+    },
+    "162": {
+      "context": "After a て-form: 食べてしまう → 食べちゃう. ちゃう is an ordinary contraction; ちまう is rougher. Not the dialectal ちゃう meaning “wrong.” Politeness depends on the whole utterance and situation.",
+      "senses": [
+        {
+          "meaning": "Complete an action",
+          "example_en": "I'll eat first, then."
+        },
+        {
+          "meaning": "Do something accidentally or unintentionally",
+          "example_en": "I forgot my promise."
+        }
+      ]
+    },
+    "163": {
+      "context": "A short reply to お疲れ様, usually in messages. The full expression spells out the intended thanks.",
+      "senses": [
+        {
+          "meaning": "Thanks for saying “good work”",
+          "example_en": "Thanks! See you tomorrow."
+        }
+      ]
+    },
+    "164": {
+      "context": "An informal greeting to someone you have not seen for a while.",
+      "senses": [
+        {
+          "meaning": "Long time no see",
+          "example_en": "Long time no see! How have you been?"
+        }
+      ]
+    },
+    "165": {
+      "context": "A short linking expression in informal messages.",
+      "senses": [
+        {
+          "meaning": "By the way; incidentally",
+          "example_en": "By the way, tomorrow's a day off."
+        }
+      ]
+    },
+    "166": {
+      "context": "Social media usage.",
+      "senses": [
+        {
+          "meaning": "Follow back; reciprocal follow",
+          "example_en": "Thanks for following me back."
+        }
+      ]
+    },
+    "167": {
+      "context": "A very casual reply, not a standard polite form of はい.",
+      "senses": [
+        {
+          "meaning": "Yeah; got it",
+          "example_en": "Send it later. — Yeah."
+        }
+      ]
+    },
+    "168": {
+      "context": "Playful written internet slang.",
+      "senses": [
+        {
+          "meaning": "Excited; eagerly anticipating",
+          "example_en": "I'm looking forward to the new product announcement."
+        }
+      ]
+    },
+    "169": {
+      "context": "An online reaction to a hoped-for event.",
+      "senses": [
+        {
+          "meaning": "Here it is; finally!",
+          "example_en": "The update we've been waiting for is here!"
+        }
+      ]
+    },
+    "170": {
+      "context": "Online phonetic abbreviation using a substitute kanji. The literal sense of dirt is excluded.",
+      "senses": [
+        {
+          "meaning": "Account; user account",
+          "example_en": "I made a new account."
+        }
+      ]
+    },
+    "171": {
+      "context": "Gaming and internet slang using a substitute kanji. The literal fish sense of mackerel is excluded.",
+      "senses": [
+        {
+          "meaning": "Server",
+          "example_en": "The server is lagging today."
+        }
+      ]
+    },
+    "172": {
+      "context": "Posts, videos, and topics. Popularity is not necessarily positive.",
+      "senses": [
+        {
+          "meaning": "Go viral; quickly become popular online",
+          "example_en": "Yesterday's video went viral."
+        }
+      ]
+    },
+    "173": {
+      "context": "A borrowed slang verb, not a literal contraction of a complete Japanese phrase.",
+      "senses": [
+        {
+          "meaning": "Disrespect; disparage; put down",
+          "example_en": "Don't put down other people's hobbies."
+        }
+      ]
+    },
+    "174": {
+      "context": "Social media usage, not every kind of removal.",
+      "senses": [
+        {
+          "meaning": "Unfollow an account",
+          "example_en": "I unfollowed an inactive account."
+        }
+      ]
+    },
+    "175": {
+      "context": "Starting school or work. The sport of orienteering is excluded.",
+      "senses": [
+        {
+          "meaning": "Orientation session; introductory meeting",
+          "example_en": "Orientation for new students is tomorrow."
+        }
+      ]
+    },
+    "176": {
+      "context": "The everyday drink sense.",
+      "senses": [
+        {
+          "meaning": "Soda water; carbonated water",
+          "example_en": "With soda water, please."
+        }
+      ]
+    },
+    "177": {
+      "context": "In clothing contexts; other senses of “mini” are excluded.",
+      "senses": [
+        {
+          "meaning": "Miniskirt",
+          "example_en": "She's wearing a miniskirt today."
+        }
+      ]
+    },
+    "178": {
+      "context": "Messaging apps, phones, and computers.",
+      "senses": [
+        {
+          "meaning": "Screenshot; screen capture",
+          "example_en": "Send me a screenshot."
+        }
+      ]
+    },
+    "179": {
+      "context": "A conversational name for this drink category.",
+      "senses": [
+        {
+          "meaning": "Energy drink",
+          "example_en": "I bought an energy drink."
+        }
+      ]
+    },
+    "180": {
+      "context": "Menus and dish toppings.",
+      "senses": [
+        {
+          "meaning": "Onsen egg; gently cooked egg",
+          "example_en": "Add an onsen egg, please."
+        }
+      ]
+    },
+    "181": {
+      "context": "In a coffee context. Other drink names can use the word more broadly.",
+      "senses": [
+        {
+          "meaning": "Caffe latte",
+          "example_en": "One latte, please."
+        }
+      ]
+    },
+    "182": {
+      "context": "The music genre; the abbreviation can sometimes have an ironic tone.",
+      "senses": [
+        {
+          "meaning": "Heavy metal",
+          "example_en": "I used to listen to heavy metal a lot."
+        }
+      ]
+    },
+    "183": {
+      "context": "Everyday discussions of driving. Not the same as revocation of a driving license.",
+      "senses": [
+        {
+          "meaning": "Driving-license suspension",
+          "example_en": "My license was suspended."
+        }
+      ]
+    },
+    "184": {
+      "context": "Fandom, gaming, and informal messages.",
+      "senses": [
+        {
+          "meaning": "Event",
+          "example_en": "I'm going to an event this weekend."
+        }
+      ]
+    },
+    "185": {
+      "context": "Often winter and holiday decorative lighting.",
+      "senses": [
+        {
+          "meaning": "Decorative illumination; festive lights",
+          "example_en": "I went to see the lights in front of the station."
+        }
+      ]
+    },
+    "186": {
+      "context": "Sport and everyday conversations about exercise.",
+      "senses": [
+        {
+          "meaning": "Strength training; muscle exercises",
+          "example_en": "I'll work out at home today."
+        }
+      ]
+    },
+    "187": {
+      "context": "Hobbies and toys.",
+      "senses": [
+        {
+          "meaning": "Radio control; radio-controlled model",
+          "example_en": "I drove a radio-controlled model in the park."
+        }
+      ]
+    },
+    "188": {
+      "context": "A task, a game, or physical exercise.",
+      "senses": [
+        {
+          "meaning": "I give up; stop trying",
+          "example_en": "I give up! It's too hard."
+        }
+      ]
+    },
+    "189": {
+      "context": "Art and culture, not every literal use of “underground.”",
+      "senses": [
+        {
+          "meaning": "Underground; unofficial or experimental culture",
+          "example_en": "I like underground theater companies."
+        }
+      ]
+    },
+    "190": {
+      "context": "Video and descriptions of movement.",
+      "senses": [
+        {
+          "meaning": "Slow motion",
+          "example_en": "I'll watch it in slow motion."
+        }
+      ]
+    },
+    "191": {
+      "context": "Food sold at fairs and shops; the city name is a different sense.",
+      "senses": [
+        {
+          "meaning": "Frankfurter sausage",
+          "example_en": "I bought a sausage at a street stall."
+        }
+      ]
+    },
+    "192": {
+      "context": "Online music culture. The term can refer to software, a voice, or music.",
+      "senses": [
+        {
+          "meaning": "Vocaloid; music with synthesized vocals",
+          "example_en": "I've been listening to a lot of Vocaloid music lately."
+        }
+      ]
+    },
+    "193": {
+      "context": "An informal Christmas greeting to friends and acquaintances.",
+      "senses": [
+        {
+          "meaning": "Merry Christmas",
+          "example_en": "Merry Christmas! Have a great day."
+        }
+      ]
+    },
+    "194": {
+      "context": "A conversational form whose meaning depends on whether expectations are confirmed or a decision changes.",
+      "senses": [
+        {
+          "meaning": "After all; as expected; still",
+          "example_en": "I'll stay home today after all."
+        }
+      ]
+    },
+    "195": {
+      "context": "Often self-deprecating. It does not establish that someone is lonely or unhappy.",
+      "senses": [
+        {
+          "meaning": "Alone; without company",
+          "example_en": "I'll go to the movies alone today."
+        }
+      ]
+    },
+    "196": {
+      "context": "Only the professional-skill sense. Production, program, and other homonyms are excluded.",
+      "senses": [
+        {
+          "meaning": "Professional; pro",
+          "example_en": "You can tell they're a professional."
+        }
+      ]
+    },
+    "197": {
+      "context": "Sport, art, and other activities. Amateur status does not itself imply low skill.",
+      "senses": [
+        {
+          "meaning": "Amateur; nonprofessional",
+          "example_en": "I took part in an amateur tournament."
+        }
+      ]
+    },
+    "198": {
+      "context": "A conversational negative copula. With questioning intonation it can ask for confirmation.",
+      "senses": [
+        {
+          "meaning": "Is not; that's not so",
+          "example_en": "This isn't mine."
+        }
+      ]
+    },
+    "199": {
+      "context": "A contraction of のでは. Uses of んじゃない differ; it can also express prohibition.",
+      "senses": [
+        {
+          "meaning": "It is not that; isn't it, depending on the construction",
+          "example_en": "That's not what I meant."
+        }
+      ]
+    },
+    "200": {
+      "context": "A conversational conjecture or request for confirmation; intonation affects the nuance.",
+      "senses": [
+        {
+          "meaning": "Isn't it?; perhaps",
+          "example_en": "Maybe he's already left."
+        }
+      ]
+    },
+    "201": {
+      "context": "Usually rejects an overly direct inference from a premise.",
+      "senses": [
+        {
+          "meaning": "Just because; on the grounds that",
+          "example_en": "I bought too much just because it was cheap."
+        }
+      ]
+    },
+    "202": {
+      "context": "A conversational contraction of ところ. The surrounding construction determines the meaning.",
+      "senses": [
+        {
+          "meaning": "Place; moment; stage of an action",
+          "example_en": "I'm just about to go home."
+        }
+      ]
+    },
+    "203": {
+      "context": "A conversational concessive form. It does not replace every occurrence of ても outside the relevant construction.",
+      "senses": [
+        {
+          "meaning": "Even if; even though",
+          "example_en": "Even if we hurry, we won't make it."
+        }
+      ]
+    },
+    "204": {
+      "context": "Only the concessive grammar use. Standalone だって meaning “because” is a different use.",
+      "senses": [
+        {
+          "meaning": "Even if, after the relevant verb form",
+          "example_en": "No matter how much I read, I don't understand."
+        }
+      ]
+    },
+    "205": {
+      "context": "A conversational concessive construction.",
+      "senses": [
+        {
+          "meaning": "Even supposing that",
+          "example_en": "Even if we go now, it's already too late."
+        }
+      ]
+    },
+    "206": {
+      "context": "After a で-form: 読んでしまう → 読んじゃう. Not the contraction では → じゃ.",
+      "senses": [
+        {
+          "meaning": "Complete an action",
+          "example_en": "She kissed me right on the lips."
+        },
+        {
+          "meaning": "Do something accidentally or unintentionally",
+          "example_en": "I tore an important letter."
+        }
+      ]
+    },
+    "207": {
+      "context": "A conversational explanation of a reason, often an excuse.",
+      "senses": [
+        {
+          "meaning": "Because; the thing is",
+          "example_en": "I was late because of traffic."
+        }
+      ]
+    },
+    "208": {
+      "context": "A judgment of behavior or general advice. Other ものではない combinations need contextual analysis.",
+      "senses": [
+        {
+          "meaning": "Should not; ought not do that",
+          "example_en": "You shouldn't laugh at other people's mistakes."
+        }
+      ]
+    },
+    "209": {
+      "context": "A conversational judgment or conclusion, with sounds omitted from という and もの.",
+      "senses": [
+        {
+          "meaning": "That's what you call; that is",
+          "example_en": "That's what you call friendship."
+        }
+      ]
+    },
+    "210": {
+      "context": "An emotional rhetorical denial, not an ordinary question.",
+      "senses": [
+        {
+          "meaning": "No way; not a chance",
+          "example_en": "I'll never believe a story like that."
+        }
+      ]
+    },
+    "211": {
+      "context": "A rhetorical denial. です does not make an emotional remark neutral.",
+      "senses": [
+        {
+          "meaning": "As if; how could I?",
+          "example_en": "How am I supposed to know!"
+        }
+      ]
+    },
+    "212": {
+      "context": "Only the explanatory sentence-final particle here, not the noun meaning “thing.”",
+      "senses": [
+        {
+          "meaning": "Because; you see, at the end of an explanation",
+          "example_en": "But I'm sleepy!"
+        }
+      ]
+    }
+  },
+  "tags": {
+    "разг.": ["colloquial", "Colloquial usage"],
+    "сленг": ["slang", "Slang usage"],
+    "переписка": ["online", "Used in messages and online"],
+    "сокр.": ["abbr.", "Shortened form"],
+    "грубоват.": [
+      "rough",
+      "Rough colloquial form; use with familiar people"
+    ],
+    "вспом.гл.": ["aux-v", "Auxiliary verb"],
+    "годан": ["godan", "Godan verb"],
+    "い-прил.": ["i-adj", "I-adjective"],
+    "констр.": ["construction", "Grammatical construction"],
+    "сущ.": ["noun", "Noun"],
+    "нареч.": ["adverb", "Adverb"],
+    "межд.": ["interjection", "Interjection"],
+    "выраж.": ["expression", "Expression"],
+    "な-прил.": ["na-adj", "Na-adjective"],
+    "★": ["★", "Preferred entry in Kolobok / JMdict"],
+    "приор. форма": [
+      "preferred-form",
+      "Preferred spelling or reading in Kolobok / JMdict"
+    ]
+  },
+  "formation_notes": {
+    "てしまう → ちまう（грубоватый вариант）": "てしまう → ちまう (rough variant)",
+    "らない → んない（в этой форме）": "らない → んない (in this form)"
+  }
+}

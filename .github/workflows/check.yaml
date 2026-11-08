@@ -68,6 +68,7 @@ jobs:
           validator="$work/tools/jsonschema"
 
           RENDER=$(cat <<'JQ'
+          def tr($ru; $en): if $language == "en" then $en else $ru end;
           def stable_unique:
             reduce .[] as $value ([]; if index($value) == null then . + [$value] else . end);
           def node($tag; $content): {tag: $tag, content: $content};
@@ -94,30 +95,30 @@ jobs:
             if $r.full == null or $r.full == "" then null
             elif $v.form == $r.full then
               ([$r.variants[].form | select(. != $r.full)] | stable_unique) as $forms |
-              if ($forms|length) > 0 then "Коротко: " + ($forms|join(" / ")) else null end
-            elif (["しちゃう", "読んじゃった", "ちまう", "じゃう"]|index($r.headword)) != null then "Стяжение " + $r.full
-            elif $r.full_form_status == "word_formation_base" then "Образовано от: " + $r.full
-            elif $r.full_form_status == "standard_counterpart" then "Стандартная форма: " + $r.full
-            else "Сокращение: " + $r.full end;
+              if ($forms|length) > 0 then tr("Коротко: "; "Short forms: ") + ($forms|join(" / ")) else null end
+            elif (["しちゃう", "読んじゃった", "ちまう", "じゃう"]|index($r.headword)) != null then tr("Стяжение "; "Contraction of ") + $r.full
+            elif $r.full_form_status == "word_formation_base" then tr("Образовано от: "; "Formed from: ") + $r.full
+            elif $r.full_form_status == "standard_counterpart" then tr("Стандартная форма: "; "Standard counterpart: ") + $r.full
+            else tr("Сокращение: "; "Short for: ") + $r.full end;
           def notes($r; $v):
             if $r.full_form_status == "not_applicable" and $r.full == null then
-              ["Самостоятельное сленговое " + (if $r.headword == "それな" then "выражение" else "слово" end) + "; полной формы нет."]
-            elif ($r.kolobok_evidence.note // "") != "" and (["ちゃう", "じゃう"]|index($v.form)) != null then [$r.kolobok_evidence.note]
+              [tr("Самостоятельное сленговое " + (if $r.headword == "それな" then "выражение" else "слово" end) + "; полной формы нет."; "Standalone slang expression; no full form.")]
+            elif ($r.kolobok_evidence.note // "") != "" and (["ちゃう", "じゃう"]|index($v.form)) != null then [if $language == "en" then "Contraction of て or で with しまう" else $r.kolobok_evidence.note end]
             elif comparison($r; $v) then [($r.formation_patterns // [])[] | select(contains($v.form))]
             elif $r.full == $v.form then []
             else origin($r; $v) as $note | if $note == null then [] else [$note] end end;
           def usage($r; $v):
             if $r.id != 1 then $r.context
-            elif $v.form == $r.full then "Вежливая благодарность; подходит для официального общения."
-            elif $v.form == "ありがとう" then "Обычная благодарность близким и знакомым; без вежливого окончания."
-            else "Очень неформальная благодарность в непринуждённой компании. Не подходит для официального общения." end;
+            elif $v.form == $r.full then tr("Вежливая благодарность; подходит для официального общения."; "Polite thanks; suitable for formal situations.")
+            elif $v.form == "ありがとう" then tr("Обычная благодарность близким и знакомым; без вежливого окончания."; "Ordinary thanks among familiar people, without the polite ending.")
+            else tr("Очень неформальная благодарность в непринуждённой компании. Не подходит для официального общения."; "Very casual thanks in a relaxed group; not suitable for formal situations.") end;
           def example($r; $v; $original):
             ($original |
-              if $r.id == 1 then . + {example: ("手伝ってくれて、" + $v.form + "。"), example_ru: "Спасибо, что помог."} else . end |
-              if $r.headword == "ちまう" and $v.form == "ちゃう" and (.meaning|contains("непреднамеренно") or contains("ненамеренно")) then
-                . + {example:"約束を忘れちゃった。", example_ru:"Позабыл об обещании."} else . end |
-              if $r.headword == "ちまう" and $v.form == "ちまう" and (.meaning|contains("завершить")) then
-                . + {example:"先に食べちまうぞ。", example_ru:"Я сейчас всё съем."} else . end) as $sense |
+              if $r.id == 1 then . + {example: ("手伝ってくれて、" + $v.form + "。"), example_ru: tr("Спасибо, что помог."; "Thanks for helping.")} else . end |
+              if $r.headword == "ちまう" and $v.form == "ちゃう" and (.meaning|contains("непреднамеренно") or contains("ненамеренно") or contains("unintentionally")) then
+                . + {example:"約束を忘れちゃった。", example_ru:tr("Позабыл об обещании."; "I forgot my promise.")} else . end |
+              if $r.headword == "ちまう" and $v.form == "ちまう" and (.meaning|contains("завершить") or contains("Complete an action")) then
+                . + {example:"先に食べちまうぞ。", example_ru:tr("Я сейчас всё съем."; "I will eat it all now.")} else . end) as $sense |
             if $sense.example_node != null and $sense.example_node != false then [$sense, $sense.example_node]
             else ($sense.example // "") as $jp |
               (if ($jp|contains($v.form)|not) and ($v.form|endswith("う")) then $v.form[0:-1] + "った" else $v.form end) as $needle |
@@ -135,7 +136,7 @@ jobs:
           def render($r; $v):
             [($r.senses | to_entries[]) as $item |
               marked("div"; "sense"; [marked("span"; "sense-number"; (($item.key + 1|tostring) + ". ")),
-                (node("span"; $item.value.meaning) + {lang:"ru"})]),
+                (node("span"; $item.value.meaning) + {lang:$language})]),
               (if $item.key == 0 then
                 (if comparison($r; $v) then ["※ " + $r.full + " → " + $v.form] else [] end) as $comp |
                 ($comp + [notes($r; $v)[] as $note | select(($comp|index("※ " + $note)) == null) | "※ " + $note])[] |
@@ -145,7 +146,7 @@ jobs:
                 if ($sense.example // "") != "" then
                   marked("div"; "example-sentence"; [
                     (marked("span"; "example-sentence-a"; ($jp|marked_keywords)) + {lang:"ja"}),
-                    marker(" ∥ "), (marked("span"; "example-sentence-b"; $sense.example_ru) + {lang:"ru"})])
+                    marker(" ∥ "), (marked("span"; "example-sentence-b"; $sense.example_ru) + {lang:$language})])
                 else empty end)] as $content |
             {type:"structured-content", content:marked("div"; "jeosif-article";
               $content + [marked("div"; "sense-note"; [marker("※ "), node("span"; usage($r; $v))])])};
@@ -208,7 +209,7 @@ jobs:
           all($source.entries[]; . as $row |
             all(.variants[]; [ .form, .reading ] | tojson | . as $key | $keys | index($key) != null) and
             (if .full_form_status == "not_applicable" then
-              any($terms[]; .[0] == $row.headword and (.[5]|text|contains("полной формы нет")))
+              any($terms[]; .[0] == $row.headword and (.[5]|text|contains(if $language == "en" then "no full form" else "полной формы нет" end)))
              else true end)) and
           all(["ちゃう", "じゃう", "ちまう", "しちゃう"][];
             . as $word | any($terms[]; .[0] == $word and .[3] == "v5u")) and
@@ -228,32 +229,65 @@ jobs:
           }
 
           build() {
-            local output="$1" revision="$2" release="$3"
-            local stage name family_count term_count
+            local output="$1" revision="$2" release="$3" language="$4"
+            local stage name family_count term_count source title archive index_asset
             stage=$(mktemp -d "$work/build.XXXXXX")
             mkdir -p "$output"
             validate_source data/dictionary.json
-            jq "$RENDER" data/dictionary.json > "$stage/term_bank_1.json"
-            jq -e -n --slurpfile terms "$stage/term_bank_1.json" \
-              --slurpfile source data/dictionary.json "$VERIFY" >/dev/null
+            source=data/dictionary.json
+            title=JEOSIF
+            archive="jeosif-$language.zip"
+            index_asset="index-$language.json"
+            if [[ "$language" == en ]]; then
+              title=JEOSIF-EN
+              source="$stage/english-source.json"
+              jq --slurpfile en data/translations.en.json '
+                $en[0] as $en | .entries |= map(. as $row |
+                  $en.entries[(.id|tostring)] as $translation |
+                  .context=$translation.context |
+                  .senses |= (to_entries | map(. as $sense |
+                    $sense.value + {meaning:$translation.senses[$sense.key].meaning,
+                      example_ru:$translation.senses[$sense.key].example_en})) |
+                  .formation_patterns |= (. // [] | map($en.formation_notes[.] // .)))' \
+                data/dictionary.json > "$source"
+            fi
+            jq --arg language "$language" "$RENDER" "$source" > "$stage/term_bank_1.json"
+            jq -e -n --arg language "$language" --slurpfile terms "$stage/term_bank_1.json" \
+              --slurpfile source "$source" "$VERIFY" >/dev/null
             jq '[.pronunciations[] | [.expression, "pitch", {reading, pitches:[.positions[] | {position:.}]}]]' \
               data/dictionary.json > "$stage/term_meta_bank_1.json"
             family_count=$(jq '.entries|length' data/dictionary.json)
             term_count=$(jq 'length' "$stage/term_bank_1.json")
             [[ "$revision" =~ ^[0-9]+$ && "$release" =~ ^JEOSIF-[0-9a-f]{7,40}$ ]]
-            jq --arg revision "$revision" --arg release "$release" \
-              --arg description "$family_count families; $term_count search records. Japanese contractions, colloquial forms and slang with Russian explanations." \
-              '.revision=$revision | .description=$description | .url="https://github.com/nikkeyl/jeosif" |
-               .downloadUrl=(.url + "/releases/download/" + $release + "/JEOSIF.zip")' \
+            jq --arg revision "$revision" --arg release "$release" --arg language "$language" \
+              --arg title "$title" --arg archive "$archive" --arg index "$index_asset" \
+              --arg description "$family_count families; $term_count search records. Japanese contractions, colloquial forms and slang ($language)." \
+              '.revision=$revision | .title=$title | .targetLanguage=$language | .description=$description |
+               .url="https://github.com/nikkeyl/jeosif" |
+               .indexUrl=(.url + "/releases/latest/download/" + $index) |
+               .downloadUrl=(.url + "/releases/download/" + $release + "/" + $archive)' \
               data/index.json > "$stage/index.json"
             cp data/tag_bank_1.json "$stage/tag_bank_1.json"
+            if [[ "$language" == en ]]; then
+              jq --slurpfile en data/translations.en.json '
+                map(.[2] |= (split(" ") | map($en[0].tags[.][0] // .) | join(" ")) |
+                    .[7] |= (gsub("приор. форма"; "preferred-form")))' \
+                "$stage/term_bank_1.json" > "$work/english-terms.json"
+              mv "$work/english-terms.json" "$stage/term_bank_1.json"
+              jq --slurpfile en data/translations.en.json '
+                map(. as $tag | .[0]=$en[0].tags[$tag[0]][0] | .[3]=$en[0].tags[$tag[0]][1])' \
+                data/tag_bank_1.json > "$stage/tag_bank_1.json"
+              jq -e 'test("[А-Яа-яЁё]")|not' < <(jq -Rs . "$stage/term_bank_1.json") >/dev/null
+              cp data/translations.en.json "$stage/TRANSLATIONS.en.json"
+              rm "$source"
+            fi
             cp data/dictionary.json "$stage/SOURCES.json"
             cp data/styles.css "$stage/styles.css"
             jq '.pronunciation_audit' data/dictionary.json > "$stage/pronunciation-audit.json"
             cp licenses/* ATTRIBUTION.md LICENSE DATA-LICENSE.md "$stage/"
-            printf 'JEOSIF %s\n%s families; %s search records.\n\n' "$revision" "$family_count" "$term_count" > "$stage/README.txt"
+            printf '%s %s (%s)\n%s families; %s search records.\n\n' "$title" "$revision" "$language" "$family_count" "$term_count" > "$stage/README.txt"
+            printf 'Import %s in Yomitan or the Naminori browser extension.\n' "$archive" >> "$stage/README.txt"
             cat >> "$stage/README.txt" <<'IMPORT'
-          Import JEOSIF.zip using the dictionary import screen in Yomitan or Naminori.
           Audio comes from the client; this archive contains no recordings.
           A missing pitch accent is unknown, not necessarily accent [0].
           This AI-assisted collection still needs linguistic review.
@@ -270,30 +304,43 @@ jobs:
               esac
               "$validator" validate "$work/schemas/$schema" "$stage/$file"
             done
-            jq -e --arg release "$release" --arg revision "$revision" '
-              .title == "JEOSIF" and .format == 3 and .sourceLanguage == "ja" and .targetLanguage == "ru" and
+            jq -e --arg release "$release" --arg revision "$revision" --arg title "$title" \
+              --arg language "$language" --arg index "$index_asset" --arg archive "$archive" '
+              .title == $title and .format == 3 and .sourceLanguage == "ja" and .targetLanguage == $language and
               .isUpdatable == true and .revision == $revision and
-              .indexUrl == "https://github.com/nikkeyl/jeosif/releases/latest/download/index.json" and
-              .downloadUrl == ("https://github.com/nikkeyl/jeosif/releases/download/" + $release + "/JEOSIF.zip")' \
+              .indexUrl == ("https://github.com/nikkeyl/jeosif/releases/latest/download/" + $index) and
+              .downloadUrl == ("https://github.com/nikkeyl/jeosif/releases/download/" + $release + "/" + $archive)' \
               "$stage/index.json" >/dev/null
             grep -q 'format-marker' "$stage/styles.css"
             chmod 644 "$stage"/*
             TZ=UTC touch -t 198001010000.00 "$stage"/*
             local files=()
             while IFS= read -r name; do files+=("$name"); done < <(cd "$stage"; printf '%s\n' * | LC_ALL=C sort)
-            rm -f "$output/JEOSIF.zip"
-            (cd "$stage"; TZ=UTC zip -X -q -9 "$output/JEOSIF.zip" "${files[@]}")
-            cp "$stage/index.json" "$output/index.json"
-            (cd "$output"; sha256sum JEOSIF.zip > JEOSIF.zip.sha256)
-            unzip -t "$output/JEOSIF.zip" >/dev/null
-            if unzip -Z1 "$output/JEOSIF.zip" | grep -Eq '[/\\]'; then
+            rm -f "$output/$archive"
+            (cd "$stage"; TZ=UTC zip -X -q -9 "$output/$archive" "${files[@]}")
+            cp "$stage/index.json" "$output/$index_asset"
+            (cd "$output"; sha256sum "$archive" > "$archive.sha256")
+            unzip -t "$output/$archive" >/dev/null
+            if unzip -Z1 "$output/$archive" | grep -Eq '[/\\]'; then
               echo 'Unexpected path inside dictionary ZIP' >&2
               return 1
             fi
-            unzip -p "$output/JEOSIF.zip" index.json | cmp - "$output/index.json"
+            unzip -p "$output/$archive" index.json | cmp - "$output/$index_asset"
             echo "PASS: $family_count families, $term_count unique search records, sources, pitch accents and official schemas"
             rm -rf "$stage"
           }
+
+          jq -e --slurpfile en data/translations.en.json '
+            $en[0] as $en |
+            (.entries|length) == ($en.entries|length) and
+            all(.entries[]; . as $row | $en.entries[(.id|tostring)] as $translation |
+              ($translation.context|type == "string" and test("\\S")) and
+              ($translation.senses|length) == (.senses|length) and
+              all($translation.senses[];
+                (.meaning|type == "string" and test("\\S")) and
+                (.example_en|type == "string" and test("\\S")))) and
+            all($en.tags[]; length == 2 and all(.[]; type == "string" and test("\\S")))' \
+            data/dictionary.json >/dev/null
 
           # Guard the source contract against invalid contributions.
           for mutation in '.entries += [.entries[0]]' '.entries[0].sources=["missing-source"]' '.entries[0].senses[0].meaning=""'; do
@@ -304,26 +351,42 @@ jobs:
             fi
           done
 
-          # Repeated builds must be byte-identical for the same version and release.
-          build "$work/first" 1 JEOSIF-1111111
-          build "$work/second" 1 JEOSIF-1111111
-          cmp "$work/first/JEOSIF.zip" "$work/second/JEOSIF.zip"
+          revision=0
+          if [[ "$GITHUB_EVENT_NAME" == push ]]; then revision="$GITHUB_RUN_NUMBER"; fi
+          for language in ru en; do
+            # Repeated builds must be byte-identical for each language.
+            build "$work/first" 1 JEOSIF-1111111 "$language"
+            build "$work/second" 1 JEOSIF-1111111 "$language"
+            cmp "$work/first/jeosif-$language.zip" "$work/second/jeosif-$language.zip"
 
-          jq 'del(.indexUrl)' "$work/first/index.json" > "$work/invalid-index.json"
-          "$validator" validate "$work/schemas/dictionary-index-schema.json" "$work/invalid-index.json" --invalid
+            jq 'del(.indexUrl)' "$work/first/index-$language.json" > "$work/invalid-index.json"
+            "$validator" validate "$work/schemas/dictionary-index-schema.json" "$work/invalid-index.json" --invalid
+            build "$work/second" 2 JEOSIF-2222222 "$language"
+            jq -e -n --slurpfile previous "$work/first/index-$language.json" \
+              --slurpfile next "$work/second/index-$language.json" '
+              ($next[0].revision|tonumber) > ($previous[0].revision|tonumber) and
+              $next[0].indexUrl == $previous[0].indexUrl and
+              ($next[0].downloadUrl|contains("/JEOSIF-2222222/"))' >/dev/null
+            build "$GITHUB_WORKSPACE/dist" "$revision" "JEOSIF-${GITHUB_SHA::7}" "$language"
+          done
           printf '%s\n' '[["word","reading","","",0,[{"type":"structured-content","content":{"tag":"script","content":"invalid"}}],-1,""]]' \
             > "$work/invalid-terms.json"
           "$validator" validate "$work/schemas/dictionary-term-bank-v3-schema.json" "$work/invalid-terms.json" --invalid
-          build "$work/second" 2 JEOSIF-2222222
-          jq -e -n --slurpfile previous "$work/first/index.json" --slurpfile next "$work/second/index.json" '
-            ($next[0].revision|tonumber) > ($previous[0].revision|tonumber) and
-            $next[0].indexUrl == $previous[0].indexUrl and
-            ($next[0].downloadUrl|contains("/JEOSIF-2222222/"))' >/dev/null
-
-          revision=0
-          if [[ "$GITHUB_EVENT_NAME" == push ]]; then revision="$GITHUB_RUN_NUMBER"; fi
-          build "$GITHUB_WORKSPACE/dist" "$revision" "JEOSIF-${GITHUB_SHA::7}"
-          echo 'PASS: rejected invalid input and structured content; reproducible ZIP; increasing update revisions'
+          for language in ru en; do
+            unzip -p "$GITHUB_WORKSPACE/dist/jeosif-$language.zip" term_bank_1.json > "$work/terms-$language.json"
+            unzip -p "$GITHUB_WORKSPACE/dist/jeosif-$language.zip" term_meta_bank_1.json > "$work/pitch-$language.json"
+          done
+          jq -e -n --slurpfile ru "$work/terms-ru.json" --slurpfile en "$work/terms-en.json" '
+            ($ru[0]|map(.[0:2])) == ($en[0]|map(.[0:2]))' >/dev/null
+          cmp "$work/pitch-ru.json" "$work/pitch-en.json"
+          jq -e -n --slurpfile ru "$GITHUB_WORKSPACE/dist/index-ru.json" \
+            --slurpfile en "$GITHUB_WORKSPACE/dist/index-en.json" '
+            $ru[0].title != $en[0].title and $ru[0].indexUrl != $en[0].indexUrl and
+            $ru[0].downloadUrl != $en[0].downloadUrl and
+            $ru[0].targetLanguage == "ru" and $en[0].targetLanguage == "en"' >/dev/null
+          # Keep the original RU update URL working for existing installations.
+          cp "$GITHUB_WORKSPACE/dist/index-ru.json" "$GITHUB_WORKSPACE/dist/index.json"
+          echo 'PASS: RU and EN; invalid input rejected; reproducible ZIPs; independent update channels'
 
       - name: Upload Dictionary
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9

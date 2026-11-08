@@ -49,9 +49,12 @@ jobs:
           gh run download "$CHECK_RUN" --name "JEOSIF-$COMMIT" --dir dist
 
           cd dist
-          sha256sum --check JEOSIF.zip.sha256
-          unzip -t JEOSIF.zip
-          unzip -p JEOSIF.zip index.json | cmp - index.json
+          for language in ru en; do
+            sha256sum --check "jeosif-$language.zip.sha256"
+            unzip -t "jeosif-$language.zip"
+            unzip -p "jeosif-$language.zip" index.json | cmp - "index-$language.json"
+          done
+          cmp index.json index-ru.json
 
       - name: Publish Release
         run: |
@@ -61,9 +64,11 @@ jobs:
               exit 0
             fi
 
-            gh release upload "$VERSION" dist/JEOSIF.zip dist/JEOSIF.zip.sha256 dist/index.json --clobber
+            gh release upload "$VERSION" dist/jeosif-ru.zip dist/jeosif-en.zip \
+              dist/index-ru.json dist/index-en.json dist/index.json --clobber
           else
-            gh release create "$VERSION" dist/JEOSIF.zip dist/JEOSIF.zip.sha256 dist/index.json \
+            gh release create "$VERSION" dist/jeosif-ru.zip dist/jeosif-en.zip \
+              dist/index-ru.json dist/index-en.json dist/index.json \
               --target "$COMMIT" --title "$VERSION" --generate-notes --draft
           fi
 

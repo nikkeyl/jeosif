@@ -1,16 +1,17 @@
 # Contributing
 
-Corrections to Japanese usage, Russian explanations, and source attribution
-are welcome. A small, well-supported correction is easier to review than a
-large imported word list. You can open an issue without running the builder.
+Corrections to Japanese usage, Russian and English explanations, and source
+attribution are welcome. A small, well-supported correction is easier to
+review than a large imported word list. You can open an issue without
+running the builder.
 
 ## Propose a dictionary change
 
 1. Identify the entry ID or propose a new, unused numeric ID.
 
 1. Provide the spelling, reading, intended meaning, register, and a natural
-   example with its Russian translation. Explain which context the example
-   fits.
+   example with its Russian and English translations. Explain which context
+   the example fits.
 
 1. Link evidence for that specific sense. A matching spelling in another
    dictionary does not establish the same meaning.
@@ -20,12 +21,15 @@ large imported word list. You can open an issue without running the builder.
 
 1. Update `data/dictionary.json`, including `search_metadata` for added
    forms. Use only tags defined in `data/tag_bank_1.json`; extend the tag
-   bank when a new tag is needed. Use `rules: ""` unless inflection is
-   explicitly supported.
+   bank when a new tag is needed. Update the matching entry in
+   `data/translations.en.json` with English meanings, usage notes, and
+   example translations; keep senses in the same order as the source entry.
+   New tags also need English names and descriptions. Use `rules: ""` unless
+   inflection is explicitly supported.
 
 1. Open a pull request and wait for the existing `Check` workflow. The
-   workflow builds and validates the archive; download its artifact to check
-   the result in a dictionary client.
+   workflow builds and validates both language archives; download its
+   artifact to check the result in a dictionary client.
 
 A full form must be attested, not invented from a possible etymology. Keep
 independent slang as `full: null` with `full_form_status: "not_applicable"`.
@@ -57,9 +61,9 @@ The checks cover malformed input, duplicate IDs/search records, source
 references, required metadata, archive integrity, auxiliary inflection, and
 reproducibility, official Yomitan schemas, and matching update metadata.
 They do not simulate the clients. After changing structured content, test
-the ZIP in both Yomitan and Naminori and describe the client versions and
-observed behavior in the pull request. Do not commit generated ZIPs; Actions
-attaches them to the run and release.
+both language ZIPs in Yomitan and the Naminori browser extension and
+describe the client versions and observed behavior in the pull request. Do
+not commit generated ZIPs; Actions attaches them to the run and release.
 
 Use a Conventional Commit title such as
 `fix: correct the register of あざす` or

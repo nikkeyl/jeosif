@@ -1,19 +1,20 @@
 # JEOSIF
 
-**Japanese Everyday Short Forms** — a Japanese–Russian dictionary of
-contractions, colloquial forms, and slang for Yomitan and Naminori.
+**Japanese Everyday Short Forms** — a Japanese dictionary of contractions,
+colloquial forms, and slang, with Russian and English editions for Yomitan
+and Naminori.
 
 JEOSIF connects a shortened expression to the fuller form it comes from.
 Looking up `あざす` gives you both its meaning and the connection to
-`ありがとうございます`, with Russian explanations of register and usage.
-Entries bring related spellings together, distinguish meanings, and include
-Japanese examples with Russian translations. Pitch accents are included
-where source data is available.
+`ありがとうございます`, with explanations of register and usage in your
+chosen language. Entries bring related spellings together, distinguish
+meanings, and include Japanese examples with translations. Pitch
+accents are included where source data is available.
 
 ## From full expression to slang
 
-All of these forms express thanks, but they are not interchangeable in
-every setting:
+All of these forms express thanks, but they are not interchangeable in every
+setting:
 
 | Form | Reading | Register and use |
 | --- | --- | --- |
@@ -34,8 +35,18 @@ assigning an invented origin to each entry.
 
 ## Install
 
-Download **JEOSIF.zip** from the
-[latest release](https://github.com/nikkeyl/jeosif/releases/latest).
+Choose an edition from the
+[latest release](https://github.com/nikkeyl/jeosif/releases/latest):
+
+| Archive | Explanations and example translations |
+| --- | --- |
+| **jeosif-ru.zip** | Russian |
+| **jeosif-en.zip** | English |
+
+You can install both editions together. Each has its own update channel. The
+Russian edition keeps the dictionary name **JEOSIF** for compatibility with
+existing installations; the English edition is **JEOSIF-EN**.
+
 Keep the ZIP intact; do not extract it or download GitHub's source archive.
 
 ### Yomitan
@@ -43,12 +54,13 @@ Keep the ZIP intact; do not extract it or download GitHub's source archive.
 1. Open Yomitan settings, then **Dictionaries → Configure installed and
    enabled dictionaries**.
 
-1. Select **Import** and choose `JEOSIF.zip`.
+1. Select **Import** and choose the ZIP for your language.
 
-1. Wait for the import to finish and make sure **JEOSIF** is enabled.
+1. Wait for the import to finish and make sure your imported edition is
+   enabled.
 
-Use **Check for updates** in the dictionary manager to find new releases.
-If you installed a version from before update support was added, import the
+Use **Check for updates** in the dictionary manager to find new releases. If
+you installed a version from before update support was added, import the
 current ZIP once to enable update checks. See the
 [Yomitan dictionary guide](https://yomitan.wiki/dictionaries/) for client
 settings.
@@ -57,20 +69,21 @@ settings.
 
 1. Open the extension's settings and find the dictionaries section.
 
-1. Select **Свой словарь .zip** and choose `JEOSIF.zip`.
+1. Select **Свой словарь .zip** and choose the ZIP for your language.
 
-1. Make sure **JEOSIF** is enabled, then use **Гибрид** or
+1. Make sure your imported edition is enabled, then use **Гибрид** or
    **Только локальный** lookup mode.
 
-Move JEOSIF above your general-purpose dictionary if you want its entries
-to appear first. Imported dictionaries stay in that browser; they do not
-sync to the Naminori desktop or phone apps. To update JEOSIF, import the ZIP
-from a newer release.
+Move JEOSIF above your general-purpose dictionary if you want its entries to
+appear first. Imported dictionaries stay in that browser; they do not sync
+to the Naminori desktop or phone apps. To update JEOSIF, import the ZIP from
+a newer release.
 
 > [!IMPORTANT]
 >
 > This collection was assembled with AI assistance. Japanese usage,
-> register, translations, and examples still need linguistic review.
+> register, Russian and English translations, and examples still need
+> linguistic review.
 
 ## Corrections and contributions
 
@@ -79,7 +92,8 @@ issue with the expression, context, and a source where possible. English,
 Japanese, and Russian are welcome.
 
 See [Contributing](CONTRIBUTING.md) for entry conventions and source
-requirements. Dictionary entries are maintained in `data/dictionary.json`.
+requirements. Dictionary entries are maintained in `data/dictionary.json`;
+English translations are in `data/translations.en.json`.
 
 ## License and sources
 
@@ -89,5 +103,5 @@ upstream examples. [Attribution](ATTRIBUTION.md) records JMdict, Japanese
 Wiktionary, Kanjium, Kolobok/Jitendex, and Tatoeba, including source
 identifiers and changes.
 
-Workflow code and project documentation are [MIT licensed](LICENSE).
-MIT does not relicense third-party data.
+Workflow code and project documentation are [MIT licensed](LICENSE). MIT
+does not relicense third-party data.
