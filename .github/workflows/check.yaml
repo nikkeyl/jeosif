@@ -39,10 +39,10 @@ jobs:
           mkdir -p "$work/tools" "$work/schemas"
           version=17.2.1
           curl --fail --location --silent --show-error --retry 3 \
-            "https://github.com/sourcemeta/jsonschema/releases/download/v$version/jsonschema-$version-linux-x86_64-musl.zip" \
+            "https://github.com/sourcemeta/jsonschema/releases/download/v$version/jsonschema-$version-linux-x86_64.zip" \
             --output "$work/tools/validator.zip"
           printf '%s  %s\n' \
-            952c46f8f51a656caf7a0da32d5167c8230b9ad532ad247b77cf842d6f791104 \
+            9ffee3cfbe0fe1343d9d36bcce9e6036ec4d73e4b29f656c039fca6118da2f35 \
             "$work/tools/validator.zip" | sha256sum --check -
           unzip -p "$work/tools/validator.zip" '*/bin/jsonschema' > "$work/tools/jsonschema"
           chmod +x "$work/tools/jsonschema"
