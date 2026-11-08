@@ -51,6 +51,7 @@ jobs:
             "$work/tools/validator.zip" | sha256sum --check -
 
           unzip -p "$work/tools/validator.zip" '*/bin/jsonschema' > "$work/tools/jsonschema"
+
           chmod +x "$work/tools/jsonschema"
 
           "$work/tools/jsonschema" version
@@ -243,6 +244,7 @@ jobs:
             local stage name family_count term_count source title archive index_asset
 
             stage=$(mktemp -d "$work/build.XXXXXX")
+
             mkdir -p "$output"
 
             validate_source data/dictionary.json
@@ -305,6 +307,7 @@ jobs:
               jq -e 'test("[А-Яа-яЁё]")|not' < <(jq -Rs . "$stage/term_bank_1.json") >/dev/null
 
               cp data/translations.en.json "$stage/TRANSLATIONS.en.json"
+
               rm "$source"
             fi
 
@@ -317,6 +320,7 @@ jobs:
 
             printf '%s %s (%s)\n%s families; %s search records.\n\n' "$title" "$revision" "$language" "$family_count" "$term_count" > "$stage/README.txt"
             printf 'Import %s in Yomitan or the Naminori browser extension.\n' "$archive" >> "$stage/README.txt"
+
             cat >> "$stage/README.txt" <<'IMPORT'
           Audio comes from the client; this archive contains no recordings.
           A missing pitch accent is unknown, not necessarily accent [0].
@@ -348,6 +352,7 @@ jobs:
             grep -q 'format-marker' "$stage/styles.css"
 
             chmod 644 "$stage"/*
+
             TZ=UTC touch -t 198001010000.00 "$stage"/*
 
             local files=()
@@ -355,9 +360,11 @@ jobs:
             while IFS= read -r name; do files+=("$name"); done < <(cd "$stage"; printf '%s\n' * | LC_ALL=C sort)
 
             rm -f "$output/$archive"
+
             (cd "$stage"; TZ=UTC zip -X -q -9 "$output/$archive" "${files[@]}")
 
             cp "$stage/index.json" "$output/$index_asset"
+
             (cd "$output"; sha256sum "$archive" > "$archive.sha256")
 
             unzip -t "$output/$archive" >/dev/null
@@ -387,7 +394,6 @@ jobs:
             all($en.tags[]; length == 2 and all(.[]; type == "string" and test("\\S")))' \
             data/dictionary.json >/dev/null
 
-          # Guard the source contract against invalid contributions.
           for mutation in '.entries += [.entries[0]]' '.entries[0].sources=["missing-source"]' '.entries[0].senses[0].meaning=""'; do
             jq "$mutation" data/dictionary.json > "$work/invalid-source.json"
 
@@ -403,7 +409,6 @@ jobs:
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then revision="$GITHUB_RUN_NUMBER"; fi
 
           for language in ru en; do
-            # Repeated builds must be byte-identical for each language.
             build "$work/first" 1 JEOSIF-1111111 "$language"
             build "$work/second" 1 JEOSIF-1111111 "$language"
 
@@ -445,7 +450,6 @@ jobs:
             $ru[0].downloadUrl != $en[0].downloadUrl and
             $ru[0].targetLanguage == "ru" and $en[0].targetLanguage == "en"' >/dev/null
 
-          # Keep the original RU update URL working for existing installations.
           cp "$GITHUB_WORKSPACE/dist/index-ru.json" "$GITHUB_WORKSPACE/dist/index.json"
 
           echo 'PASS: RU and EN; invalid input rejected; reproducible ZIPs; independent update channels'
