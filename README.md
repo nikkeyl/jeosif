@@ -43,9 +43,13 @@ Choose an edition from the
 | **jeosif-ru.zip** | Russian |
 | **jeosif-en.zip** | English |
 
-You can install both editions together. Each has its own update channel. The
-Russian edition keeps the dictionary name **JEOSIF** for compatibility with
-existing installations; the English edition is **JEOSIF-EN**.
+After import, the editions appear as **Japanese Everyday Short Forms-RU**
+and **Japanese Everyday Short Forms-EN**. You can install both together;
+each has its own update channel.
+
+If you previously installed **JEOSIF** or **JEOSIF-EN**, remove that older
+dictionary and import the ZIP for your language. The new title identifies a
+separate dictionary.
 
 Keep the ZIP intact; do not extract it or download GitHub's source archive.
 
