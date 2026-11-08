@@ -9,9 +9,11 @@ is appropriate.
 
 Download `JEOSIF.zip` from
 [Releases](https://github.com/nikkeyl/jeosif/releases/latest) and import it
-as a dictionary in Yomitan or Naminori. The archive contains structured
-definitions, examples, source records, and attested pitch accents. Audio is
-provided by the dictionary client; no recordings are bundled.
+as a dictionary in Yomitan or Naminori. Import the new ZIP once to enable
+Yomitan update checks for installations made before update metadata was
+added. The archive contains structured definitions, examples, source
+records, and attested pitch accents. Audio is provided by the dictionary
+client; no recordings are bundled.
 
 > [!IMPORTANT]
 >
@@ -25,11 +27,14 @@ provided by the dictionary client; no recordings are bundled.
 GitHub Actions runs the JavaScript builder and checks on every pull request
 and push to `main`. Download the ZIP from the successful `Check` run for a
 preview; the `Release` workflow publishes the checked commit from `main`.
-The Actions runner supplies Node.js, `zip`, and `unzip`.
+The Actions runner supplies Node.js, `zip`, and `unzip`. Ajv is installed
+from the locked check dependencies in `.github`.
 
 To reproduce the same commands locally with Node.js 24 and Info-ZIP:
 
 ```sh
+npm ci --prefix .github --ignore-scripts
+
 node .github/scripts/build.mjs
 node .github/scripts/check.mjs dist/JEOSIF.zip
 node .github/scripts/check.mjs
@@ -61,10 +66,18 @@ or Russian.
 ## Releases
 
 `Check` builds the dictionary on pushes and pull requests, checks the
-archive, and verifies that repeated builds produce identical bytes. After a
-successful push check on `main`, `Release` rebuilds that exact commit and
-publishes `JEOSIF.zip` and its SHA-256 checksum under
-`JEOSIF-<short commit>`.
+archive against the official Yomitan schemas, and verifies that repeated
+builds produce identical bytes. After a successful push check on `main`,
+`Release` rebuilds that exact commit and publishes `JEOSIF.zip`, its SHA-256
+checksum, and `index.json` under `JEOSIF-<short commit>`.
+
+`indexUrl` points to the latest release's `index.json`. Its `downloadUrl`
+points to the ZIP in that exact release. The index inside the ZIP and the
+published index are identical. Yomitan uses the increasing numeric release
+workflow run number as `revision`; commit hashes are used only for release
+tags and titles. Update checks and installation are controlled by the
+client. The workflow uploads all assets as a draft before publishing the
+release.
 
 Release builds use only committed data. Updating upstream sources is a
 separate reviewed change; a release never downloads fresh definitions
@@ -78,3 +91,9 @@ Dictionary data and its rendered definitions use
 upstream examples. MIT does not relicense third-party data.
 [Attribution](ATTRIBUTION.md) records JMdict, Japanese Wiktionary, Kanjium,
 Kolobok/Jitendex, and Tatoeba, including source identifiers and changes.
+
+Official Yomitan schemas in `.github/schemas` retain their upstream
+[GPL-3.0-or-later license](.github/schemas/YOMITAN-LICENSE). Community
+templates are adapted from
+[Archoleat](https://github.com/archoleat/.github), with the
+[original MIT notice](.github/ARCHOLEAT-TEMPLATES-LICENSE) preserved.

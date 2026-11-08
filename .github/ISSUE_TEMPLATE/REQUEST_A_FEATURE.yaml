@@ -1,0 +1,52 @@
+name: Request a Feature
+description: Suggest an exporter feature or a change to the dictionary.
+labels:
+  - 'type: feature'
+assignees:
+  - nikkeyl
+
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for taking the time to request a feature!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: What are the benefits of this feature?
+    validations:
+      required: true
+
+  - type: textarea
+    id: drawbacks
+    attributes:
+      label: Are there any potential considerations we should know about?
+    validations:
+      required: false
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sources and Examples
+      description:
+        For dictionary proposals, link evidence for the exact meaning and
+        include source licenses when reusing text.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Contribution guidelines
+      options:
+        - label:
+            I have read the [contribution
+            guidelines](https://github.com/nikkeyl/jeosif/blob/main/CONTRIBUTING.md).
+          required: true

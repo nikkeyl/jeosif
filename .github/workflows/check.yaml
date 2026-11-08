@@ -33,6 +33,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install Dependencies
+        run: npm ci --prefix .github --ignore-scripts
+
       - name: Check Sources and Reproducibility
         run: node .github/scripts/check.mjs
 

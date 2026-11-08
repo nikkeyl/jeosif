@@ -1,8 +1,11 @@
-name: Dictionary correction or suggestion
+name: Report a Dictionary Issue
 description: Correct an entry or propose an attested expression.
 labels:
   - dictionary
-  - 'status: needs discussion'
+  - 'type: bug'
+assignees:
+  - nikkeyl
+
 body:
   - type: textarea
     id: entry
@@ -29,3 +32,13 @@ body:
         and license.
     validations:
       required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Contribution guidelines
+      options:
+        - label:
+            I have read the [contribution
+            guidelines](https://github.com/nikkeyl/jeosif/blob/main/CONTRIBUTING.md).
+          required: true

@@ -163,6 +163,7 @@ function pitchBank(source, terms) {
 export function build(
   destination = join(root, 'dist/JEOSIF.zip'),
   revision,
+  release,
 ) {
   destination = resolve(destination);
   const source = load(join(root, 'data/dictionary.json'));
@@ -170,12 +171,20 @@ export function build(
   validate(source, new Set(tags.map((tag) => tag[0])));
   const terms = termBank(source);
   const index = load(join(root, 'data/index.json'));
-  index.revision = revision ?? source.revision;
+  index.revision = revision ?? index.revision;
   assert(/^[A-Za-z0-9._-]+$/.test(index.revision), 'Unsafe revision');
   index.description =
     `${source.entries.length} families; ${terms.length} search records. ` +
     'Japanese contractions, colloquial forms and slang with Russian explanations.';
   index.url = 'https://github.com/nikkeyl/jeosif';
+  if (release) {
+    assert(/^JEOSIF-[a-f0-9]{7,40}$/.test(release), 'Unsafe release tag');
+    assert(
+      /^\d+$/.test(index.revision),
+      'Release revisions must be numeric and increasing',
+    );
+    index.downloadUrl = `${index.url}/releases/download/${release}/JEOSIF.zip`;
+  }
   const files = {
     'index.json': json(index),
     'term_bank_1.json': json(terms),
@@ -222,6 +231,7 @@ export function build(
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
+  writeFileSync(join(dirname(destination), 'index.json'), json(index));
   const digest = createHash('sha256')
     .update(readFileSync(destination))
     .digest('hex');
@@ -242,14 +252,16 @@ if (
   const args = process.argv.slice(2);
   let output;
   let revision;
+  let release;
   while (args.length) {
     const flag = args.shift();
     assert(
-      ['--output', '--revision'].includes(flag) && args.length,
+      ['--output', '--revision', '--release'].includes(flag) && args.length,
       `Unknown or incomplete option: ${flag}`,
     );
     if (flag === '--output') output = args.shift();
-    else revision = args.shift();
+    else if (flag === '--revision') revision = args.shift();
+    else release = args.shift();
   }
-  build(output, revision);
+  build(output, revision, release);
 }

@@ -8,3 +8,12 @@ updates:
     labels:
       - dependencies
       - github_actions
+
+  - package-ecosystem: npm
+    directory: /.github
+    schedule:
+      interval: semiannually
+    versioning-strategy: increase
+    labels:
+      - dependencies
+      - javascript

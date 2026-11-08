@@ -28,6 +28,8 @@ large imported word list. You can open an issue without running the builder.
    `zip`, and `unzip`:
 
 ```sh
+npm ci --prefix .github --ignore-scripts
+
 node .github/scripts/build.mjs
 node .github/scripts/check.mjs dist/JEOSIF.zip
 node .github/scripts/check.mjs
@@ -61,10 +63,11 @@ application code into this dataset without a compatible license review.
 
 The checks cover malformed input, duplicate IDs/search records, source
 references, required metadata, archive integrity, auxiliary inflection, and
-reproducibility. They do not simulate the clients. After changing structured
-content, test the ZIP in both Yomitan and Naminori and describe the client
-versions and observed behavior in the pull request. Do not commit generated
-ZIPs; Actions attaches them to the run and release.
+reproducibility, official Yomitan schemas, and matching update metadata.
+They do not simulate the clients. After changing structured content, test
+the ZIP in both Yomitan and Naminori and describe the client versions and
+observed behavior in the pull request. Do not commit generated ZIPs; Actions
+attaches them to the run and release.
 
 Use a Conventional Commit title such as
 `fix: correct the register of あざす` or

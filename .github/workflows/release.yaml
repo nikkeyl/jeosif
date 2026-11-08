@@ -49,12 +49,15 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install Dependencies
+        run: npm ci --prefix .github --ignore-scripts
+
       - name: Build and Check Release
         run: |
           VERSION="JEOSIF-${COMMIT::7}"
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
-          node .github/scripts/build.mjs --revision "$VERSION"
+          node .github/scripts/build.mjs --revision "$GITHUB_RUN_NUMBER" --release "$VERSION"
           node .github/scripts/check.mjs dist/JEOSIF.zip
 
           cd dist
@@ -63,9 +66,20 @@ jobs:
       - name: Publish Release
         run: |
           if gh release view "$VERSION" >/dev/null 2>&1; then
-            echo "Release $VERSION already exists."
-            exit 0
+            if [ "$(gh release view "$VERSION" --json isDraft --jq .isDraft)" = false ]; then
+              echo "Release $VERSION already exists."
+              exit 0
+            fi
+
+            gh release upload "$VERSION" dist/JEOSIF.zip dist/JEOSIF.zip.sha256 dist/index.json --clobber
+          else
+            gh release create "$VERSION" dist/JEOSIF.zip dist/JEOSIF.zip.sha256 dist/index.json \
+              --target "$COMMIT" --title "$VERSION" --generate-notes --draft
           fi
 
-          gh release create "$VERSION" dist/JEOSIF.zip dist/JEOSIF.zip.sha256 \
-            --target "$COMMIT" --title "$VERSION" --generate-notes
+          LATEST=false
+          if [ "$(gh api "repos/$GH_REPO/commits/main" --jq .sha)" = "$COMMIT" ]; then
+            LATEST=true
+          fi
+
+          gh release edit "$VERSION" --draft=false --latest="$LATEST"

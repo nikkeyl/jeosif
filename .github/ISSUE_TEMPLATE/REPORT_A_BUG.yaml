@@ -1,0 +1,65 @@
+name: Report a Bug
+description: Report a build, import, update, or rendering problem.
+labels:
+  - 'type: bug'
+assignees:
+  - nikkeyl
+
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for taking the time to file a bug report!
+
+  - type: input
+    id: environment
+    attributes:
+      label: Release and Environment
+      description:
+        Include the JEOSIF revision, client and version, or Node.js version
+        and command.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: What Steps are Needed to Reproduce the Bug?
+      description:
+        Please outline the precise steps needed to replicate the issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expect
+    attributes:
+      label: What Did You Expect to Happen?
+      description: Describe the expected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What Actually Happened?
+      description: Describe what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs or Screenshots
+      description:
+        If applicable, please include any relevant logs or screenshots.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Contribution guidelines
+      options:
+        - label:
+            I have read the [contribution
+            guidelines](https://github.com/nikkeyl/jeosif/blob/main/CONTRIBUTING.md).
+          required: true

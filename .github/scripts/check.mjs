@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { build, load, root, validate } from './build.mjs';
+import { checkSchemas, validateSchema } from './schemas.mjs';
 
 function text(value) {
   if (typeof value === 'string') return value;
@@ -42,7 +43,27 @@ function check(path) {
       encoding: 'utf8',
       maxBuffer: 16 * 1024 * 1024,
     });
+  checkSchemas(names, read);
   const index = JSON.parse(read('index.json'));
+  assert.equal(index.isUpdatable, true, 'Updates must be enabled');
+  assert.equal(
+    index.indexUrl,
+    'https://github.com/nikkeyl/jeosif/releases/latest/download/index.json',
+  );
+  assert(
+    index.downloadUrl.startsWith(
+      'https://github.com/nikkeyl/jeosif/releases/',
+    ),
+    'Unexpected update host',
+  );
+  const publishedIndex = join(dirname(path), 'index.json');
+  if (existsSync(publishedIndex)) {
+    assert.deepEqual(
+      load(publishedIndex),
+      index,
+      'Published index differs from the ZIP',
+    );
+  }
   assert(
     index.format === 3 &&
       index.sourceLanguage === 'ja' &&
@@ -124,14 +145,56 @@ function selfCheck() {
   try {
     const a = join(directory, 'a.zip');
     const b = join(directory, 'b.zip');
-    build(a);
-    build(b);
+    build(a, '1', 'JEOSIF-1111111');
+    build(b, '1', 'JEOSIF-1111111');
     assert.deepEqual(
       readFileSync(a),
       readFileSync(b),
       'Build is not reproducible',
     );
     check(a);
+    const index = load(join(directory, 'index.json'));
+    const missingUrl = { ...index };
+    delete missingUrl.indexUrl;
+    assert.throws(() =>
+      validateSchema('dictionary-index-schema.json', missingUrl),
+    );
+    const invalidTerms = [
+      [
+        'word',
+        'reading',
+        '',
+        '',
+        0,
+        [
+          {
+            type: 'structured-content',
+            content: { tag: 'script', content: 'invalid' },
+          },
+        ],
+        -1,
+        '',
+      ],
+    ];
+    assert.throws(() =>
+      validateSchema('dictionary-term-bank-v3-schema.json', invalidTerms),
+    );
+    build(b, '2', 'JEOSIF-2222222');
+    const updated = load(join(directory, 'index.json'));
+    assert(
+      Number(updated.revision) > Number(index.revision),
+      'Update revision did not increase',
+    );
+    assert.equal(
+      updated.indexUrl,
+      index.indexUrl,
+      'Update index URL must stay stable',
+    );
+    assert(
+      updated.downloadUrl.includes('/JEOSIF-2222222/'),
+      'ZIP must match the indexed release',
+    );
+    check(b);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
