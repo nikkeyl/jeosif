@@ -43,12 +43,14 @@ Choose an edition from the
 | **jeosif-ru.zip** | Russian |
 | **jeosif-en.zip** | English |
 
-After import, the editions appear as **Japanese Everyday Short Forms-RU**
-and **Japanese Everyday Short Forms-EN**. You can install both together;
-each has its own update channel.
+After import, the Russian edition appears as
+**Повседневные сокращения японского языка** and the English edition as
+**Japanese Everyday Short Forms**. You can install both together; each has
+its own update channel.
 
-If you previously installed **JEOSIF** or **JEOSIF-EN**, remove that older
-dictionary and import the ZIP for your language. The new title identifies a
+If you previously installed an edition under a JEOSIF or language-suffixed
+name, remove that older dictionary and import the ZIP for your language.
+The new title identifies a
 separate dictionary.
 
 Keep the ZIP intact; do not extract it or download GitHub's source archive.

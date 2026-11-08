@@ -235,11 +235,11 @@ jobs:
             mkdir -p "$output"
             validate_source data/dictionary.json
             source=data/dictionary.json
-            title="Japanese Everyday Short Forms-RU"
+            title="Повседневные сокращения японского языка"
             archive="jeosif-$language.zip"
             index_asset="index-$language.json"
             if [[ "$language" == en ]]; then
-              title="Japanese Everyday Short Forms-EN"
+              title="Japanese Everyday Short Forms"
               source="$stage/english-source.json"
               jq --slurpfile en data/translations.en.json '
                 $en[0] as $en | .entries |= map(. as $row |
