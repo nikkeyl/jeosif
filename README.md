@@ -29,10 +29,10 @@ All build and validation logic lives directly in
 and push to `main`. Download the dictionary artifact from a successful
 `Check` run to try a change before release.
 
-The workflow installs exact versions of Ajv and its dependencies in the
-runner's temporary directory. It fetches the official Yomitan schemas from a
-pinned commit and verifies their SHA-256 hashes before validation. These
-tools and schemas are not stored in the repository.
+The workflow uses Bash and `jq` to build and check the dictionary. It
+fetches a pinned JSON Schema CLI binary and the official Yomitan schemas
+into the runner's temporary directory, verifying their SHA-256 hashes before
+validation. These tools and schemas are not stored in the repository.
 
 ## Editing the dictionary
 
@@ -88,6 +88,4 @@ Kolobok/Jitendex, and Tatoeba, including source identifiers and changes.
 
 Validation uses the unmodified
 [official Yomitan schemas](https://github.com/yomidevs/yomitan/tree/ee81f8dcf13e985bb4d7961009fb49a764b4d924/ext/data/schemas),
-fetched only while Actions runs. Community templates are adapted from
-[Archoleat](https://github.com/archoleat/.github), with the
-[original MIT notice](LICENSE) preserved.
+fetched only while Actions runs.

@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
 concurrency:
   group: check-${{ github.ref }}
   cancel-in-progress: true
@@ -28,731 +32,298 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set Up Node.js
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
-        with:
-          node-version: 24
-
-      - name: Install Check Dependencies
+      - name: Set Up Schema Validation
         run: |
-          npm install --prefix "$RUNNER_TEMP/jeosif-tools" --no-save --no-package-lock --ignore-scripts \
-            ajv@8.20.0 fast-deep-equal@3.1.3 fast-uri@3.1.9 \
-            json-schema-traverse@1.0.0 require-from-string@2.0.2
+          set -euo pipefail
+          work="$RUNNER_TEMP/jeosif"
+          mkdir -p "$work/tools" "$work/schemas"
+          version=17.2.1
+          curl --fail --location --silent --show-error --retry 3 \
+            "https://github.com/sourcemeta/jsonschema/releases/download/v$version/jsonschema-$version-linux-x86_64-musl.zip" \
+            --output "$work/tools/validator.zip"
+          printf '%s  %s\n' \
+            952c46f8f51a656caf7a0da32d5167c8230b9ad532ad247b77cf842d6f791104 \
+            "$work/tools/validator.zip" | sha256sum --check -
+          unzip -p "$work/tools/validator.zip" '*/bin/jsonschema' > "$work/tools/jsonschema"
+          chmod +x "$work/tools/jsonschema"
+          "$work/tools/jsonschema" version
+
+          schema_commit=ee81f8dcf13e985bb4d7961009fb49a764b4d924
+          while read -r name digest; do
+            curl --fail --location --silent --show-error --retry 3 \
+              "https://raw.githubusercontent.com/yomidevs/yomitan/$schema_commit/ext/data/schemas/$name" \
+              --output "$work/schemas/$name"
+            printf '%s  %s\n' "$digest" "$work/schemas/$name" | sha256sum --check -
+          done <<'SCHEMAS'
+          dictionary-index-schema.json dde43ca9ef1580ab638f49bb13bd7d5c55646afd655ff99cf429492598feb69b
+          dictionary-tag-bank-v3-schema.json 4f537818b3d4be4c40f92c991578f74d73f2239002b608eb10169ab1d63aee0b
+          dictionary-term-bank-v3-schema.json 665904fcaac715a018a7df6b49d3ace08390d614a9da4f62222bce32c8030b87
+          dictionary-term-meta-bank-v3-schema.json 7236ea5627731175c9cb3b2d22785598ae005be050e538f8fa331a6d27262369
+          SCHEMAS
 
       - name: Build and Check Dictionary
         run: |
-          node --input-type=module <<'JS'
-          import assert from 'node:assert/strict';
-          import { createHash } from 'node:crypto';
-          import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync,
-            readFileSync, readdirSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
-          import { tmpdir } from 'node:os';
-          import { dirname, join, resolve } from 'node:path';
-          import { execFileSync } from 'node:child_process';
-          import { createRequire } from 'node:module';
+          set -euo pipefail
+          work="$RUNNER_TEMP/jeosif"
+          validator="$work/tools/jsonschema"
 
-          const root = process.env.GITHUB_WORKSPACE;
-          assert(root, 'GITHUB_WORKSPACE is required');
-          const Ajv = createRequire(join(process.env.RUNNER_TEMP, 'jeosif-tools/package.json'))('ajv');
-          const upstream = {
-            "repository": "https://github.com/yomidevs/yomitan",
-            "commit": "ee81f8dcf13e985bb4d7961009fb49a764b4d924",
-            "license": "GPL-3.0-or-later",
-            "files": {
-              "dictionary-index-schema.json": "dde43ca9ef1580ab638f49bb13bd7d5c55646afd655ff99cf429492598feb69b",
-              "dictionary-tag-bank-v3-schema.json": "4f537818b3d4be4c40f92c991578f74d73f2239002b608eb10169ab1d63aee0b",
-              "dictionary-term-bank-v3-schema.json": "665904fcaac715a018a7df6b49d3ace08390d614a9da4f62222bce32c8030b87",
-              "dictionary-term-meta-bank-v3-schema.json": "7236ea5627731175c9cb3b2d22785598ae005be050e538f8fa331a6d27262369"
-            }
-          };
+          RENDER=$(cat <<'JQ'
+          def stable_unique:
+            reduce .[] as $value ([]; if index($value) == null then . + [$value] else . end);
+          def node($tag; $content): {tag: $tag, content: $content};
+          def marked($tag; $role; $content): node($tag; $content) + {data: {content: $role}};
+          def marker($text): marked("span"; "format-marker"; $text);
+          def example_nodes($text; $head):
+            if (["しちゃう", "読んじゃった", "ちまう", "じゃう"] | index($head)) == null then $text
+            else
+              {"宿題":"しゅくだい", "全部":"ぜんぶ", "同じ":"おなじ", "最後":"さいご",
+               "友達":"ともだち", "日記":"にっき", "残り":"のこり", "大事":"だいじ",
+               "手紙":"てがみ", "約束":"やくそく", "先":"さき", "食":"た", "飲":"の",
+               "読":"よ", "破":"やぶ", "忘":"わす"} as $readings |
+              ($readings | keys_unsorted | sort_by(-length) | join("|")) as $pattern |
+              (reduce ($text | match($pattern; "g")) as $match
+                ({position:0, parts:[]};
+                 .parts += (if $match.offset > .position then [$text[.position:$match.offset]] else [] end)
+                   + [node("ruby"; [$match.string, node("rt"; $readings[$match.string])])] |
+                 .position = ($match.offset + $match.length))) |
+              .parts + (if .position < ($text|length) then [$text[.position:]] else [] end)
+            end;
+          def comparison($r; $v):
+            $r.full != null and $r.full != "" and $r.full_form_status != "word_formation_base" and $r.full != $v.form;
+          def origin($r; $v):
+            if $r.full == null or $r.full == "" then null
+            elif $v.form == $r.full then
+              ([$r.variants[].form | select(. != $r.full)] | stable_unique) as $forms |
+              if ($forms|length) > 0 then "Коротко: " + ($forms|join(" / ")) else null end
+            elif (["しちゃう", "読んじゃった", "ちまう", "じゃう"]|index($r.headword)) != null then "Стяжение " + $r.full
+            elif $r.full_form_status == "word_formation_base" then "Образовано от: " + $r.full
+            elif $r.full_form_status == "standard_counterpart" then "Стандартная форма: " + $r.full
+            else "Сокращение: " + $r.full end;
+          def notes($r; $v):
+            if $r.full_form_status == "not_applicable" and $r.full == null then
+              ["Самостоятельное сленговое " + (if $r.headword == "それな" then "выражение" else "слово" end) + "; полной формы нет."]
+            elif ($r.kolobok_evidence.note // "") != "" and (["ちゃう", "じゃう"]|index($v.form)) != null then [$r.kolobok_evidence.note]
+            elif comparison($r; $v) then [($r.formation_patterns // [])[] | select(contains($v.form))]
+            elif $r.full == $v.form then []
+            else origin($r; $v) as $note | if $note == null then [] else [$note] end end;
+          def usage($r; $v):
+            if $r.id != 1 then $r.context
+            elif $v.form == $r.full then "Вежливая благодарность; подходит для официального общения."
+            elif $v.form == "ありがとう" then "Обычная благодарность близким и знакомым; без вежливого окончания."
+            else "Очень неформальная благодарность в непринуждённой компании. Не подходит для официального общения." end;
+          def example($r; $v; $original):
+            ($original |
+              if $r.id == 1 then . + {example: ("手伝ってくれて、" + $v.form + "。"), example_ru: "Спасибо, что помог."} else . end |
+              if $r.headword == "ちまう" and $v.form == "ちゃう" and (.meaning|contains("непреднамеренно") or contains("ненамеренно")) then
+                . + {example:"約束を忘れちゃった。", example_ru:"Позабыл об обещании."} else . end |
+              if $r.headword == "ちまう" and $v.form == "ちまう" and (.meaning|contains("завершить")) then
+                . + {example:"先に食べちまうぞ。", example_ru:"Я сейчас всё съем."} else . end) as $sense |
+            if $sense.example_node != null and $sense.example_node != false then [$sense, $sense.example_node]
+            else ($sense.example // "") as $jp |
+              (if ($jp|contains($v.form)|not) and ($v.form|endswith("う")) then $v.form[0:-1] + "った" else $v.form end) as $needle |
+              (if $needle != "" and ($jp|contains($needle)) then ($jp|split($needle)[0]|length) else null end) as $position |
+              [$sense, (if $position == null then example_nodes($jp; $r.headword)
+                else [example_nodes($jp[0:$position]; $r.headword),
+                  marked("span"; "example-keyword"; example_nodes($needle; $r.headword)),
+                  example_nodes($jp[($position + ($needle|length)):]; $r.headword)] end)]
+            end;
+          def marked_keywords:
+            if type == "array" then map(marked_keywords)
+            elif type != "object" then .
+            else .content = ((.content // "") | marked_keywords) |
+              if .data.content == "example-keyword" then .content = [marker("<g>"), .content, marker("</g>")] else . end end;
+          def render($r; $v):
+            [($r.senses | to_entries[]) as $item |
+              marked("div"; "sense"; [marked("span"; "sense-number"; (($item.key + 1|tostring) + ". ")),
+                (node("span"; $item.value.meaning) + {lang:"ru"})]),
+              (if $item.key == 0 then
+                (if comparison($r; $v) then ["※ " + $r.full + " → " + $v.form] else [] end) as $comp |
+                ($comp + [notes($r; $v)[] as $note | select(($comp|index("※ " + $note)) == null) | "※ " + $note])[] |
+                marked("div"; "sense-note"; [marker("※ "), node("span"; .[2:])])
+               else empty end),
+              (example($r; $v; $item.value) as [$sense, $jp] |
+                if ($sense.example // "") != "" then
+                  marked("div"; "example-sentence"; [
+                    (marked("span"; "example-sentence-a"; ($jp|marked_keywords)) + {lang:"ja"}),
+                    marker(" ∥ "), (marked("span"; "example-sentence-b"; $sense.example_ru) + {lang:"ru"})])
+                else empty end)] as $content |
+            {type:"structured-content", content:marked("div"; "jeosif-article";
+              $content + [marked("div"; "sense-note"; [marker("※ "), node("span"; usage($r; $v))])])};
+          def indexed_forms($r):
+            (if $r.full != null and $r.full != "" and $r.full_form_status != "word_formation_base"
+             then [{form:$r.full, reading:$r.reading}] else [] end) + $r.variants;
+          reduce (.entries[] as $r | indexed_forms($r)[] as $v |
+              $r.search_metadata[$v.form] as $meta |
+              ([$v.form, $v.reading] | stable_unique)[] as $expression |
+              {key:([$expression, $v.reading]|tojson), family:$r.id,
+               term:[$expression, $v.reading, ($meta.tags|join(" ")), $meta.rules, 0,
+                 [render($r; $v + {form:$expression})], -1, $meta.priority]}) as $item
+            ({order:[], terms:{}, families:{}};
+             $item.key as $key |
+             if .terms[$key] == null then
+               .order += [$key] | .terms[$key] = $item.term | .families[$key] = [$item.family]
+             elif (.families[$key]|index($item.family)) == null then
+               .terms[$key][5] += $item.term[5] | .families[$key] += [$item.family]
+             else . end) |
+          [.order[] as $key | .terms[$key]]
+          JQ
+          )
 
+          VALIDATE=$(cat <<'JQ'
+          . as $source |
+          ($tags[0] | map(.[0])) as $known_tags |
+          .title == "JEOSIF" and .license == "CC BY-SA 4.0" and
+          (.entries | length > 0) and
+          ([.entries[].id] | length == (unique|length)) and
+          all(.entries[]; . as $row |
+            (.id | type == "number" and floor == .) and
+            (.sources | length > 0) and all(.sources[]; . as $key | $source.sources | has($key)) and
+            (.senses | length > 0) and (.variants | length > 0) and
+            (.full_form_status != "not_applicable" or .full == null) and
+            all(.senses[];
+              (.meaning | type == "string" and test("\\S")) and
+              (((.example // "") != "") == ((.example_ru // "") != ""))) and
+            all(((if .full != null and .full != "" and .full_form_status != "word_formation_base"
+                  then [{form:.full, reading:.reading}] else [] end) + .variants)[];
+              (.form|type == "string" and length > 0) and (.reading|type == "string" and length > 0) and
+              $row.search_metadata[.form] as $meta |
+              all($meta.tags[]; . as $tag | $known_tags | index($tag) != null) and
+              (["", "v5u"] | index($meta.rules) != null))) and
+          all(.sources[]; .url | type == "string" and test("^https?://"))
+          JQ
+          )
 
-          // Shared Yomitan structured content and Naminori text markers.
-          const node = (tag, content, attributes = {}) => ({
-            tag,
-            content,
-            ...attributes,
-          });
-          const marked = (tag, role, content, attributes = {}) =>
-            node(tag, content, { data: { content: role }, ...attributes });
-          const marker = (text) => marked('span', 'format-marker', text);
+          VERIFY=$(cat <<'JQ'
+          def text:
+            if type == "string" then .
+            elif type == "array" then map(text) | join("")
+            elif type == "object" then (.content // "") | text
+            else "" end;
+          def key: .[0:2] | tojson;
+          $terms[0] as $terms | $source[0] as $source |
+          ($terms | map(key)) as $keys |
+          ($terms|length > 0) and ($keys|length == (unique|length)) and
+          all($terms[]; length == 8 and (.[0]|length > 0) and (.[1]|length > 0) and
+            (.[5]|length > 0) and all(.[5][]; .type == "structured-content" and (text|test("\\S")))) and
+          all($source.entries[]; . as $row |
+            all(.variants[]; [ .form, .reading ] | tojson | . as $key | $keys | index($key) != null) and
+            (if .full_form_status == "not_applicable" then
+              any($terms[]; .[0] == $row.headword and (.[5]|text|contains("полной формы нет")))
+             else true end)) and
+          all(["ちゃう", "じゃう", "ちまう", "しちゃう"][];
+            . as $word | any($terms[]; .[0] == $word and .[3] == "v5u")) and
+          ([$source.pronunciations[]|[.expression,.reading]|tojson] | length == (unique|length)) and
+          all($source.pronunciations[];
+            . as $pitch | ([.expression,.reading]|tojson) as $key |
+            (.reading | explode | to_entries |
+              map(select(.key == 0 or (([.value]|implode) as $char | "ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ"|contains($char)|not))) |
+              length) as $morae |
+            ($keys|index($key) != null) and .source == "kanjium" and
+            (.positions|length > 0) and all(.positions[]; type == "number" and floor == . and . >= 0 and . <= $morae))
+          JQ
+          )
 
-          function exampleNodes(text, headword) {
-            if (
-              !['しちゃう', '読んじゃった', 'ちまう', 'じゃう'].includes(headword)
-            ) {
-              return text;
-            }
-            const readings = {
-              宿題: 'しゅくだい',
-              全部: 'ぜんぶ',
-              同じ: 'おなじ',
-              最後: 'さいご',
-              友達: 'ともだち',
-              日記: 'にっき',
-              残り: 'のこり',
-              大事: 'だいじ',
-              手紙: 'てがみ',
-              約束: 'やくそく',
-              先: 'さき',
-              食: 'た',
-              飲: 'の',
-              読: 'よ',
-              破: 'やぶ',
-              忘: 'わす',
-            };
-            const pattern = new RegExp(
-              `(${Object.keys(readings)
-                .sort((a, b) => b.length - a.length)
-                .join('|')})`,
-            );
-            return text
-              .split(pattern)
-              .filter(Boolean)
-              .map((part) =>
-                readings[part]
-                  ? node('ruby', [part, node('rt', readings[part])])
-                  : part,
-              );
+          validate_source() {
+            jq -e --slurpfile tags data/tag_bank_1.json "$VALIDATE" "$1" >/dev/null
           }
 
-          function origin(row, variant) {
-            if (!row.full) return null;
-            if (variant.form === row.full) {
-              const forms = [
-                ...new Set(
-                  row.variants.map((v) => v.form).filter((f) => f !== row.full),
-                ),
-              ];
-              return forms.length ? `Коротко: ${forms.join(' / ')}` : null;
-            }
-            if (
-              ['しちゃう', '読んじゃった', 'ちまう', 'じゃう'].includes(row.headword)
-            ) {
-              return `Стяжение ${row.full}`;
-            }
-            if (row.full_form_status === 'word_formation_base')
-              return `Образовано от: ${row.full}`;
-            if (row.full_form_status === 'standard_counterpart')
-              return `Стандартная форма: ${row.full}`;
-            return `Сокращение: ${row.full}`;
+          build() {
+            local output="$1" revision="$2" release="$3"
+            local stage name family_count term_count
+            stage=$(mktemp -d "$work/build.XXXXXX")
+            mkdir -p "$output"
+            validate_source data/dictionary.json
+            jq "$RENDER" data/dictionary.json > "$stage/term_bank_1.json"
+            jq -e -n --slurpfile terms "$stage/term_bank_1.json" \
+              --slurpfile source data/dictionary.json "$VERIFY" >/dev/null
+            jq '[.pronunciations[] | [.expression, "pitch", {reading, pitches:[.positions[] | {position:.}]}]]' \
+              data/dictionary.json > "$stage/term_meta_bank_1.json"
+            family_count=$(jq '.entries|length' data/dictionary.json)
+            term_count=$(jq 'length' "$stage/term_bank_1.json")
+            [[ "$revision" =~ ^[0-9]+$ && "$release" =~ ^JEOSIF-[0-9a-f]{7,40}$ ]]
+            jq --arg revision "$revision" --arg release "$release" \
+              --arg description "$family_count families; $term_count search records. Japanese contractions, colloquial forms and slang with Russian explanations." \
+              '.revision=$revision | .description=$description | .url="https://github.com/nikkeyl/jeosif" |
+               .downloadUrl=(.url + "/releases/download/" + $release + "/JEOSIF.zip")' \
+              data/index.json > "$stage/index.json"
+            cp data/tag_bank_1.json "$stage/tag_bank_1.json"
+            cp data/dictionary.json "$stage/SOURCES.json"
+            cp data/styles.css "$stage/styles.css"
+            jq '.pronunciation_audit' data/dictionary.json > "$stage/pronunciation-audit.json"
+            cp licenses/* ATTRIBUTION.md LICENSE DATA-LICENSE.md "$stage/"
+            printf 'JEOSIF %s\n%s families; %s search records.\n\n' "$revision" "$family_count" "$term_count" > "$stage/README.txt"
+            cat >> "$stage/README.txt" <<'IMPORT'
+          Import JEOSIF.zip using the dictionary import screen in Yomitan or Naminori.
+          Audio comes from the client; this archive contains no recordings.
+          A missing pitch accent is unknown, not necessarily accent [0].
+          This AI-assisted collection still needs linguistic review.
+
+          See ATTRIBUTION.md and DATA-LICENSE.md for credits and reuse terms.
+          Source and corrections: https://github.com/nikkeyl/jeosif
+          IMPORT
+            for name in index term-bank term-meta-bank tag-bank; do
+              case "$name" in
+                index) schema=dictionary-index-schema.json; file=index.json ;;
+                term-bank) schema=dictionary-term-bank-v3-schema.json; file=term_bank_1.json ;;
+                term-meta-bank) schema=dictionary-term-meta-bank-v3-schema.json; file=term_meta_bank_1.json ;;
+                tag-bank) schema=dictionary-tag-bank-v3-schema.json; file=tag_bank_1.json ;;
+              esac
+              "$validator" validate "$work/schemas/$schema" "$stage/$file"
+            done
+            jq -e --arg release "$release" --arg revision "$revision" '
+              .title == "JEOSIF" and .format == 3 and .sourceLanguage == "ja" and .targetLanguage == "ru" and
+              .isUpdatable == true and .revision == $revision and
+              .indexUrl == "https://github.com/nikkeyl/jeosif/releases/latest/download/index.json" and
+              .downloadUrl == ("https://github.com/nikkeyl/jeosif/releases/download/" + $release + "/JEOSIF.zip")' \
+              "$stage/index.json" >/dev/null
+            grep -q 'format-marker' "$stage/styles.css"
+            chmod 644 "$stage"/*
+            TZ=UTC touch -t 198001010000.00 "$stage"/*
+            local files=()
+            while IFS= read -r name; do files+=("$name"); done < <(cd "$stage"; printf '%s\n' * | LC_ALL=C sort)
+            rm -f "$output/JEOSIF.zip"
+            (cd "$stage"; TZ=UTC zip -X -q -9 "$output/JEOSIF.zip" "${files[@]}")
+            cp "$stage/index.json" "$output/index.json"
+            (cd "$output"; sha256sum JEOSIF.zip > JEOSIF.zip.sha256)
+            unzip -t "$output/JEOSIF.zip" >/dev/null
+            if unzip -Z1 "$output/JEOSIF.zip" | grep -Eq '[/\\]'; then
+              echo 'Unexpected path inside dictionary ZIP' >&2
+              return 1
+            fi
+            unzip -p "$output/JEOSIF.zip" index.json | cmp - "$output/index.json"
+            echo "PASS: $family_count families, $term_count unique search records, sources, pitch accents and official schemas"
+            rm -rf "$stage"
           }
 
-          function comparison(row, variant) {
-            return Boolean(
-              row.full &&
-              row.full_form_status !== 'word_formation_base' &&
-              row.full !== variant.form,
-            );
-          }
+          # Guard the source contract against invalid contributions.
+          for mutation in '.entries += [.entries[0]]' '.entries[0].sources=["missing-source"]' '.entries[0].senses[0].meaning=""'; do
+            jq "$mutation" data/dictionary.json > "$work/invalid-source.json"
+            if validate_source "$work/invalid-source.json" 2>/dev/null; then
+              echo 'Invalid source was accepted' >&2
+              exit 1
+            fi
+          done
 
-          function notes(row, variant) {
-            if (row.full_form_status === 'not_applicable' && !row.full) {
-              const kind = row.headword === 'それな' ? 'выражение' : 'слово';
-              return [`Самостоятельное сленговое ${kind}; полной формы нет.`];
-            }
-            if (
-              row.kolobok_evidence?.note &&
-              ['ちゃう', 'じゃう'].includes(variant.form)
-            ) {
-              return [row.kolobok_evidence.note];
-            }
-            if (comparison(row, variant)) {
-              return (row.formation_patterns ?? []).filter((p) =>
-                p.includes(variant.form),
-              );
-            }
-            const value = row.full === variant.form ? null : origin(row, variant);
-            return value ? [value] : [];
-          }
+          # Repeated builds must be byte-identical for the same version and release.
+          build "$work/first" 1 JEOSIF-1111111
+          build "$work/second" 1 JEOSIF-1111111
+          cmp "$work/first/JEOSIF.zip" "$work/second/JEOSIF.zip"
 
-          function usage(row, variant) {
-            if (row.id !== 1) return row.context;
-            if (variant.form === row.full)
-              return 'Вежливая благодарность; подходит для официального общения.';
-            if (variant.form === 'ありがとう')
-              return 'Обычная благодарность близким и знакомым; без вежливого окончания.';
-            return 'Очень неформальная благодарность в непринуждённой компании. Не подходит для официального общения.';
-          }
+          jq 'del(.indexUrl)' "$work/first/index.json" > "$work/invalid-index.json"
+          "$validator" validate "$work/schemas/dictionary-index-schema.json" "$work/invalid-index.json" --invalid
+          printf '%s\n' '[["word","reading","","",0,[{"type":"structured-content","content":{"tag":"script","content":"invalid"}}],-1,""]]' \
+            > "$work/invalid-terms.json"
+          "$validator" validate "$work/schemas/dictionary-term-bank-v3-schema.json" "$work/invalid-terms.json" --invalid
+          build "$work/second" 2 JEOSIF-2222222
+          jq -e -n --slurpfile previous "$work/first/index.json" --slurpfile next "$work/second/index.json" '
+            ($next[0].revision|tonumber) > ($previous[0].revision|tonumber) and
+            $next[0].indexUrl == $previous[0].indexUrl and
+            ($next[0].downloadUrl|contains("/JEOSIF-2222222/"))' >/dev/null
 
-          function example(row, variant, original) {
-            const sense = { ...original };
-            if (row.id === 1) {
-              sense.example = `手伝ってくれて、${variant.form}。`;
-              sense.example_ru = 'Спасибо, что помог.';
-            }
-            if (
-              row.headword === 'ちまう' &&
-              variant.form === 'ちゃう' &&
-              ['непреднамеренно', 'ненамеренно'].some((word) =>
-                sense.meaning.includes(word),
-              )
-            ) {
-              sense.example = '約束を忘れちゃった。';
-              sense.example_ru = 'Позабыл об обещании.';
-            }
-            if (
-              row.headword === 'ちまう' &&
-              variant.form === 'ちまう' &&
-              sense.meaning.includes('завершить')
-            ) {
-              sense.example = '先に食べちまうぞ。';
-              sense.example_ru = 'Я сейчас всё съем.';
-            }
-            if (sense.example_node) return [sense, sense.example_node];
-            const japanese = sense.example ?? '';
-            let needle = variant.form;
-            if (!japanese.includes(needle) && needle.endsWith('う'))
-              needle = `${needle.slice(0, -1)}った`;
-            const position = needle ? japanese.indexOf(needle) : -1;
-            if (position < 0) return [sense, exampleNodes(japanese, row.headword)];
-            return [
-              sense,
-              [
-                exampleNodes(japanese.slice(0, position), row.headword),
-                marked('span', 'example-keyword', exampleNodes(needle, row.headword)),
-                exampleNodes(japanese.slice(position + needle.length), row.headword),
-              ],
-            ];
-          }
-
-          function markedKeywords(value) {
-            if (Array.isArray(value)) return value.map(markedKeywords);
-            if (!value || typeof value !== 'object') return value;
-            const result = { ...value, content: markedKeywords(value.content ?? '') };
-            if (value.data?.content === 'example-keyword') {
-              result.content = [marker('<g>'), result.content, marker('</g>')];
-            }
-            return result;
-          }
-
-          function render(row, variant) {
-            const content = [];
-            row.senses.forEach((original, index) => {
-              content.push(
-                marked('div', 'sense', [
-                  marked('span', 'sense-number', `${index + 1}. `),
-                  node('span', original.meaning, { lang: 'ru' }),
-                ]),
-              );
-              if (index === 0) {
-                const comparisons = comparison(row, variant)
-                  ? [`※ ${row.full} → ${variant.form}`]
-                  : [];
-                const lines = [
-                  ...comparisons,
-                  ...notes(row, variant)
-                    .filter((note) => !comparisons.includes(`※ ${note}`))
-                    .map((note) => `※ ${note}`),
-                ];
-                for (const line of lines) {
-                  content.push(
-                    marked('div', 'sense-note', [
-                      marker('※ '),
-                      node('span', line.slice(2)),
-                    ]),
-                  );
-                }
-              }
-              const [sense, japanese] = example(row, variant, original);
-              if (sense.example) {
-                content.push(
-                  marked('div', 'example-sentence', [
-                    marked('span', 'example-sentence-a', markedKeywords(japanese), {
-                      lang: 'ja',
-                    }),
-                    marker(' ∥ '),
-                    marked('span', 'example-sentence-b', sense.example_ru, {
-                      lang: 'ru',
-                    }),
-                  ]),
-                );
-              }
-            });
-            content.push(
-              marked('div', 'sense-note', [
-                marker('※ '),
-                node('span', usage(row, variant)),
-              ]),
-            );
-            return {
-              type: 'structured-content',
-              content: marked('div', 'jeosif-article', content),
-            };
-          }
-
-          const load = (path) => JSON.parse(readFileSync(path, 'utf8'));
-          const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
-
-          function validate(source, tags) {
-            assert.equal(source.title, 'JEOSIF', 'Unexpected dictionary title');
-            assert.equal(
-              source.license,
-              'CC BY-SA 4.0',
-              'Keep the dictionary data license',
-            );
-            assert(source.entries.length, 'The dictionary must not be empty');
-            const ids = new Set();
-            for (const row of source.entries) {
-              const label = `Entry ${row.id} (${row.headword})`;
-              assert(!ids.has(row.id), `${label}: duplicate ID`);
-              ids.add(row.id);
-              assert(
-                row.sources.length &&
-                  row.sources.every((key) => Object.hasOwn(source.sources, key)),
-                `${label}: provide valid sources`,
-              );
-              assert(
-                row.senses.length && row.variants.length,
-                `${label}: provide meanings and forms`,
-              );
-              assert(
-                row.full_form_status !== 'not_applicable' || row.full === null,
-                `${label}: independent slang has no expanded form`,
-              );
-              for (const sense of row.senses) {
-                assert(
-                  typeof sense.meaning === 'string' && sense.meaning.trim(),
-                  `${label}: empty meaning`,
-                );
-                assert.equal(
-                  Boolean(sense.example),
-                  Boolean(sense.example_ru),
-                  `${label}: incomplete example`,
-                );
-              }
-              const forms = [...row.variants];
-              if (row.full && row.full_form_status !== 'word_formation_base') {
-                forms.push({ form: row.full, reading: row.reading });
-              }
-              for (const variant of forms) {
-                assert(variant.form && variant.reading, `${label}: empty form`);
-                const metadata = row.search_metadata[variant.form];
-                assert(
-                  metadata.tags.every((tag) => tags.has(tag)),
-                  `${label}: undefined tag`,
-                );
-                assert(
-                  ['', 'v5u'].includes(metadata.rules),
-                  `${label}: unsupported inflection rule`,
-                );
-              }
-            }
-            for (const reference of Object.values(source.sources)) {
-              assert(
-                /^https?:\/\//.test(reference.url),
-                'Source URLs must use HTTP(S)',
-              );
-            }
-          }
-
-          function termBank(source) {
-            const terms = new Map();
-            const families = new Map();
-            for (const row of source.entries) {
-              const forms = [...row.variants];
-              if (row.full && row.full_form_status !== 'word_formation_base') {
-                forms.unshift({
-                  form: row.full,
-                  reading: row.reading,
-                  romaji: row.romaji,
-                  register: 'полная / стандартная форма',
-                });
-              }
-              for (const variant of forms) {
-                const metadata = row.search_metadata[variant.form];
-                for (const expression of new Set([variant.form, variant.reading])) {
-                  const key = JSON.stringify([expression, variant.reading]);
-                  const card = render(row, { ...variant, form: expression });
-                  if (!terms.has(key)) {
-                    terms.set(key, [
-                      expression,
-                      variant.reading,
-                      metadata.tags.join(' '),
-                      metadata.rules,
-                      0,
-                      [card],
-                      -1,
-                      metadata.priority,
-                    ]);
-                    families.set(key, new Set([row.id]));
-                  } else if (!families.get(key).has(row.id)) {
-                    terms.get(key)[5].push(card);
-                    families.get(key).add(row.id);
-                  }
-                }
-              }
-            }
-            return [...terms.values()];
-          }
-
-          function pitchBank(source, terms) {
-            const keys = new Set(
-              terms.map((term) => JSON.stringify(term.slice(0, 2))),
-            );
-            const seen = new Set();
-            return source.pronunciations.map((pitch) => {
-              const key = JSON.stringify([pitch.expression, pitch.reading]);
-              assert(keys.has(key) && !seen.has(key), `Invalid pitch record: ${key}`);
-              seen.add(key);
-              assert.equal(
-                pitch.source,
-                'kanjium',
-                `Unattributed pitch record: ${key}`,
-              );
-              const morae = [...pitch.reading].filter(
-                (char, index) =>
-                  !'ゃゅょぁぃぅぇぉゎャュョァィゥェォヮ'.includes(char) ||
-                  index === 0,
-              ).length;
-              assert(
-                pitch.positions.length &&
-                  pitch.positions.every(
-                    (p) => Number.isInteger(p) && p >= 0 && p <= morae,
-                  ),
-                `Invalid accent: ${key}`,
-              );
-              return [
-                pitch.expression,
-                'pitch',
-                {
-                  reading: pitch.reading,
-                  pitches: pitch.positions.map((position) => ({ position })),
-                },
-              ];
-            });
-          }
-
-          function build(
-            destination = join(root, 'dist/JEOSIF.zip'),
-            revision,
-            release,
-          ) {
-            destination = resolve(destination);
-            const source = load(join(root, 'data/dictionary.json'));
-            const tags = load(join(root, 'data/tag_bank_1.json'));
-            validate(source, new Set(tags.map((tag) => tag[0])));
-            const terms = termBank(source);
-            const index = load(join(root, 'data/index.json'));
-            index.revision = revision ?? index.revision;
-            assert(/^[A-Za-z0-9._-]+$/.test(index.revision), 'Unsafe revision');
-            index.description =
-              `${source.entries.length} families; ${terms.length} search records. ` +
-              'Japanese contractions, colloquial forms and slang with Russian explanations.';
-            index.url = 'https://github.com/nikkeyl/jeosif';
-            if (release) {
-              assert(/^JEOSIF-[a-f0-9]{7,40}$/.test(release), 'Unsafe release tag');
-              assert(
-                /^\d+$/.test(index.revision),
-                'Release revisions must be numeric and increasing',
-              );
-              index.downloadUrl = `${index.url}/releases/download/${release}/JEOSIF.zip`;
-            }
-            const files = {
-              'index.json': json(index),
-              'term_bank_1.json': json(terms),
-              'tag_bank_1.json': json(tags),
-              'term_meta_bank_1.json': json(pitchBank(source, terms)),
-              'SOURCES.json': json(source),
-              'pronunciation-audit.json': json(source.pronunciation_audit),
-              'styles.css': readFileSync(join(root, 'data/styles.css')),
-              'README.txt':
-                `JEOSIF ${index.revision}\n${source.entries.length} families; ${terms.length} search records.\n\n` +
-                'Import JEOSIF.zip using the dictionary import screen in Yomitan or Naminori.\n' +
-                'Audio comes from the client; this archive contains no recordings.\n' +
-                'A missing pitch accent is unknown, not necessarily accent [0].\n' +
-                'This AI-assisted collection still needs linguistic review.\n\n' +
-                'See ATTRIBUTION.md and DATA-LICENSE.md for credits and reuse terms.\n' +
-                'Source and corrections: https://github.com/nikkeyl/jeosif\n',
-            };
-            for (const name of readdirSync(join(root, 'licenses'))) {
-              files[name] = readFileSync(join(root, 'licenses', name));
-            }
-            for (const name of ['ATTRIBUTION.md', 'LICENSE', 'DATA-LICENSE.md']) {
-              files[name] = readFileSync(join(root, name));
-            }
-            const directory = mkdtempSync(join(tmpdir(), 'jeosif-build-'));
-            try {
-              for (const [name, content] of Object.entries(files)) {
-                const path = join(directory, name);
-                writeFileSync(path, content);
-                chmodSync(path, 0o644);
-                utimesSync(
-                  path,
-                  new Date('1980-01-01T00:00:00Z'),
-                  new Date('1980-01-01T00:00:00Z'),
-                );
-              }
-              // Info-ZIP is supplied by the Actions runner; -X excludes host-specific extra fields.
-              execFileSync(
-                'zip',
-                ['-X', '-q', '-9', 'JEOSIF.zip', ...Object.keys(files).sort()],
-                { cwd: directory, env: { ...process.env, TZ: 'UTC' } },
-              );
-              mkdirSync(dirname(destination), { recursive: true });
-              copyFileSync(join(directory, 'JEOSIF.zip'), destination);
-            } finally {
-              rmSync(directory, { recursive: true, force: true });
-            }
-            writeFileSync(join(dirname(destination), 'index.json'), json(index));
-            const digest = createHash('sha256')
-              .update(readFileSync(destination))
-              .digest('hex');
-            writeFileSync(
-              `${destination}.sha256`,
-              `${digest}  ${destination.split(/[\\/]/).at(-1)}\n`,
-            );
-            console.log(
-              `Built ${destination}: ${source.entries.length} families, ${terms.length} records`,
-            );
-            return terms;
-          }
-
-
-          // Official schemas use valid draft-07 constructs outside Ajv's optional strict subset.
-          const ajv = new Ajv({ strict: false, allErrors: true });
-          const validators = new Map();
-          for (const [name, digest] of Object.entries(upstream.files)) {
-            const response = await fetch(`https://raw.githubusercontent.com/yomidevs/yomitan/${upstream.commit}/ext/data/schemas/${name}`);
-            assert(response.ok, `Cannot fetch official schema ${name}: ${response.status}`);
-            const bytes = Buffer.from(await response.arrayBuffer());
-            assert.equal(
-              createHash('sha256').update(bytes).digest('hex'),
-              digest,
-              `Changed official schema: ${name}; refresh upstream.json with the source commit`,
-            );
-            validators.set(name, ajv.compile(JSON.parse(bytes)));
-          }
-
-          function validateSchema(name, value) {
-            const validate = validators.get(name);
-            assert(validate, `Unknown official schema: ${name}`);
-            assert(
-              validate(value),
-              `${name}: ${ajv.errorsText(validate.errors, { separator: '\n' })}`,
-            );
-          }
-
-          function checkSchemas(names, read) {
-            for (const name of names) {
-              let schema;
-              if (name === 'index.json') schema = 'dictionary-index-schema.json';
-              else if (/^term_bank_\d+\.json$/.test(name))
-                schema = 'dictionary-term-bank-v3-schema.json';
-              else if (/^term_meta_bank_\d+\.json$/.test(name))
-                schema = 'dictionary-term-meta-bank-v3-schema.json';
-              else if (/^tag_bank_\d+\.json$/.test(name))
-                schema = 'dictionary-tag-bank-v3-schema.json';
-              if (schema) validateSchema(schema, JSON.parse(read(name)));
-            }
-            console.log(
-              `PASS: official Yomitan schemas at ${upstream.commit.slice(0, 12)}`,
-            );
-          }
-
-          function text(value) {
-            if (typeof value === 'string') return value;
-            if (Array.isArray(value)) return value.map(text).join('');
-            return value && typeof value === 'object'
-              ? text(value.content ?? '')
-              : '';
-          }
-
-          function check(path) {
-            path = resolve(path);
-            execFileSync('unzip', ['-t', path], { stdio: 'pipe' });
-            const names = execFileSync('unzip', ['-Z1', path], { encoding: 'utf8' })
-              .trim()
-              .split('\n');
-            assert(
-              names.every((name) => !/[\\/]/.test(name)),
-              'Unexpected archive path',
-            );
-            for (const name of [
-              'index.json',
-              'term_bank_1.json',
-              'term_meta_bank_1.json',
-              'tag_bank_1.json',
-              'SOURCES.json',
-              'ATTRIBUTION.md',
-              'DATA-LICENSE.md',
-              'CC-BY-SA-4.0.txt',
-              'KANJIUM-LICENSE.txt',
-              'EDRDG-LICENCE.html',
-            ]) {
-              assert(names.includes(name), `Missing ${name}`);
-            }
-            const read = (name) =>
-              execFileSync('unzip', ['-p', path, name], {
-                encoding: 'utf8',
-                maxBuffer: 16 * 1024 * 1024,
-              });
-            checkSchemas(names, read);
-            const index = JSON.parse(read('index.json'));
-            assert.equal(index.isUpdatable, true, 'Updates must be enabled');
-            assert.equal(
-              index.indexUrl,
-              'https://github.com/nikkeyl/jeosif/releases/latest/download/index.json',
-            );
-            assert(
-              index.downloadUrl.startsWith(
-                'https://github.com/nikkeyl/jeosif/releases/',
-              ),
-              'Unexpected update host',
-            );
-            const publishedIndex = join(dirname(path), 'index.json');
-            if (existsSync(publishedIndex)) {
-              assert.deepEqual(
-                load(publishedIndex),
-                index,
-                'Published index differs from the ZIP',
-              );
-            }
-            assert(
-              index.format === 3 &&
-                index.sourceLanguage === 'ja' &&
-                index.targetLanguage === 'ru',
-              'Unexpected dictionary format/languages',
-            );
-            const terms = JSON.parse(read('term_bank_1.json'));
-            const source = JSON.parse(read('SOURCES.json'));
-            const keys = new Set(
-              terms.map((term) => JSON.stringify(term.slice(0, 2))),
-            );
-            assert.equal(keys.size, terms.length, 'Duplicate search records');
-            for (const term of terms) {
-              assert(
-                term.length === 8 && term[0] && term[1] && term[5].length,
-                'Malformed term',
-              );
-              assert(
-                term[5].every(
-                  (g) => g.type === 'structured-content' && text(g).trim(),
-                ),
-                `Empty glossary: ${term[0]}`,
-              );
-            }
-            for (const row of source.entries) {
-              assert(
-                row.variants.every((v) =>
-                  keys.has(JSON.stringify([v.form, v.reading])),
-                ),
-                `Missing search variant: ${row.headword}`,
-              );
-              if (row.full_form_status === 'not_applicable') {
-                assert(
-                  text(terms.find((t) => t[0] === row.headword)?.[5]).includes(
-                    'полной формы нет',
-                  ),
-                  `Invented expansion: ${row.headword}`,
-                );
-              }
-            }
-            for (const word of ['ちゃう', 'じゃう', 'ちまう', 'しちゃう']) {
-              assert.equal(
-                terms.find((term) => term[0] === word)?.[3],
-                'v5u',
-                `Lost auxiliary inflection: ${word}`,
-              );
-            }
-            assert(
-              read('styles.css').includes('format-marker'),
-              'Lost client markers',
-            );
-            console.log(
-              `PASS: ZIP, metadata, ${terms.length} unique records, variant coverage, inflection and attribution`,
-            );
-          }
-
-          function selfCheck() {
-            const source = load(join(root, 'data/dictionary.json'));
-            const tags = new Set(
-              load(join(root, 'data/tag_bank_1.json')).map((tag) => tag[0]),
-            );
-            for (const mutate of [
-              (s) => s.entries.push(structuredClone(s.entries[0])),
-              (s) => {
-                s.entries[0].sources = ['missing-source'];
-              },
-              (s) => {
-                s.entries[0].senses[0].meaning = '';
-              },
-            ]) {
-              const broken = structuredClone(source);
-              mutate(broken);
-              assert.throws(
-                () => validate(broken, tags),
-                'Invalid source was accepted',
-              );
-            }
-            const directory = mkdtempSync(join(tmpdir(), 'jeosif-check-'));
-            try {
-              const a = join(directory, 'a.zip');
-              const b = join(directory, 'b.zip');
-              build(a, '1', 'JEOSIF-1111111');
-              build(b, '1', 'JEOSIF-1111111');
-              assert.deepEqual(
-                readFileSync(a),
-                readFileSync(b),
-                'Build is not reproducible',
-              );
-              check(a);
-              const index = load(join(directory, 'index.json'));
-              const missingUrl = { ...index };
-              delete missingUrl.indexUrl;
-              assert.throws(() =>
-                validateSchema('dictionary-index-schema.json', missingUrl),
-              );
-              const invalidTerms = [
-                [
-                  'word',
-                  'reading',
-                  '',
-                  '',
-                  0,
-                  [
-                    {
-                      type: 'structured-content',
-                      content: { tag: 'script', content: 'invalid' },
-                    },
-                  ],
-                  -1,
-                  '',
-                ],
-              ];
-              assert.throws(() =>
-                validateSchema('dictionary-term-bank-v3-schema.json', invalidTerms),
-              );
-              build(b, '2', 'JEOSIF-2222222');
-              const updated = load(join(directory, 'index.json'));
-              assert(
-                Number(updated.revision) > Number(index.revision),
-                'Update revision did not increase',
-              );
-              assert.equal(
-                updated.indexUrl,
-                index.indexUrl,
-                'Update index URL must stay stable',
-              );
-              assert(
-                updated.downloadUrl.includes('/JEOSIF-2222222/'),
-                'ZIP must match the indexed release',
-              );
-              check(b);
-            } finally {
-              rmSync(directory, { recursive: true, force: true });
-            }
-            console.log(
-              'PASS: invalid contributions rejected; repeated builds are byte-identical',
-            );
-          }
-
-          selfCheck();
-          const release = `JEOSIF-${process.env.GITHUB_SHA.slice(0, 7)}`;
-          const revision = process.env.GITHUB_EVENT_NAME === 'push' ? process.env.GITHUB_RUN_NUMBER : '0';
-          build(join(root, 'dist/JEOSIF.zip'), revision, release);
-          check(join(root, 'dist/JEOSIF.zip'));
-          JS
+          revision=0
+          if [[ "$GITHUB_EVENT_NAME" == push ]]; then revision="$GITHUB_RUN_NUMBER"; fi
+          build "$GITHUB_WORKSPACE/dist" "$revision" "JEOSIF-${GITHUB_SHA::7}"
+          echo 'PASS: rejected invalid input and structured content; reproducible ZIP; increasing update revisions'
 
       - name: Upload Dictionary
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9

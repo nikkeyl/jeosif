@@ -15,8 +15,8 @@ body:
     attributes:
       label: Release and Environment
       description:
-        Include the JEOSIF revision, client and version, or Node.js version
-        and command.
+        Include the JEOSIF revision, client and version, or the Actions run
+        URL.
     validations:
       required: true
 
