@@ -23,17 +23,9 @@ large imported word list. You can open an issue without running the builder.
    bank when a new tag is needed. Use `rules: ""` unless inflection is
    explicitly supported.
 
-1. Open a pull request and wait for the existing `Check` workflow. You can
-   also run the same JavaScript build and checks locally with Node.js 24,
-   `zip`, and `unzip`:
-
-```sh
-npm ci --prefix .github --ignore-scripts
-
-node .github/scripts/build.mjs
-node .github/scripts/check.mjs dist/JEOSIF.zip
-node .github/scripts/check.mjs
-```
+1. Open a pull request and wait for the existing `Check` workflow. The
+   workflow builds and validates the archive; download its artifact to check
+   the result in a dictionary client.
 
 A full form must be attested, not invented from a possible etymology. Keep
 independent slang as `full: null` with `full_form_status: "not_applicable"`.

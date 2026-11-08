@@ -24,21 +24,15 @@ client; no recordings are bundled.
 
 ## Build and checks
 
-GitHub Actions runs the JavaScript builder and checks on every pull request
-and push to `main`. Download the ZIP from the successful `Check` run for a
-preview; the `Release` workflow publishes the checked commit from `main`.
-The Actions runner supplies Node.js, `zip`, and `unzip`. Ajv is installed
-from the locked check dependencies in `.github`.
+All build and validation logic lives directly in
+`.github/workflows/check.yaml`. GitHub Actions runs it on every pull request
+and push to `main`. Download the dictionary artifact from a successful
+`Check` run to try a change before release.
 
-To reproduce the same commands locally with Node.js 24 and Info-ZIP:
-
-```sh
-npm ci --prefix .github --ignore-scripts
-
-node .github/scripts/build.mjs
-node .github/scripts/check.mjs dist/JEOSIF.zip
-node .github/scripts/check.mjs
-```
+The workflow installs exact versions of Ajv and its dependencies in the
+runner's temporary directory. It fetches the official Yomitan schemas from a
+pinned commit and verifies their SHA-256 hashes before validation. These
+tools and schemas are not stored in the repository.
 
 ## Editing the dictionary
 
@@ -52,11 +46,10 @@ distinguished explicitly. An etymological component is not indexed under a
 slang word's meaning. Missing pitch data stays missing, rather than becoming
 accent `[0]`.
 
-The builder in `.github/scripts/build.mjs` creates the Yomitan v3 archive
-from this snapshot. `.github/scripts/render.mjs` renders shared structured
-content with text markers understood by Naminori. External research archives
-and unaccepted candidates are excluded from the repository and release
-build. Import and rendering in actual clients should be checked after
+The `Build and Check Dictionary` step creates the Yomitan v3 archive and
+renders structured content with text markers understood by Naminori.
+External research archives and unaccepted candidates are excluded from the
+repository and build. Check import and rendering in actual clients after
 changing the export format.
 
 See [Contributing](CONTRIBUTING.md) to suggest entries, correct Japanese or
@@ -68,12 +61,13 @@ or Russian.
 `Check` builds the dictionary on pushes and pull requests, checks the
 archive against the official Yomitan schemas, and verifies that repeated
 builds produce identical bytes. After a successful push check on `main`,
-`Release` rebuilds that exact commit and publishes `JEOSIF.zip`, its SHA-256
-checksum, and `index.json` under `JEOSIF-<short commit>`.
+`Release` downloads the artifact from that exact successful `Check` run and
+publishes `JEOSIF.zip`, its SHA-256 checksum, and `index.json` under
+`JEOSIF-<short commit>`.
 
 `indexUrl` points to the latest release's `index.json`. Its `downloadUrl`
 points to the ZIP in that exact release. The index inside the ZIP and the
-published index are identical. Yomitan uses the increasing numeric release
+published index are identical. Yomitan uses the increasing numeric `Check`
 workflow run number as `revision`; commit hashes are used only for release
 tags and titles. Update checks and installation are controlled by the
 client. The workflow uploads all assets as a draft before publishing the
@@ -85,15 +79,15 @@ automatically.
 
 ## License and sources
 
-Build scripts and project documentation are [MIT licensed](LICENSE).
+Workflow code and project documentation are [MIT licensed](LICENSE).
 Dictionary data and its rendered definitions use
 [CC BY-SA 4.0](DATA-LICENSE.md), with separate attribution retained for
 upstream examples. MIT does not relicense third-party data.
 [Attribution](ATTRIBUTION.md) records JMdict, Japanese Wiktionary, Kanjium,
 Kolobok/Jitendex, and Tatoeba, including source identifiers and changes.
 
-Official Yomitan schemas in `.github/schemas` retain their upstream
-[GPL-3.0-or-later license](.github/schemas/YOMITAN-LICENSE). Community
-templates are adapted from
+Validation uses the unmodified
+[official Yomitan schemas](https://github.com/yomidevs/yomitan/tree/ee81f8dcf13e985bb4d7961009fb49a764b4d924/ext/data/schemas),
+fetched only while Actions runs. Community templates are adapted from
 [Archoleat](https://github.com/archoleat/.github), with the
 [original MIT notice](.github/ARCHOLEAT-TEMPLATES-LICENSE) preserved.

@@ -11,7 +11,3 @@ trim_trailing_whitespace = true
 [licenses/**]
 indent_size = unset
 trim_trailing_whitespace = false
-
-[.github/schemas/**]
-indent_size = unset
-trim_trailing_whitespace = false

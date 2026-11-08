@@ -10,6 +10,7 @@ on:
       - main
 
 permissions:
+  actions: read
   contents: read
 
 concurrency:
@@ -30,38 +31,27 @@ jobs:
     timeout-minutes: 10
 
     permissions:
+      actions: read
       contents: write
 
     env:
       COMMIT: ${{ github.event.workflow_run.head_sha }}
+      CHECK_RUN: ${{ github.event.workflow_run.id }}
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-          persist-credentials: false
-
-      - name: Set Up Node.js
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
-        with:
-          node-version: 24
-
-      - name: Install Dependencies
-        run: npm ci --prefix .github --ignore-scripts
-
-      - name: Build and Check Release
+      - name: Download Checked Dictionary
         run: |
           VERSION="JEOSIF-${COMMIT::7}"
           echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
-          node .github/scripts/build.mjs --revision "$GITHUB_RUN_NUMBER" --release "$VERSION"
-          node .github/scripts/check.mjs dist/JEOSIF.zip
+          gh run download "$CHECK_RUN" --name "JEOSIF-$COMMIT" --dir dist
 
           cd dist
           sha256sum --check JEOSIF.zip.sha256
+          unzip -t JEOSIF.zip
+          unzip -p JEOSIF.zip index.json | cmp - index.json
 
       - name: Publish Release
         run: |
