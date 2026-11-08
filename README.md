@@ -56,27 +56,6 @@ See [Contributing](CONTRIBUTING.md) to suggest entries, correct Japanese or
 Russian, or change the exporter. Issues may be written in English, Japanese,
 or Russian.
 
-## Releases
-
-`Check` builds the dictionary on pushes and pull requests, checks the
-archive against the official Yomitan schemas, and verifies that repeated
-builds produce identical bytes. After a successful push check on `main`,
-`Release` downloads the artifact from that exact successful `Check` run and
-publishes `JEOSIF.zip`, its SHA-256 checksum, and `index.json` under
-`JEOSIF-<short commit>`.
-
-`indexUrl` points to the latest release's `index.json`. Its `downloadUrl`
-points to the ZIP in that exact release. The index inside the ZIP and the
-published index are identical. Yomitan uses the increasing numeric `Check`
-workflow run number as `revision`; commit hashes are used only for release
-tags and titles. Update checks and installation are controlled by the
-client. The workflow uploads all assets as a draft before publishing the
-release.
-
-Release builds use only committed data. Updating upstream sources is a
-separate reviewed change; a release never downloads fresh definitions
-automatically.
-
 ## License and sources
 
 Workflow code and project documentation are [MIT licensed](LICENSE).
