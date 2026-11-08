@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: [Check]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Release
+    if: >-
+      ${{ github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      COMMIT: ${{ github.event.workflow_run.head_sha }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Checkout checked commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Build and check release
+        run: |
+          VERSION="jeosif-${COMMIT::7}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+          python scripts/build.py --revision "$VERSION"
+          python scripts/check.py dist/JEOSIF.zip
+
+          cd dist
+          sha256sum --check JEOSIF.zip.sha256
+      - name: Publish release
+        run: |
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            echo "Release $VERSION already exists."
+            exit 0
+          fi
+
+          gh release create "$VERSION" dist/JEOSIF.zip dist/JEOSIF.zip.sha256 \
+            --target "$COMMIT" --title "JEOSIF ${COMMIT::7}" --generate-notes

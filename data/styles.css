@@ -1,0 +1,24 @@
+
+[data-sc-content="sense-groups"]{list-style:none;margin:0;padding:0}
+[data-sc-content="sense-group"]{list-style:none;margin:0;padding:0}
+[data-sc-class="tag"]{display:inline-block;padding:.16em .6em;border-radius:1em;margin:0 .35em .7em 0;font-size:.85em;background:color-mix(in srgb,currentColor 8%,transparent)}
+[data-sc-content="sense-group"]>ol{padding-left:1.6em;margin:0}
+[data-sc-content="form-comparison"]{border-collapse:collapse;width:100%;margin:.2em 0 1em;table-layout:fixed}
+[data-sc-content="form-comparison"] th,[data-sc-content="form-comparison"] td{border:1px solid color-mix(in srgb,currentColor 22%,transparent);padding:.55em .7em;text-align:left;overflow-wrap:anywhere}
+[data-sc-content="form-comparison"] th{font-size:.8em;font-weight:500;background:color-mix(in srgb,currentColor 5%,transparent)}
+[data-sc-content="sense"]{padding-left:.25em;margin-bottom:.7em}
+[data-sc-content="glossary"]{list-style:none;margin:0;padding:0}
+[data-sc-content="sense-note"]{font-size:.9em;font-style:italic;margin:.5em 0 .7em}
+[data-sc-content="example-sentence"]{margin:.7em 0}
+[data-sc-content="example-sentence"]::before{content:"Пример";display:block;font-size:.85em;margin-bottom:.6em}
+[data-sc-content="example-sentence-b"]{font-size:.9em;margin-top:.15em}
+[data-sc-content="example-keyword"]{color:var(--nmn-accent,var(--accent-color,#c71360));font-weight:500}
+[data-sc-content="forms"]{list-style:none;padding:0;margin-top:.9em}
+[data-sc-content="forms-label"]{display:block;font-size:.9em;margin-bottom:.2em}
+[data-sc-content="forms"]>ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5em;margin:0;padding-left:1.6em}
+[data-sc-content="usage"]{font-size:.85em;margin-top:1em}
+[data-sc-content="attribution"]{font-size:.85em;margin-top:.6em}
+[data-sc-content="format-marker"]{display:none}
+[data-sc-content="jeosif-article"]>[data-sc-content="sense"]{padding:0;margin:.6em 0}
+[data-sc-content="sense-number"]{margin-right:.4em}
+[data-sc-content="example-sentence-a"],[data-sc-content="example-sentence-b"]{display:block}

@@ -1,0 +1,17 @@
+name: Build or import problem
+description: Report a problem with the dictionary archive or builder.
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Release/commit, client and version, or Python version and command.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps and observed result
+      description: Explain what happened, what you expected, and which entry is affected.
+    validations:
+      required: true

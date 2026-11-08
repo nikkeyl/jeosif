@@ -1,0 +1,10 @@
+{
+  "title": "JEOSIF",
+  "revision": "2026-11-08.6",
+  "format": 3,
+  "sequenced": false,
+  "sourceLanguage": "ja",
+  "targetLanguage": "ru",
+  "description": "212 семейств; 590 поисковых записей. Бытовые сокращения, разговорные формы и сленг; технические значения не включены.",
+  "attribution": "JMdict © James William Breen and EDRDG; Japanese Wiktionary contributors; Kanjium pitch notation by Uros O.; Kolobok Russian edition by Yuri Katkov, based on Jitendex by Stephen Kraus. Dictionary data: CC BY-SA 4.0. Tatoeba example sentences: CC BY 2.0 FR, retaining original sentence links. JEOSIF adapts selected senses, adds AI-assisted Russian explanations and examples, and reformats the content. See ATTRIBUTION.md, DATA-LICENSE.md and SOURCES.json in this archive for source versions, author links and license notices. No upstream endorsement is implied."
+}
