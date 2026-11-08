@@ -298,6 +298,7 @@ jobs:
                 map(.[2] |= (split(" ") | map($en[0].tags[.][0] // .) | join(" ")) |
                     .[7] |= (gsub("приор. форма"; "preferred-form")))' \
                 "$stage/term_bank_1.json" > "$work/english-terms.json"
+
               mv "$work/english-terms.json" "$stage/term_bank_1.json"
 
               jq --slurpfile en data/translations.en.json '
