@@ -35,24 +35,33 @@ jobs:
       - name: Set Up Schema Validation
         run: |
           set -euo pipefail
+
           work="$RUNNER_TEMP/jeosif"
+
           mkdir -p "$work/tools" "$work/schemas"
+
           version=17.2.1
+
           curl --fail --location --silent --show-error --retry 3 \
             "https://github.com/sourcemeta/jsonschema/releases/download/v$version/jsonschema-$version-linux-x86_64.zip" \
             --output "$work/tools/validator.zip"
+
           printf '%s  %s\n' \
             9ffee3cfbe0fe1343d9d36bcce9e6036ec4d73e4b29f656c039fca6118da2f35 \
             "$work/tools/validator.zip" | sha256sum --check -
+
           unzip -p "$work/tools/validator.zip" '*/bin/jsonschema' > "$work/tools/jsonschema"
           chmod +x "$work/tools/jsonschema"
+
           "$work/tools/jsonschema" version
 
           schema_commit=ee81f8dcf13e985bb4d7961009fb49a764b4d924
+
           while read -r name digest; do
             curl --fail --location --silent --show-error --retry 3 \
               "https://raw.githubusercontent.com/yomidevs/yomitan/$schema_commit/ext/data/schemas/$name" \
               --output "$work/schemas/$name"
+
             printf '%s  %s\n' "$digest" "$work/schemas/$name" | sha256sum --check -
           done <<'SCHEMAS'
           dictionary-index-schema.json dde43ca9ef1580ab638f49bb13bd7d5c55646afd655ff99cf429492598feb69b
@@ -64,6 +73,7 @@ jobs:
       - name: Build and Check Dictionary
         run: |
           set -euo pipefail
+
           work="$RUNNER_TEMP/jeosif"
           validator="$work/tools/jsonschema"
 
@@ -231,16 +241,21 @@ jobs:
           build() {
             local output="$1" revision="$2" release="$3" language="$4"
             local stage name family_count term_count source title archive index_asset
+
             stage=$(mktemp -d "$work/build.XXXXXX")
             mkdir -p "$output"
+
             validate_source data/dictionary.json
+
             source=data/dictionary.json
             title="Повседневные сокращения японского языка"
             archive="jeosif-$language.zip"
             index_asset="index-$language.json"
+
             if [[ "$language" == en ]]; then
               title="Japanese Everyday Short Forms"
               source="$stage/english-source.json"
+
               jq --slurpfile en data/translations.en.json '
                 $en[0] as $en | .entries |= map(. as $row |
                   $en.entries[(.id|tostring)] as $translation |
@@ -251,14 +266,20 @@ jobs:
                   .formation_patterns |= (. // [] | map($en.formation_notes[.] // .)))' \
                 data/dictionary.json > "$source"
             fi
+
             jq --arg language "$language" "$RENDER" "$source" > "$stage/term_bank_1.json"
+
             jq -e -n --arg language "$language" --slurpfile terms "$stage/term_bank_1.json" \
               --slurpfile source "$source" "$VERIFY" >/dev/null
+
             jq '[.pronunciations[] | [.expression, "pitch", {reading, pitches:[.positions[] | {position:.}]}]]' \
               data/dictionary.json > "$stage/term_meta_bank_1.json"
+
             family_count=$(jq '.entries|length' data/dictionary.json)
             term_count=$(jq 'length' "$stage/term_bank_1.json")
+
             [[ "$revision" =~ ^[0-9]+$ && "$release" =~ ^JEOSIF-[0-9a-f]{7,40}$ ]]
+
             jq --arg revision "$revision" --arg release "$release" --arg language "$language" \
               --arg title "$title" --arg archive "$archive" --arg index "$index_asset" \
               --arg description "$family_count families; $term_count search records. Japanese contractions, colloquial forms and slang ($language)." \
@@ -267,24 +288,33 @@ jobs:
                .indexUrl=(.url + "/releases/latest/download/" + $index) |
                .downloadUrl=(.url + "/releases/download/" + $release + "/" + $archive)' \
               data/index.json > "$stage/index.json"
+
             cp data/tag_bank_1.json "$stage/tag_bank_1.json"
+
             if [[ "$language" == en ]]; then
               jq --slurpfile en data/translations.en.json '
                 map(.[2] |= (split(" ") | map($en[0].tags[.][0] // .) | join(" ")) |
                     .[7] |= (gsub("приор. форма"; "preferred-form")))' \
                 "$stage/term_bank_1.json" > "$work/english-terms.json"
               mv "$work/english-terms.json" "$stage/term_bank_1.json"
+
               jq --slurpfile en data/translations.en.json '
                 map(. as $tag | .[0]=$en[0].tags[$tag[0]][0] | .[3]=$en[0].tags[$tag[0]][1])' \
                 data/tag_bank_1.json > "$stage/tag_bank_1.json"
+
               jq -e 'test("[А-Яа-яЁё]")|not' < <(jq -Rs . "$stage/term_bank_1.json") >/dev/null
+
               cp data/translations.en.json "$stage/TRANSLATIONS.en.json"
               rm "$source"
             fi
+
             cp data/dictionary.json "$stage/SOURCES.json"
             cp data/styles.css "$stage/styles.css"
+
             jq '.pronunciation_audit' data/dictionary.json > "$stage/pronunciation-audit.json"
+
             cp licenses/* ATTRIBUTION.md LICENSE DATA-LICENSE.md "$stage/"
+
             printf '%s %s (%s)\n%s families; %s search records.\n\n' "$title" "$revision" "$language" "$family_count" "$term_count" > "$stage/README.txt"
             printf 'Import %s in Yomitan or the Naminori browser extension.\n' "$archive" >> "$stage/README.txt"
             cat >> "$stage/README.txt" <<'IMPORT'
@@ -295,6 +325,7 @@ jobs:
           See ATTRIBUTION.md and DATA-LICENSE.md for credits and reuse terms.
           Source and corrections: https://github.com/nikkeyl/jeosif
           IMPORT
+
             for name in index term-bank term-meta-bank tag-bank; do
               case "$name" in
                 index) schema=dictionary-index-schema.json; file=index.json ;;
@@ -302,8 +333,10 @@ jobs:
                 term-meta-bank) schema=dictionary-term-meta-bank-v3-schema.json; file=term_meta_bank_1.json ;;
                 tag-bank) schema=dictionary-tag-bank-v3-schema.json; file=tag_bank_1.json ;;
               esac
+
               "$validator" validate "$work/schemas/$schema" "$stage/$file"
             done
+
             jq -e --arg release "$release" --arg revision "$revision" --arg title "$title" \
               --arg language "$language" --arg index "$index_asset" --arg archive "$archive" '
               .title == $title and .format == 3 and .sourceLanguage == "ja" and .targetLanguage == $language and
@@ -311,22 +344,34 @@ jobs:
               .indexUrl == ("https://github.com/nikkeyl/jeosif/releases/latest/download/" + $index) and
               .downloadUrl == ("https://github.com/nikkeyl/jeosif/releases/download/" + $release + "/" + $archive)' \
               "$stage/index.json" >/dev/null
+
             grep -q 'format-marker' "$stage/styles.css"
+
             chmod 644 "$stage"/*
             TZ=UTC touch -t 198001010000.00 "$stage"/*
+
             local files=()
+
             while IFS= read -r name; do files+=("$name"); done < <(cd "$stage"; printf '%s\n' * | LC_ALL=C sort)
+
             rm -f "$output/$archive"
             (cd "$stage"; TZ=UTC zip -X -q -9 "$output/$archive" "${files[@]}")
+
             cp "$stage/index.json" "$output/$index_asset"
             (cd "$output"; sha256sum "$archive" > "$archive.sha256")
+
             unzip -t "$output/$archive" >/dev/null
+
             if unzip -Z1 "$output/$archive" | grep -Eq '[/\\]'; then
               echo 'Unexpected path inside dictionary ZIP' >&2
+
               return 1
             fi
+
             unzip -p "$output/$archive" index.json | cmp - "$output/$index_asset"
+
             echo "PASS: $family_count families, $term_count unique search records, sources, pitch accents and official schemas"
+
             rm -rf "$stage"
           }
 
@@ -345,47 +390,64 @@ jobs:
           # Guard the source contract against invalid contributions.
           for mutation in '.entries += [.entries[0]]' '.entries[0].sources=["missing-source"]' '.entries[0].senses[0].meaning=""'; do
             jq "$mutation" data/dictionary.json > "$work/invalid-source.json"
+
             if validate_source "$work/invalid-source.json" 2>/dev/null; then
               echo 'Invalid source was accepted' >&2
+
               exit 1
             fi
           done
 
           revision=0
+
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then revision="$GITHUB_RUN_NUMBER"; fi
+
           for language in ru en; do
             # Repeated builds must be byte-identical for each language.
             build "$work/first" 1 JEOSIF-1111111 "$language"
             build "$work/second" 1 JEOSIF-1111111 "$language"
+
             cmp "$work/first/jeosif-$language.zip" "$work/second/jeosif-$language.zip"
 
             jq 'del(.indexUrl)' "$work/first/index-$language.json" > "$work/invalid-index.json"
+
             "$validator" validate "$work/schemas/dictionary-index-schema.json" "$work/invalid-index.json" --invalid
+
             build "$work/second" 2 JEOSIF-2222222 "$language"
+
             jq -e -n --slurpfile previous "$work/first/index-$language.json" \
               --slurpfile next "$work/second/index-$language.json" '
               ($next[0].revision|tonumber) > ($previous[0].revision|tonumber) and
               $next[0].indexUrl == $previous[0].indexUrl and
               ($next[0].downloadUrl|contains("/JEOSIF-2222222/"))' >/dev/null
+
             build "$GITHUB_WORKSPACE/dist" "$revision" "JEOSIF-${GITHUB_SHA::7}" "$language"
           done
+
           printf '%s\n' '[["word","reading","","",0,[{"type":"structured-content","content":{"tag":"script","content":"invalid"}}],-1,""]]' \
             > "$work/invalid-terms.json"
+
           "$validator" validate "$work/schemas/dictionary-term-bank-v3-schema.json" "$work/invalid-terms.json" --invalid
+
           for language in ru en; do
             unzip -p "$GITHUB_WORKSPACE/dist/jeosif-$language.zip" term_bank_1.json > "$work/terms-$language.json"
             unzip -p "$GITHUB_WORKSPACE/dist/jeosif-$language.zip" term_meta_bank_1.json > "$work/pitch-$language.json"
           done
+
           jq -e -n --slurpfile ru "$work/terms-ru.json" --slurpfile en "$work/terms-en.json" '
             ($ru[0]|map(.[0:2])) == ($en[0]|map(.[0:2]))' >/dev/null
+
           cmp "$work/pitch-ru.json" "$work/pitch-en.json"
+
           jq -e -n --slurpfile ru "$GITHUB_WORKSPACE/dist/index-ru.json" \
             --slurpfile en "$GITHUB_WORKSPACE/dist/index-en.json" '
             $ru[0].title != $en[0].title and $ru[0].indexUrl != $en[0].indexUrl and
             $ru[0].downloadUrl != $en[0].downloadUrl and
             $ru[0].targetLanguage == "ru" and $en[0].targetLanguage == "en"' >/dev/null
+
           # Keep the original RU update URL working for existing installations.
           cp "$GITHUB_WORKSPACE/dist/index-ru.json" "$GITHUB_WORKSPACE/dist/index.json"
+
           echo 'PASS: RU and EN; invalid input rejected; reproducible ZIPs; independent update channels'
 
       - name: Upload Dictionary
