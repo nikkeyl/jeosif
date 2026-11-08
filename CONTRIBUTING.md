@@ -23,12 +23,14 @@ large imported word list. You can open an issue without running the builder.
    bank when a new tag is needed. Use `rules: ""` unless inflection is
    explicitly supported.
 
-1. Run the commands below and include the result in the pull request.
+1. Open a pull request and wait for the existing `Check` workflow. You can
+   also run the same JavaScript build and checks locally with Node.js 24,
+   `zip`, and `unzip`:
 
 ```sh
-python3 scripts/build.py
-python3 scripts/check.py dist/JEOSIF.zip
-python3 scripts/check.py
+node .github/scripts/build.mjs
+node .github/scripts/check.mjs dist/JEOSIF.zip
+node .github/scripts/check.mjs
 ```
 
 A full form must be attested, not invented from a possible etymology. Keep

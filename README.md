@@ -1,5 +1,7 @@
 # JEOSIF
 
+JEOSIF takes its name from **Japanese Everyday Short Forms**.
+
 Japanese contractions, colloquial forms, and slang with Russian
 explanations. The dictionary connects forms such as `あざす` and
 `ありがとうございます`, separates their meanings, and explains when a form
@@ -18,21 +20,19 @@ provided by the dictionary client; no recordings are bundled.
 > Automated checks validate the build and data structure; they do not
 > establish language accuracy.
 
-## Build locally
+## Build and checks
 
-Python 3.11 or newer is sufficient. No packages, database, or network access
-are needed for the build.
+GitHub Actions runs the JavaScript builder and checks on every pull request
+and push to `main`. Download the ZIP from the successful `Check` run for a
+preview; the `Release` workflow publishes the checked commit from `main`.
+The Actions runner supplies Node.js, `zip`, and `unzip`.
 
-```sh
-python3 scripts/build.py
-python3 scripts/check.py dist/JEOSIF.zip
-```
-
-Run the reproducibility and invalid-input checks before opening a pull
-request:
+To reproduce the same commands locally with Node.js 24 and Info-ZIP:
 
 ```sh
-python3 scripts/check.py
+node .github/scripts/build.mjs
+node .github/scripts/check.mjs dist/JEOSIF.zip
+node .github/scripts/check.mjs
 ```
 
 ## Editing the dictionary
@@ -47,12 +47,12 @@ distinguished explicitly. An etymological component is not indexed under a
 slang word's meaning. Missing pitch data stays missing, rather than becoming
 accent `[0]`.
 
-The builder in `scripts/build.py` creates the Yomitan v3 archive from this
-snapshot. `scripts/render.py` renders shared structured content with text
-markers understood by Naminori. External research archives and unaccepted
-candidates are excluded from the repository and release build. Import and
-rendering in actual clients should be checked after changing the export
-format.
+The builder in `.github/scripts/build.mjs` creates the Yomitan v3 archive
+from this snapshot. `.github/scripts/render.mjs` renders shared structured
+content with text markers understood by Naminori. External research archives
+and unaccepted candidates are excluded from the repository and release
+build. Import and rendering in actual clients should be checked after
+changing the export format.
 
 See [Contributing](CONTRIBUTING.md) to suggest entries, correct Japanese or
 Russian, or change the exporter. Issues may be written in English, Japanese,
@@ -64,7 +64,7 @@ or Russian.
 archive, and verifies that repeated builds produce identical bytes. After a
 successful push check on `main`, `Release` rebuilds that exact commit and
 publishes `JEOSIF.zip` and its SHA-256 checksum under
-`jeosif-<short commit>`.
+`JEOSIF-<short commit>`.
 
 Release builds use only committed data. Updating upstream sources is a
 separate reviewed change; a release never downloads fresh definitions

@@ -1,9 +1,12 @@
 name: Check
 
 on:
-  push:
-    branches: [main]
   pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -15,25 +18,32 @@ concurrency:
 jobs:
   check:
     name: Check
+
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Checkout Repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           persist-credentials: false
-      - name: Set up Python
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
-          python-version: '3.12'
-      - name: Check sources and reproducibility
-        run: python scripts/check.py
-      - name: Build dictionary
-        run: python scripts/build.py
-      - name: Check distributable
-        run: python scripts/check.py dist/JEOSIF.zip
-      - name: Upload dictionary
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+          node-version: 24
+
+      - name: Check Sources and Reproducibility
+        run: node .github/scripts/check.mjs
+
+      - name: Build Dictionary
+        run: node .github/scripts/build.mjs
+
+      - name: Check Distributable
+        run: node .github/scripts/check.mjs dist/JEOSIF.zip
+
+      - name: Upload Dictionary
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: JEOSIF-${{ github.sha }}
           path: dist/*

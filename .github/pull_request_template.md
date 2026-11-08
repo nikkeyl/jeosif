@@ -10,7 +10,7 @@ AI assistance and how the result was checked, if applicable.
 
 ## Checks
 
-- Built the dictionary and ran `python3 scripts/check.py`.
+- The `Check` workflow passed, or the equivalent local checks passed.
 - Preserved source attribution and existing senses.
-- For export changes, checked import/rendering in Yomitan and Naminori
-      and recorded client versions and observed behavior.
+- For export changes, checked import/rendering in Yomitan and Naminori and
+  recorded client versions and observed behavior.

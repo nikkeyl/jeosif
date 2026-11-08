@@ -1,17 +1,23 @@
 name: Build or import problem
 description: Report a problem with the dictionary archive or builder.
+labels:
+  - 'type: bug'
+  - 'status: needs investigation'
 body:
   - type: textarea
     id: environment
     attributes:
       label: Environment
-      description: Release/commit, client and version, or Python version and command.
+      description:
+        Release/commit, client and version, or Node.js version and command.
     validations:
       required: true
   - type: textarea
     id: reproduce
     attributes:
       label: Steps and observed result
-      description: Explain what happened, what you expected, and which entry is affected.
+      description:
+        Explain what happened, what you expected, and which entry is
+        affected.
     validations:
       required: true

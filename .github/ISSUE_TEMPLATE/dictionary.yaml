@@ -1,24 +1,31 @@
 name: Dictionary correction or suggestion
 description: Correct an entry or propose an attested expression.
+labels:
+  - dictionary
+  - 'status: needs discussion'
 body:
   - type: textarea
     id: entry
     attributes:
       label: Entry or expression
-      description: Include the entry ID, spelling, reading, and intended meaning.
+      description:
+        Include the entry ID, spelling, reading, and intended meaning.
     validations:
       required: true
   - type: textarea
     id: correction
     attributes:
       label: Suggested correction
-      description: Explain the register and context; include an example if useful.
+      description:
+        Explain the register and context; include an example if useful.
     validations:
       required: true
   - type: textarea
     id: evidence
     attributes:
       label: Supporting sources
-      description: Link evidence for this sense. For copied text, include the author and license.
+      description:
+        Link evidence for this sense. For copied text, include the author
+        and license.
     validations:
       required: true
