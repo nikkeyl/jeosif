@@ -185,8 +185,8 @@ jobs:
               (((.example // "") != "") == ((.example_ru // "") != ""))) and
             all(((if .full != null and .full != "" and .full_form_status != "word_formation_base"
                   then [{form:.full, reading:.reading}] else [] end) + .variants)[];
-              (.form|type == "string" and length > 0) and (.reading|type == "string" and length > 0) and
               $row.search_metadata[.form] as $meta |
+              (.form|type == "string" and length > 0) and (.reading|type == "string" and length > 0) and
               all($meta.tags[]; . as $tag | $known_tags | index($tag) != null) and
               (["", "v5u"] | index($meta.rules) != null))) and
           all(.sources[]; .url | type == "string" and test("^https?://"))
