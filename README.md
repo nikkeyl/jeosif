@@ -90,4 +90,4 @@ Validation uses the unmodified
 [official Yomitan schemas](https://github.com/yomidevs/yomitan/tree/ee81f8dcf13e985bb4d7961009fb49a764b4d924/ext/data/schemas),
 fetched only while Actions runs. Community templates are adapted from
 [Archoleat](https://github.com/archoleat/.github), with the
-[original MIT notice](.github/ARCHOLEAT-TEMPLATES-LICENSE) preserved.
+[original MIT notice](LICENSE) preserved.
