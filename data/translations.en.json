@@ -1939,6 +1939,77 @@
           "example_en": "But I'm sleepy!"
         }
       ]
+    },
+    "213": {
+      "context": "An informal reaction of surprise or disbelief. Within a statement, it emphasizes what the speaker is saying.",
+      "senses": [
+        {
+          "meaning": "Seriously? For real?",
+          "example_en": "Wait, seriously? It arrived already?"
+        },
+        {
+          "meaning": "Really; seriously; for real",
+          "example_en": "This hill is seriously tough."
+        }
+      ]
+    },
+    "214": {
+      "context": "In casual speech, emphasizes how strongly something is felt or how seriously it is meant.",
+      "senses": [
+        {
+          "meaning": "Really; seriously",
+          "example_en": "It’s seriously cold in here."
+        },
+        {
+          "meaning": "In earnest; for real",
+          "example_en": "This time I’m seriously going for first place."
+        }
+      ]
+    },
+    "215": {
+      "context": "A friendly way to approve of something, often in response to a suggestion. With rising intonation it can invite agreement.",
+      "senses": [
+        {
+          "meaning": "Nice! Sounds good!",
+          "example_en": "It’s near the station? Nice, that’ll be easy to get to."
+        }
+      ]
+    },
+    "216": {
+      "context": "Follows a description or a quoted thought to convey a general impression or sum things up loosely.",
+      "senses": [
+        {
+          "meaning": "It feels like…; it’s more like…",
+          "example_en": "It feels more like visiting a friend than going on a trip."
+        }
+      ]
+    },
+    "217": {
+      "context": "An informal reaction to unexpected news. It can express surprise or disbelief without expecting an answer.",
+      "senses": [
+        {
+          "meaning": "No way! Seriously?",
+          "example_en": "Wait, that shop’s closing for good today? No way."
+        }
+      ]
+    },
+    "218": {
+      "context": "Intensifies a quality or action in casual speech. Works with both positive and negative evaluations.",
+      "senses": [
+        {
+          "meaning": "Really; super; very",
+          "example_en": "Yesterday’s concert was a lot of fun."
+        }
+      ]
+    },
+    "219": {
+      "context": "A playful or deliberately cute reaction in messages. It can signal mild disappointment or being moved.",
+      "senses": [
+        {
+          "meaning": "Sob; aw, no",
+          "example_en": "The pudding I was looking forward to sold out. Sob."
+        }
+      ]
     }
   },
   "tags": {

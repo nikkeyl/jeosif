@@ -44,6 +44,10 @@
       "title": "JMdict EDRDG — словарный проект",
       "url": "https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project"
     },
+    "human_academy:マジで": {
+      "title": "ヒューマンアカデミー日本語学校 — マジで",
+      "url": "https://hajl.athuman.com/column/000105.html"
+    },
     "purikura": {
       "title": "Патентное ведомство Японии — プリント倶楽部 и プリクラ",
       "url": "https://www.jpo.go.jp/news/koho/kohoshi/vol47/07_page1.html"
@@ -403,6 +407,30 @@
     "kanjium": {
       "title": "Kanjium — тональный акцент; Uros O.; CC BY-SA 4.0",
       "url": "https://github.com/mifunetoshiro/kanjium/blob/9ebca4589565c696e7c39e089e2e928ad65f678c/data/source_files/raw/accents.txt"
+    },
+    "tkgje:ガチで": {
+      "title": "TKG Japanese-English Learner’s Dictionary — ガチで",
+      "url": "https://www.tkgje.jp/entries/06500/06816_gachide.html"
+    },
+    "tkgje:じゃん": {
+      "title": "TKG Japanese-English Learner’s Dictionary — じゃん",
+      "url": "https://www.tkgje.jp/entries/05000/05432_jan.html"
+    },
+    "asia_university:って感じ": {
+      "title": "亜細亜大学学術リポジトリ — って／という",
+      "url": "https://asia-u.repo.nii.ac.jp/record/22049/files/10200216.pdf"
+    },
+    "japanesepod101:マジか": {
+      "title": "JapanesePod101 — マジか",
+      "url": "https://www.japanesepod101.com/blog/2019/07/23/japanese-text-slang/"
+    },
+    "jpf:めっちゃ": {
+      "title": "The Japan Foundation, Sydney — Japanese Teenagers, Teachers’ Notes",
+      "url": "https://classroomresources.sydney.jpf.go.jp/jpfmedia/Teachers_Notes_Japanese%20teenagers.pdf"
+    },
+    "sanseido:ぴえん": {
+      "title": "三省堂 — 今年の新語2020: ぴえん",
+      "url": "https://dictionary.sanseido-publ.co.jp/shingo/2020/best10/Preferenceall.html"
     }
   },
   "entries": [
@@ -19310,6 +19338,459 @@
             "констр.",
             "разг.",
             "сокр."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 213,
+      "section": "Сленг и словообразование",
+      "headword": "マジで",
+      "full": "マジ",
+      "reading": "まじ",
+      "romaji": "maji",
+      "meaning": "Серьёзно?; правда? / Реально; действительно; всерьёз",
+      "entry_type": "разговорная конструкция",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "マジで",
+          "reading": "まじで",
+          "romaji": "maji de",
+          "register": "разговорно / сленг"
+        },
+        {
+          "form": "まじで",
+          "reading": "まじで",
+          "romaji": "maji de",
+          "register": "разговорный вариант"
+        }
+      ],
+      "context": "Неформальная реакция удивления или сомнения. Внутри высказывания усиливает то, что говорящий утверждает.",
+      "mechanism": "マジ + で. С で форма употребляется наречно, а с вопросительной интонацией может быть самостоятельной репликой.",
+      "example": "え、マジで？もう届いたの？",
+      "example_ru": "Ого, серьёзно? Уже доставили?",
+      "sources": [
+        "human_academy:マジで"
+      ],
+      "source_evidence": {
+        "source": "human_academy",
+        "term": "マジで",
+        "url": "https://hajl.athuman.com/column/000105.html",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Серьёзно? Правда?",
+          "example": "え、マジで？もう届いたの？",
+          "example_ru": "Ого, серьёзно? Уже доставили?"
+        },
+        {
+          "meaning": "Реально; действительно; всерьёз",
+          "example": "この坂、マジできついね。",
+          "example_ru": "Этот подъём реально тяжёлый."
+        }
+      ],
+      "search_metadata": {
+        "マジで": {
+          "tags": [
+            "сленг",
+            "разг."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "まじで": {
+          "tags": [
+            "сленг",
+            "разг."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 214,
+      "section": "Сленг и словообразование",
+      "headword": "ガチで",
+      "full": "ガチ",
+      "reading": "がち",
+      "romaji": "gachi",
+      "meaning": "Реально; действительно / Всерьёз; по-настоящему",
+      "entry_type": "разговорная конструкция",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "ガチで",
+          "reading": "がちで",
+          "romaji": "gachi de",
+          "register": "разговорно / сленг"
+        },
+        {
+          "form": "がちで",
+          "reading": "がちで",
+          "romaji": "gachi de",
+          "register": "вариант написания"
+        }
+      ],
+      "context": "В неформальной речи подчёркивает силу впечатления или серьёзность намерения.",
+      "mechanism": "ガチ + で. В этой форме слово употребляется наречно.",
+      "example": "この部屋、ガチで寒い。",
+      "example_ru": "В этой комнате реально холодно.",
+      "sources": [
+        "tkgje:ガチで"
+      ],
+      "source_evidence": {
+        "source": "tkgje",
+        "term": "ガチで",
+        "url": "https://www.tkgje.jp/entries/06500/06816_gachide.html",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Реально; действительно",
+          "example": "この部屋、ガチで寒い。",
+          "example_ru": "В этой комнате реально холодно."
+        },
+        {
+          "meaning": "Всерьёз; по-настоящему",
+          "example": "今回はガチで優勝を狙ってる。",
+          "example_ru": "В этот раз я всерьёз нацелен на победу."
+        }
+      ],
+      "search_metadata": {
+        "ガチで": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "нареч."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "がちで": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "нареч."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 215,
+      "section": "Бытовые выражения и переписка",
+      "headword": "いいじゃん",
+      "full": "いいじゃないか",
+      "reading": "いいじゃないか",
+      "romaji": "ii ja nai ka",
+      "meaning": "Классно! Хорошая идея!",
+      "entry_type": "разговорная конструкция",
+      "full_form_status": "restored_expression",
+      "variants": [
+        {
+          "form": "いいじゃん",
+          "reading": "いいじゃん",
+          "romaji": "ii jan",
+          "register": "разговорно"
+        },
+        {
+          "form": "良いじゃん",
+          "reading": "いいじゃん",
+          "romaji": "ii jan",
+          "register": "вариант написания"
+        }
+      ],
+      "context": "Дружеское одобрение, часто в ответ на чью-то идею. С вопросительной интонацией можно искать согласия.",
+      "mechanism": "いい + じゃん. Разговорное じゃん связано с じゃないか.",
+      "example": "駅の近くでやるの？ いいじゃん、行きやすいし。",
+      "example_ru": "У станции? Отлично, и добираться удобно.",
+      "sources": [
+        "tkgje:じゃん"
+      ],
+      "source_evidence": {
+        "source": "tkgje",
+        "term": "いいじゃん",
+        "url": "https://www.tkgje.jp/entries/05000/05432_jan.html",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Классно! Хорошая идея!",
+          "example": "駅の近くでやるの？ いいじゃん、行きやすいし。",
+          "example_ru": "У станции? Отлично, и добираться удобно."
+        }
+      ],
+      "search_metadata": {
+        "いいじゃないか": {
+          "tags": [],
+          "rules": "",
+          "priority": ""
+        },
+        "いいじゃん": {
+          "tags": [
+            "разг.",
+            "выраж."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "良いじゃん": {
+          "tags": [
+            "разг.",
+            "выраж."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 216,
+      "section": "Краткие разговорные конструкции",
+      "headword": "って感じ",
+      "full": "という感じ",
+      "reading": "というかんじ",
+      "romaji": "to iu kanji",
+      "meaning": "Такое ощущение, что…; примерно так",
+      "entry_type": "разговорная конструкция",
+      "full_form_status": "restored_expression",
+      "variants": [
+        {
+          "form": "って感じ",
+          "reading": "ってかんじ",
+          "romaji": "tte kanji",
+          "register": "разговорно"
+        }
+      ],
+      "context": "После описания или реплики передаёт общее впечатление или приблизительно подводит итог.",
+      "mechanism": "В разговорной речи って может заменять という перед 感じ.",
+      "example": "旅行っていうより、友達の家に遊びに行くって感じかな。",
+      "example_ru": "Это скорее как съездить в гости к другу.",
+      "sources": [
+        "asia_university:って感じ"
+      ],
+      "source_evidence": {
+        "source": "asia_university",
+        "term": "って感じ",
+        "url": "https://asia-u.repo.nii.ac.jp/record/22049/files/10200216.pdf",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Такое ощущение, что…; примерно так",
+          "example": "旅行っていうより、友達の家に遊びに行くって感じかな。",
+          "example_ru": "Это скорее как съездить в гости к другу."
+        }
+      ],
+      "search_metadata": {
+        "という感じ": {
+          "tags": [],
+          "rules": "",
+          "priority": ""
+        },
+        "って感じ": {
+          "tags": [
+            "разг.",
+            "констр."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 217,
+      "section": "Сленг и словообразование",
+      "headword": "マジか",
+      "full": "マジ",
+      "reading": "まじ",
+      "romaji": "maji",
+      "meaning": "Да ладно! Серьёзно?",
+      "entry_type": "разговорная конструкция",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "マジか",
+          "reading": "まじか",
+          "romaji": "maji ka",
+          "register": "разговорно / сленг"
+        },
+        {
+          "form": "まじか",
+          "reading": "まじか",
+          "romaji": "maji ka",
+          "register": "вариант написания"
+        }
+      ],
+      "context": "Неформальная реакция на неожиданную новость. Может передавать удивление или неверие без ожидания ответа.",
+      "mechanism": "マジ + конечная частица か.",
+      "example": "え、あの店、今日で閉店？ マジか。",
+      "example_ru": "Что, этот магазин сегодня закрывается насовсем? Да ладно.",
+      "sources": [
+        "japanesepod101:マジか"
+      ],
+      "source_evidence": {
+        "source": "japanesepod101",
+        "term": "マジか",
+        "url": "https://www.japanesepod101.com/blog/2019/07/23/japanese-text-slang/",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Да ладно! Серьёзно?",
+          "example": "え、あの店、今日で閉店？ マジか。",
+          "example_ru": "Что, этот магазин сегодня закрывается насовсем? Да ладно."
+        }
+      ],
+      "search_metadata": {
+        "マジか": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "выраж."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "まじか": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "выраж."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 218,
+      "section": "Разговорные изменения произношения",
+      "headword": "めっちゃ",
+      "full": "めちゃくちゃ",
+      "reading": "めちゃくちゃ",
+      "romaji": "mechakucha",
+      "meaning": "Очень; ужасно; жутко",
+      "entry_type": "разговорный усилитель",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "めっちゃ",
+          "reading": "めっちゃ",
+          "romaji": "metcha",
+          "register": "разговорно"
+        },
+        {
+          "form": "メッチャ",
+          "reading": "めっちゃ",
+          "romaji": "metcha",
+          "register": "вариант написания"
+        }
+      ],
+      "context": "Усиливает степень признака или действия в неформальной речи. Сочетается как с положительной, так и с отрицательной оценкой.",
+      "mechanism": "Короткий разговорный усилитель, связанный с наречным употреблением めちゃくちゃ.",
+      "example": "昨日のライブ、めっちゃ楽しかった。",
+      "example_ru": "На вчерашнем концерте было очень весело.",
+      "sources": [
+        "jpf:めっちゃ"
+      ],
+      "source_evidence": {
+        "source": "jpf",
+        "term": "めっちゃ",
+        "url": "https://classroomresources.sydney.jpf.go.jp/jpfmedia/Teachers_Notes_Japanese%20teenagers.pdf",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Очень; ужасно; жутко",
+          "example": "昨日のライブ、めっちゃ楽しかった。",
+          "example_ru": "На вчерашнем концерте было очень весело."
+        }
+      ],
+      "search_metadata": {
+        "めっちゃ": {
+          "tags": [
+            "разг.",
+            "нареч."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "メッチャ": {
+          "tags": [
+            "разг.",
+            "нареч."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 219,
+      "section": "Сленг без полной формы",
+      "headword": "ぴえん",
+      "full": null,
+      "reading": null,
+      "romaji": null,
+      "meaning": "Хнык; ну вот",
+      "entry_type": "сленг без полной формы",
+      "full_form_status": "not_applicable",
+      "variants": [
+        {
+          "form": "ぴえん",
+          "reading": "ぴえん",
+          "romaji": "pien",
+          "register": "разговорно / сленг"
+        },
+        {
+          "form": "ピエン",
+          "reading": "ぴえん",
+          "romaji": "pien",
+          "register": "вариант написания"
+        }
+      ],
+      "context": "Шутливая или нарочито милая реакция в переписке. Может выражать лёгкую досаду или растроганность.",
+      "mechanism": "Звукоподражательная междометная реакция.",
+      "example": "楽しみにしてたプリン、売り切れてた。ぴえん。",
+      "example_ru": "Пудинг, которого я так ждал, распродали. Хнык.",
+      "sources": [
+        "sanseido:ぴえん"
+      ],
+      "source_evidence": {
+        "source": "sanseido",
+        "term": "ぴえん",
+        "url": "https://dictionary.sanseido-publ.co.jp/shingo/2020/best10/Preferenceall.html",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Хнык; ну вот",
+          "example": "楽しみにしてたプリン、売り切れてた。ぴえん。",
+          "example_ru": "Пудинг, которого я так ждал, распродали. Хнык."
+        }
+      ],
+      "search_metadata": {
+        "ぴえん": {
+          "tags": [
+            "сленг",
+            "переписка",
+            "межд."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "ピエン": {
+          "tags": [
+            "сленг",
+            "переписка",
+            "межд."
           ],
           "rules": "",
           "priority": ""
