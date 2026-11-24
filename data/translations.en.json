@@ -2010,6 +2010,109 @@
           "example_en": "The pudding I was looking forward to sold out. Sob."
         }
       ]
+    },
+    "220": {
+      "context": "A blunt way to signal that you are about to speak frankly.",
+      "senses": [
+        {
+          "meaning": "Frankly; to be honest",
+          "example_en": "To be honest, I’m against that proposal."
+        }
+      ]
+    },
+    "221": {
+      "context": "Can express admiration or dismay. This entry covers the colloquial sense.",
+      "senses": [
+        {
+          "meaning": "Insane; incredible",
+          "example_en": "That shot was insane."
+        },
+        {
+          "meaning": "Brutal; outrageously high",
+          "example_en": "This month’s electricity bill is brutal."
+        }
+      ]
+    },
+    "222": {
+      "context": "Often softens a negative opinion or signals doubt that something will work.",
+      "senses": [
+        {
+          "meaning": "Meh; not all that great; questionable",
+          "example_en": "It tastes fine, but at that price? I’m not so sure."
+        }
+      ]
+    },
+    "223": {
+      "context": "Describes physical exhaustion, a draining task, or an emotionally difficult situation.",
+      "senses": [
+        {
+          "meaning": "Exhausting; hard to cope with",
+          "example_en": "Commuting two hours every morning is exhausting."
+        }
+      ]
+    },
+    "224": {
+      "context": "A favorite you actively support, such as a performer or a fictional character.",
+      "senses": [
+        {
+          "meaning": "Favorite; the person or character you root for",
+          "example_en": "I got to hear my favorite performer’s new song at yesterday’s concert."
+        }
+      ]
+    },
+    "225": {
+      "context": "Activities centered on supporting a favorite, such as going to concerts, buying merch, or taking part in fandom.",
+      "senses": [
+        {
+          "meaning": "Fan activities centered on your favorite",
+          "example_en": "This weekend I’m heading to Osaka with friends to support our favorite performer."
+        }
+      ]
+    },
+    "226": {
+      "context": "Describes getting deeply into something, often with a self-deprecating tone.",
+      "senses": [
+        {
+          "meaning": "Get hooked; fall down the rabbit hole",
+          "example_en": "I only meant to watch one episode, but I got hooked on the show."
+        }
+      ]
+    },
+    "227": {
+      "context": "Refers to people who take a game, hobby, or other activity seriously and put real effort into it.",
+      "senses": [
+        {
+          "meaning": "Hardcore players or fans; serious participants",
+          "example_en": "This tournament is open to everyone from beginners to hardcore players."
+        }
+      ]
+    },
+    "228": {
+      "context": "An emotional reaction to a favorite character, performer, or heartwarming scene.",
+      "senses": [
+        {
+          "meaning": "So precious; too sweet",
+          "example_en": "My favorite performer is waving all shyly. So precious."
+        }
+      ]
+    },
+    "229": {
+      "context": "A written reaction to frustration, failure, or despair, often playful. It has no fixed pronunciation. OTL depicts a similar pose.",
+      "senses": [
+        {
+          "meaning": "Kneeling figure expressing frustration or despair",
+          "example_en": "I closed it without saving… orz"
+        }
+      ]
+    },
+    "230": {
+      "context": "A teasing or pointed label for someone who misses social cues or says something out of place.",
+      "senses": [
+        {
+          "meaning": "Unable to read the room; socially oblivious",
+          "example_en": "Laughing when everyone’s having a serious conversation is pretty tone-deaf."
+        }
+      ]
     }
   },
   "tags": {

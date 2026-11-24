@@ -431,6 +431,38 @@
     "sanseido:ぴえん": {
       "title": "三省堂 — 今年の新語2020: ぴえん",
       "url": "https://dictionary.sanseido-publ.co.jp/shingo/2020/best10/Preferenceall.html"
+    },
+    "ninjal:bucchake": {
+      "title": "NINJAL — よく分かる日本語辞書とは",
+      "url": "https://repository.ninjal.ac.jp/record/2989/files/kkkhk_2007_04.pdf"
+    },
+    "oba:egui": {
+      "title": "大場由貴 — 「えぐい」の意味拡張についての考察",
+      "url": "https://www.jstage.jst.go.jp/article/kokutand/36/0/36_25/_pdf"
+    },
+    "jpf:bimyou": {
+      "title": "国際交流基金 — 日本語・日本語教育",
+      "url": "https://se.jpf.go.jp/index/data/file/publish/1954320458_9SEJt8rd_200511.pdf"
+    },
+    "daijisen:shindoi": {
+      "title": "小学館 デジタル大辞泉 — しんどい",
+      "url": "https://kotobank.jp/word/%E3%81%97%E3%82%93%E3%81%A9%E3%81%84-299498"
+    },
+    "sanseido:fandom": {
+      "title": "三省堂 — オタク用語辞典 大限界",
+      "url": "https://dictionary.sanseido-publ.co.jp/dict/ssd36623"
+    },
+    "jpf:oshikatsu": {
+      "title": "国際交流基金 — ポップカルチャーの日本語",
+      "url": "https://www.jpf.go.jp/j/kansai/clip/amime_manga/2024kumano_NHKradio.pdf"
+    },
+    "jitenon:numaru": {
+      "title": "辞典オンライン — 沼る",
+      "url": "https://kokugo.jitenon.jp/word/p66720"
+    },
+    "sanseido:toutoi": {
+      "title": "三省堂 — 今年の新語2018: 尊い",
+      "url": "https://dictionary.sanseido-publ.co.jp/shingo/2020/archive/2018/Preferenceall.html"
     }
   },
   "entries": [
@@ -19791,6 +19823,690 @@
             "сленг",
             "переписка",
             "межд."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 220,
+      "section": "Бытовые выражения и переписка",
+      "headword": "ぶっちゃけ",
+      "full": "ぶっちゃける",
+      "reading": "ぶっちゃける",
+      "romaji": "bucchakeru",
+      "meaning": "Честно говоря; если начистоту",
+      "entry_type": "словообразование",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "ぶっちゃけ",
+          "reading": "ぶっちゃけ",
+          "romaji": "bucchake",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Резковатый способ заранее обозначить, что сейчас выскажешься начистоту.",
+      "mechanism": "Форма глагола ぶっちゃける закрепилась как вводное выражение.",
+      "example": "ぶっちゃけ、あの案には反対なんだ。",
+      "example_ru": "Если начистоту, я против того предложения.",
+      "sources": [
+        "ninjal:bucchake"
+      ],
+      "source_evidence": {
+        "source": "ninjal",
+        "term": "ぶっちゃけ",
+        "url": "https://repository.ninjal.ac.jp/record/2989/files/kkkhk_2007_04.pdf",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Честно говоря; если начистоту",
+          "example": "ぶっちゃけ、あの案には反対なんだ。",
+          "example_ru": "Если начистоту, я против того предложения."
+        }
+      ],
+      "search_metadata": {
+        "ぶっちゃけ": {
+          "tags": [
+            "разг.",
+            "нареч."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 221,
+      "section": "Сленг и словообразование",
+      "headword": "エグい",
+      "full": null,
+      "reading": null,
+      "romaji": null,
+      "meaning": "Мощный; невероятный / Жёсткий; чрезмерный",
+      "entry_type": "разговорное выражение",
+      "full_form_status": "not_applicable",
+      "variants": [
+        {
+          "form": "エグい",
+          "reading": "えぐい",
+          "romaji": "egui",
+          "register": "разговорно"
+        },
+        {
+          "form": "えぐい",
+          "reading": "えぐい",
+          "romaji": "egui",
+          "register": "разговорно"
+        },
+        {
+          "form": "エグイ",
+          "reading": "えぐい",
+          "romaji": "egui",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Оценка может быть восхищённой или отрицательной. Здесь описано разговорное значение.",
+      "mechanism": "Разговорное значение степени или силы впечатления.",
+      "example": "今のシュート、エグいな。",
+      "example_ru": "Вот это был бросок!",
+      "sources": [
+        "oba:egui"
+      ],
+      "source_evidence": {
+        "source": "oba",
+        "term": "エグい",
+        "url": "https://www.jstage.jst.go.jp/article/kokutand/36/0/36_25/_pdf",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Мощный; невероятный",
+          "example": "今のシュート、エグいな。",
+          "example_ru": "Вот это был бросок!"
+        },
+        {
+          "meaning": "Жёсткий; чрезмерный",
+          "example": "今月の電気代、エグい。",
+          "example_ru": "Счёт за электричество в этом месяце — просто жесть."
+        }
+      ],
+      "search_metadata": {
+        "エグい": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "い-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "えぐい": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "い-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "エグイ": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "い-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 222,
+      "section": "Бытовые выражения и переписка",
+      "headword": "微妙",
+      "full": null,
+      "reading": null,
+      "romaji": null,
+      "meaning": "Так себе; сомнительно",
+      "entry_type": "разговорное выражение",
+      "full_form_status": "not_applicable",
+      "variants": [
+        {
+          "form": "微妙",
+          "reading": "びみょう",
+          "romaji": "bimyō",
+          "register": "разговорно"
+        },
+        {
+          "form": "ビミョー",
+          "reading": "びみょう",
+          "romaji": "bimyō",
+          "register": "разговорно"
+        },
+        {
+          "form": "びみょう",
+          "reading": "びみょう",
+          "romaji": "bimyō",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Часто смягчает отрицательную оценку или выражает сомнение в том, что вариант подойдёт.",
+      "mechanism": "Разговорная оценка с намеренно неопределённым оттенком.",
+      "example": "味は悪くないけど、この値段だと微妙かな。",
+      "example_ru": "Вкус неплохой, но за такую цену — так себе.",
+      "sources": [
+        "jpf:bimyou"
+      ],
+      "source_evidence": {
+        "source": "jpf",
+        "term": "微妙",
+        "url": "https://se.jpf.go.jp/index/data/file/publish/1954320458_9SEJt8rd_200511.pdf",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Так себе; сомнительно",
+          "example": "味は悪くないけど、この値段だと微妙かな。",
+          "example_ru": "Вкус неплохой, но за такую цену — так себе."
+        }
+      ],
+      "search_metadata": {
+        "微妙": {
+          "tags": [
+            "разг.",
+            "な-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "ビミョー": {
+          "tags": [
+            "разг.",
+            "な-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "びみょう": {
+          "tags": [
+            "разг.",
+            "な-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 223,
+      "section": "Бытовые выражения и переписка",
+      "headword": "しんどい",
+      "full": null,
+      "reading": null,
+      "romaji": null,
+      "meaning": "Тяжело; выматывает",
+      "entry_type": "разговорное выражение",
+      "full_form_status": "not_applicable",
+      "variants": [
+        {
+          "form": "しんどい",
+          "reading": "しんどい",
+          "romaji": "shindoi",
+          "register": "разговорно"
+        },
+        {
+          "form": "シンドイ",
+          "reading": "しんどい",
+          "romaji": "shindoi",
+          "register": "разговорно"
+        }
+      ],
+      "context": "О физической усталости, тяжёлой нагрузке или эмоционально трудной ситуации.",
+      "mechanism": "Прилагательное со значениями усталости и тягостности.",
+      "example": "毎朝二時間も通勤するのはしんどい。",
+      "example_ru": "Каждое утро тратить два часа на дорогу — выматывает.",
+      "sources": [
+        "daijisen:shindoi"
+      ],
+      "source_evidence": {
+        "source": "daijisen",
+        "term": "しんどい",
+        "url": "https://kotobank.jp/word/%E3%81%97%E3%82%93%E3%81%A9%E3%81%84-299498",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Тяжело; выматывает",
+          "example": "毎朝二時間も通勤するのはしんどい。",
+          "example_ru": "Каждое утро тратить два часа на дорогу — выматывает."
+        }
+      ],
+      "search_metadata": {
+        "しんどい": {
+          "tags": [
+            "разг.",
+            "い-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "シンドイ": {
+          "tags": [
+            "разг.",
+            "い-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 224,
+      "section": "Сленг и словообразование",
+      "headword": "推し",
+      "full": "推す",
+      "reading": "おす",
+      "romaji": "osu",
+      "meaning": "Фаворит; любимый участник или персонаж",
+      "entry_type": "словообразование",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "推し",
+          "reading": "おし",
+          "romaji": "oshi",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Фаворит, которого выделяют и поддерживают. Это может быть реальный человек или вымышленный персонаж.",
+      "mechanism": "Существительное от 推す в значении поддержки или предпочтения.",
+      "example": "昨日のライブで推しの新曲が聴けた。",
+      "example_ru": "На вчерашнем концерте удалось услышать новую песню моего фаворита.",
+      "sources": [
+        "sanseido:fandom"
+      ],
+      "source_evidence": {
+        "source": "sanseido",
+        "term": "推し",
+        "url": "https://dictionary.sanseido-publ.co.jp/dict/ssd36623",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Фаворит; любимый участник или персонаж",
+          "example": "昨日のライブで推しの新曲が聴けた。",
+          "example_ru": "На вчерашнем концерте удалось услышать новую песню моего фаворита."
+        }
+      ],
+      "search_metadata": {
+        "推し": {
+          "tags": [
+            "разг.",
+            "сущ."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 225,
+      "section": "Сленг и словообразование",
+      "headword": "推し活",
+      "full": "推し",
+      "reading": "おし",
+      "romaji": "oshi",
+      "meaning": "Фанатские занятия вокруг своего фаворита",
+      "entry_type": "словообразование",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "推し活",
+          "reading": "おしかつ",
+          "romaji": "oshikatsu",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Занятия, связанные с поддержкой фаворита: походы на концерты, покупка мерча или участие в жизни фандома.",
+      "mechanism": "推し + 活, где 活 передаёт значение 活動.",
+      "example": "今週末は友達と推し活で大阪に行く。",
+      "example_ru": "На этих выходных еду с друзьями в Осаку поддержать нашего фаворита.",
+      "sources": [
+        "jpf:oshikatsu"
+      ],
+      "source_evidence": {
+        "source": "jpf",
+        "term": "推し活",
+        "url": "https://www.jpf.go.jp/j/kansai/clip/amime_manga/2024kumano_NHKradio.pdf",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Фанатские занятия вокруг своего фаворита",
+          "example": "今週末は友達と推し活で大阪に行く。",
+          "example_ru": "На этих выходных еду с друзьями в Осаку поддержать нашего фаворита."
+        }
+      ],
+      "search_metadata": {
+        "推し活": {
+          "tags": [
+            "разг.",
+            "сущ.",
+            "сокр."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 226,
+      "section": "Сленг и словообразование",
+      "headword": "沼る",
+      "full": "沼",
+      "reading": "ぬま",
+      "romaji": "numa",
+      "meaning": "Подсесть; увлечься с головой",
+      "entry_type": "словообразование",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "沼る",
+          "reading": "ぬまる",
+          "romaji": "numaru",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Описывает сильное увлечение тем, во что незаметно втянулся. Часто говорится о себе с самоиронией.",
+      "mechanism": "Сленговое 沼 в значении затягивающего увлечения + глагольное る.",
+      "example": "一話だけ見るつもりだったのに、そのドラマに沼った。",
+      "example_ru": "Думал посмотреть одну серию, а в итоге подсел на этот сериал.",
+      "sources": [
+        "jitenon:numaru"
+      ],
+      "source_evidence": {
+        "source": "jitenon",
+        "term": "沼る",
+        "url": "https://kokugo.jitenon.jp/word/p66720",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Подсесть; увлечься с головой",
+          "example": "一話だけ見るつもりだったのに、そのドラマに沼った。",
+          "example_ru": "Думал посмотреть одну серию, а в итоге подсел на этот сериал."
+        }
+      ],
+      "search_metadata": {
+        "沼る": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "годан"
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 227,
+      "section": "Сленг и словообразование",
+      "headword": "ガチ勢",
+      "full": "ガチ",
+      "reading": "がち",
+      "romaji": "gachi",
+      "meaning": "Хардкорные игроки; те, кто занимается всерьёз",
+      "entry_type": "словообразование",
+      "full_form_status": "word_formation_base",
+      "variants": [
+        {
+          "form": "ガチ勢",
+          "reading": "がちぜい",
+          "romaji": "gachizei",
+          "register": "разговорно"
+        },
+        {
+          "form": "ガチぜい",
+          "reading": "がちぜい",
+          "romaji": "gachizei",
+          "register": "разговорно"
+        },
+        {
+          "form": "がちぜい",
+          "reading": "がちぜい",
+          "romaji": "gachizei",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Так называют тех, кто серьёзно вкладывается в игру, хобби или другое занятие.",
+      "mechanism": "ガチ + 勢, обозначающее группу людей.",
+      "example": "この大会は初心者からガチ勢まで参加できる。",
+      "example_ru": "В этом турнире могут участвовать и новички, и хардкорные игроки.",
+      "sources": [
+        "tkgje:ガチで"
+      ],
+      "source_evidence": {
+        "source": "tkgje",
+        "term": "ガチ勢",
+        "url": "https://www.tkgje.jp/entries/06500/06816_gachide.html",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Хардкорные игроки; те, кто занимается всерьёз",
+          "example": "この大会は初心者からガチ勢まで参加できる。",
+          "example_ru": "В этом турнире могут участвовать и новички, и хардкорные игроки."
+        }
+      ],
+      "search_metadata": {
+        "ガチ勢": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "сущ."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "ガチぜい": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "сущ."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "がちぜい": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "сущ."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 228,
+      "section": "Сленг и словообразование",
+      "headword": "尊い",
+      "full": null,
+      "reading": null,
+      "romaji": null,
+      "meaning": "Трогательно до слёз; до чего же мило",
+      "entry_type": "разговорное выражение",
+      "full_form_status": "not_applicable",
+      "variants": [
+        {
+          "form": "尊い",
+          "reading": "とうとい",
+          "romaji": "tōtoi",
+          "register": "разговорно"
+        }
+      ],
+      "context": "Эмоциональная реакция на любимого героя, исполнителя или трогательную сцену.",
+      "mechanism": "Фанатское употребление общеязыкового прилагательного.",
+      "example": "推しが照れながら手を振ってる。尊い。",
+      "example_ru": "Мой любимчик смущённо машет рукой. До чего же мило.",
+      "sources": [
+        "sanseido:toutoi"
+      ],
+      "source_evidence": {
+        "source": "sanseido",
+        "term": "尊い",
+        "url": "https://dictionary.sanseido-publ.co.jp/shingo/2020/archive/2018/Preferenceall.html",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Трогательно до слёз; до чего же мило",
+          "example": "推しが照れながら手を振ってる。尊い。",
+          "example_ru": "Мой любимчик смущённо машет рукой. До чего же мило."
+        }
+      ],
+      "search_metadata": {
+        "尊い": {
+          "tags": [
+            "сленг",
+            "разг.",
+            "い-прил."
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 229,
+      "section": "Бытовые выражения и переписка",
+      "headword": "orz",
+      "full": null,
+      "reading": null,
+      "romaji": null,
+      "meaning": "Фигурка на коленях от досады или отчаяния",
+      "entry_type": "разговорное выражение",
+      "full_form_status": "not_applicable",
+      "variants": [
+        {
+          "form": "orz",
+          "reading": "orz",
+          "register": "переписка"
+        },
+        {
+          "form": "OTL",
+          "reading": "OTL",
+          "register": "переписка"
+        }
+      ],
+      "context": "Письменная реакция на досаду, провал или отчаяние, часто шуточная. Устоявшегося произношения нет. Вариант OTL передаёт похожую позу.",
+      "mechanism": "Текстовая фигурка: o изображает голову, r — руки, z — согнутые ноги.",
+      "example": "保存しないで閉じちゃったorz",
+      "example_ru": "Закрыл файл, не сохранившись… orz",
+      "sources": [
+        "japanesepod101:マジか"
+      ],
+      "source_evidence": {
+        "source": "japanesepod101",
+        "term": "orz",
+        "url": "https://www.japanesepod101.com/blog/2019/07/23/japanese-text-slang/",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Фигурка на коленях от досады или отчаяния",
+          "example": "保存しないで閉じちゃったorz",
+          "example_ru": "Закрыл файл, не сохранившись… orz"
+        }
+      ],
+      "search_metadata": {
+        "orz": {
+          "tags": [
+            "сленг",
+            "переписка"
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "OTL": {
+          "tags": [
+            "сленг",
+            "переписка"
+          ],
+          "rules": "",
+          "priority": ""
+        }
+      }
+    },
+    {
+      "id": 230,
+      "section": "Бытовые выражения и переписка",
+      "headword": "KY",
+      "full": "空気読めない",
+      "reading": "くうきよめない",
+      "romaji": "kūki yomenai",
+      "meaning": "Не чувствует обстановку; не считывает социальные сигналы",
+      "entry_type": "сокращение выражения",
+      "full_form_status": "restored_expression",
+      "variants": [
+        {
+          "form": "KY",
+          "reading": "けーわい",
+          "romaji": "kēwai",
+          "register": "переписка"
+        },
+        {
+          "form": "ケーワイ",
+          "reading": "けーわい",
+          "romaji": "kēwai",
+          "register": "переписка"
+        }
+      ],
+      "context": "Шутливая или колкая оценка того, кто не улавливает настроение окружающих или говорит невпопад.",
+      "mechanism": "Инициалы K и Y от kūki и yomenai.",
+      "example": "みんな真剣に話してるときに笑うなんて、ちょっとKYだよ。",
+      "example_ru": "Смеяться, когда все говорят серьёзно, — совсем не к месту.",
+      "sources": [
+        "japanesepod101:マジか"
+      ],
+      "source_evidence": {
+        "source": "japanesepod101",
+        "term": "KY",
+        "url": "https://www.japanesepod101.com/blog/2019/07/23/japanese-text-slang/",
+        "kind": "usage verification; definitions, examples and translations independently authored"
+      },
+      "senses": [
+        {
+          "meaning": "Не чувствует обстановку; не считывает социальные сигналы",
+          "example": "みんな真剣に話してるときに笑うなんて、ちょっとKYだよ。",
+          "example_ru": "Смеяться, когда все говорят серьёзно, — совсем не к месту."
+        }
+      ],
+      "search_metadata": {
+        "空気読めない": {
+          "tags": [],
+          "rules": "",
+          "priority": ""
+        },
+        "KY": {
+          "tags": [
+            "сленг",
+            "переписка",
+            "сокр."
+          ],
+          "rules": "",
+          "priority": ""
+        },
+        "ケーワイ": {
+          "tags": [
+            "сленг",
+            "переписка",
+            "сокр."
           ],
           "rules": "",
           "priority": ""
